@@ -29,7 +29,7 @@ class Arthur:
 
         self.active_artwork_path = active_artwork_path
         self.image_last_modified = datetime.now()
-
+        
         self._start_image_event_handler()
 
     def _start_image_event_handler(self) -> None:
@@ -37,7 +37,7 @@ class Arthur:
         event_handler = FileSystemEventHandler()
         event_handler.on_modified = self._on_updated_image
         observer = Observer()
-        observer.schedule(event_handler, path=self.active_artwork_path, recursive=False)
+        observer.schedule(event_handler, path='.', recursive=False)
         observer.start() 
 
     def _toggle_fullscreen(self, event: Event = None) -> str:
