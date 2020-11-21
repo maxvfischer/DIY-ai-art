@@ -1,3 +1,4 @@
 pillow==6.1.0
 tqdm==4.32.1
 watchdog==0.10.3
+Jetson.GPIO==2.0.12
