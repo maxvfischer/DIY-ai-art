@@ -90,15 +90,4 @@ class AiArtButton():
             if input_state == False:
                 self._change_active_artwork()
                 time.sleep(self.button_sleep)
-
-
-if __name__ == '__main__':
-    button = AiArtButton(
-        GPIO_mode='BOARD',
-        GPIO_button=15,
-        active_artwork_file_path='active_artwork.jpg',
-        image_directory='images',
-        button_sleep=1.0
-    )
-    button.start()
-
+                
