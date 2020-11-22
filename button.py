@@ -31,12 +31,17 @@ class AiArtButton():
 
     image_directory : str
         Path to the image directory from where the images will be randomly sampled.
+
+    button_sleep : float, default=1.0
+        Seconds to sleep after registered button click. Risk of multiple unexpected simultaneous clicks
+        if set to low.
     """
     def __init__(self,
                  GPIO_mode: str,
                  GPIO_button: int,
                  active_artwork_file_path: str,
-                 image_directory: str) -> None:
+                 image_directory: str,
+                 button_sleep: float = 1.0) -> None:
         try:
             mode = GPIO_modes[GPIO_mode]
             GPIO.setmode(mode)
@@ -53,6 +58,8 @@ class AiArtButton():
         if os.path.isdir(image_directory):
             self.image_directory = image_directory
 
+        self.button_sleep = button_sleep
+
     def _get_random_image_path(self) -> str:
         """
         Randomly samples a path to an image in the image directory.
@@ -68,7 +75,6 @@ class AiArtButton():
         image_path = os.path.join(self.image_directory, image_name)
         return image_path
 
-
     def _change_active_artwork(self) -> None:
         """Replaces the currently active artwork image file with a randomly sampled image file from the image directory"""
         image_path = self._get_random_image_path()
@@ -83,7 +89,7 @@ class AiArtButton():
             input_state = GPIO.input(self.GPIO_button)
             if input_state == False:
                 self._change_active_artwork()
-                time.sleep(1)
+                time.sleep(self.button_sleep)
 
 
 if __name__ == '__main__':
@@ -91,6 +97,7 @@ if __name__ == '__main__':
         GPIO_mode='BOARD',
         GPIO_button=15,
         active_artwork_file_path='active_artwork.jpg',
-        image_directory='images'
+        image_directory='images',
+        button_sleep=1.0
     )
     button.start()
