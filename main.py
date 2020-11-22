@@ -1,7 +1,7 @@
 import multiprocessing
-from arthur import Arthur
-from utils import read_yaml
-from aiartbutton import AiArtButton
+from kiosk.arthur import Arthur
+from kiosk.utils import read_yaml
+from kiosk.aiartbutton import AiArtButton
 
 
 def start_aiartbutton(GPIO_mode: str,
