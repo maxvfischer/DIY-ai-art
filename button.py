@@ -53,7 +53,15 @@ class AiArtButton():
         if os.path.isdir(image_directory):
             self.image_directory = image_directory
 
-    def _get_random_image_path(self):
+    def _get_random_image_path(self) -> str:
+        """
+        Randomly samples a path to an image in the image directory.
+
+        Returns
+        -------
+        str
+            Randomly sampled path to an image.
+        """
         image_names = [image_name for image_name in os.listdir(self.image_directory) if '.jpg' in image_name]
         image_name = random.choice(image_names)
 
