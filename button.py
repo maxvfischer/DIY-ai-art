@@ -76,7 +76,8 @@ class AiArtButton():
             dst=self.active_artwork_file_path
         )
 
-    def start(self):
+    def start(self) -> None:
+        """Starts infinate loop listening to button click. When clicked, it changes the active artwork."""
         while True:
             input_state = GPIO.input(self.GPIO_button)
             if input_state == False:
