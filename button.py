@@ -10,7 +10,7 @@ GPIO_modes = {
     'BCM': GPIO.BCM
 }
 
-class Button():
+class AiArtButton():
     def __init__(self,
                  GPIO_mode: str,
                  GPIO_button: int,
@@ -56,7 +56,7 @@ class Button():
 
 
 if __name__ == '__main__':
-    button = Button(
+    button = AiArtButton(
         GPIO_mode='BOARD',
         GPIO_button=15,
         active_artwork_file_path='active_artwork.jpg',
