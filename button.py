@@ -69,7 +69,8 @@ class AiArtButton():
         return image_path
 
 
-    def _change_active_artwork(self):
+    def _change_active_artwork(self) -> None:
+        """Replaces the currently active artwork image file with a randomly sampled image file from the image directory"""
         image_path = self._get_random_image_path()
         os.rename(
             src=image_path,
