@@ -5,12 +5,33 @@ import random
 import subprocess
 import Jetson.GPIO as GPIO
 
+
 GPIO_modes = {
     'BOARD': GPIO.BOARD,
     'BCM': GPIO.BCM
 }
 
+
 class AiArtButton():
+    """
+    Listens to GPIO connected button. When clicked, the currently active artwork displayed in the Kiosk is
+    replaced with a randomly sampled image from the image directory. The sampled image is removed from the
+    image directory.
+
+    Parameters
+    ----------
+    GPIO_mode : str
+        GPIO mode used to set up the Nvidia Jetson board. Accepted values: {'BOARD', 'BCM'}
+
+    GPIO_button : int
+        GPIO pin number to which the button is connected.
+
+    active_artwork_file_path : str
+        Path to the active artwork file. This is the image that will be displayed in the Kiosk.
+
+    image_directory : str
+        Path to the image directory from where the images will be randomly sampled.
+    """
     def __init__(self,
                  GPIO_mode: str,
                  GPIO_button: int,
