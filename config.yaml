@@ -6,3 +6,10 @@ aiartbutton:
   image_directory: 'images'
   button_sleep: 1.0
 
+ml_model:
+  batch_size: 1
+  img_size: 1024
+  test_num: 10
+  checkpoint_directory: 'ml/checkpoint'
+  image_directory: 'images'
+  lower_limit_num_images: 100
