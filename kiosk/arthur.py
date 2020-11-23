@@ -1,4 +1,5 @@
 import sys
+import time
 import PIL.Image
 import PIL.ImageTk
 from datetime import datetime, timedelta
@@ -82,7 +83,7 @@ class Arthur:
         """
         if self._image_to_recently_modified():
             return
-
+        time.sleep(0.1)
         img_path = event.src_path
         img = self._read_image(img_path=self.active_artwork_path)
         self.panel.configure(image=img)
