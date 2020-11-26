@@ -1,6 +1,11 @@
 # Arthur
 Run Arthur Kiosk on a Nvidia Jetson NX.
 
+## Clone repository
+```bash
+git clone https://github.com/maxvfischer/Arthur.git
+```
+
 ## Set up virtual environemnt
 Install `venv`:
 ```bash
@@ -40,3 +45,12 @@ Copy custom GPIO rules (remember to change `pythonNN`):
 ```bash
 sudo cp venv/lib/pythonNN/site-packages/Jetson/GPIO/99-gpio.rules /etc/udev/rules.d/
 ```
+
+## Add AI-model checkpoint
+Copy the model checkpoint into `arthur/ml/checkpoint`:
+
+    ├── arthur
+         ├── ml
+             ├── StyleGAN.model-XXXXXXX.data-00000-of-00001
+             ├── StyleGAN.model-XXXXXXX.index
+             └── StyleGAN.model-XXXXXXX.meta
