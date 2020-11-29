@@ -24,7 +24,8 @@ class Arthur:
         self.frame = Frame(self.tk)
         self.frame.pack()
         self.label = None
-        self.fullscreen_state = False
+        self.fullscreen_state = True
+        self.tk.attributes("-fullscreen", self.fullscreen_state)
         self.tk.bind("<F11>", self._toggle_fullscreen)
         self.tk.bind("<Escape>", self._end_fullscreen)
 
