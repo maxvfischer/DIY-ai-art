@@ -4,12 +4,7 @@ import time
 import random
 import subprocess
 import Jetson.GPIO as GPIO
-
-
-GPIO_modes = {
-    'BOARD': GPIO.BOARD,
-    'BCM': GPIO.BCM
-}
+from kiosk.utils import GPIO_MODES
 
 
 class AiArtButton():
@@ -43,7 +38,7 @@ class AiArtButton():
                  image_directory: str,
                  button_sleep: float = 1.0) -> None:
         try:
-            mode = GPIO_modes[GPIO_mode]
+            mode = GPIO_MODES[GPIO_mode]
             GPIO.setmode(mode)
             GPIO.setup(GPIO_button, GPIO.IN)
             self.GPIO_button = GPIO_button

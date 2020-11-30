@@ -8,7 +8,7 @@ from watchdog.events import FileSystemEventHandler, FileModifiedEvent
 from tkinter import *
 
 
-class Arthur:
+class Kiosk:
     """
     Kiosk GUI class displaying Arthur's art on full-screen.
 

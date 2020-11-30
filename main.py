@@ -1,6 +1,6 @@
 import time
 import multiprocessing
-from kiosk.arthur import Arthur
+from kiosk.kiosk import Kiosk
 from kiosk.utils import read_yaml
 from kiosk.aiartbutton import AiArtButton
 from ml.StyleGAN import GANEventHandler
@@ -23,9 +23,9 @@ def start_aiartbutton(GPIO_mode: str,
     
 
 def start_kiosk(active_artwork_file_path: str):
-    arthur = Arthur(active_artwork_path=active_artwork_file_path)
-    arthur.start()
-    arthur.tk.mainloop()
+    kiosk = Kiosk(active_artwork_path=active_artwork_file_path)
+    kiosk.start()
+    kiosk.tk.mainloop()
 
 
 def start_gan(batch_size: int,
