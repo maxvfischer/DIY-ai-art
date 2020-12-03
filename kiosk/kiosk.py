@@ -181,6 +181,19 @@ class Kiosk:
 
     @staticmethod
     def _convert_PIL_to_TK(img: PIL.Image) -> PIL.ImageTk:
+        """
+        Convert PIL.Image to PIL.ImageTk.PhotoImage.
+
+        Parameters
+        ----------
+        img : PIL.Image
+            Image to convert.
+
+        Returns
+        -------
+        PIL.ImageTk
+            Converted image.
+        """
         return PIL.ImageTk.PhotoImage(img)
 
     def _setup_image_on_start(self) -> None:
