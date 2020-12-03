@@ -66,9 +66,9 @@ class Kiosk:
         self.tk.attributes("-fullscreen", False)
         return "break"
 
-    def _image_to_recently_modified(self) -> bool:
+    def _image_too_recently_modified(self) -> bool:
         """
-        Check if active artwork image file was to recently modified.
+        Check if active artwork image file was too recently modified.
 
         Returns
         -------
@@ -181,6 +181,19 @@ class Kiosk:
 
     @staticmethod
     def _convert_PIL_to_TK(img: PIL.Image) -> PIL.ImageTk:
+        """
+        Convert PIL.Image to PIL.ImageTk.PhotoImage.
+
+        Parameters
+        ----------
+        img : PIL.Image
+            Image to convert.
+
+        Returns
+        -------
+        PIL.ImageTk
+            Converted image.
+        """
         return PIL.ImageTk.PhotoImage(img)
 
     def _setup_image_on_start(self) -> None:
