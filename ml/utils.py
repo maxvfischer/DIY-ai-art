@@ -24,7 +24,6 @@ def imsave(images, size, path):
     images = merge(images, size)
     images = post_process_generator_output(images)
     images = cv2.cvtColor(images.astype('uint8'), cv2.COLOR_RGB2BGR)
-    images = cv2.rotate(images, cv2.ROTATE_90_COUNTERCLOCKWISE)
     images = cv2.resize(images, (1920, 1080))
     cv2.imwrite(path, images)
 
