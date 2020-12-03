@@ -22,8 +22,13 @@ def start_aiartbutton(GPIO_mode: str,
     button.start()
     
 
-def start_kiosk(active_artwork_file_path: str):
-    kiosk = Kiosk(active_artwork_path=active_artwork_file_path)
+def start_kiosk(active_artwork_file_path: str,
+                frame_path: str,
+                frame_inner_size: tuple):
+    kiosk = Kiosk(
+        active_artwork_path=active_artwork_file_path, 
+        frame_path=frame_path,
+        frame_inner_size=frame_inner_size)
     kiosk.start()
     kiosk.tk.mainloop()
 
@@ -52,7 +57,7 @@ def start_gan(batch_size: int,
 
 if __name__ == '__main__':
     config = read_yaml('config.yaml')
-    
+
     p_button = multiprocessing.Process(
         target=start_aiartbutton,
         args=(
@@ -65,7 +70,11 @@ if __name__ == '__main__':
     )
     p_kiosk = multiprocessing.Process(
         target=start_kiosk,
-        args=(config['active_artwork_file_path'], )
+        args=(
+            config['active_artwork_file_path'],
+            config['frame']['path'],
+            (config['frame']['inner_width'], config['frame']['inner_height'])
+        )
     )
 
     p_ml = multiprocessing.Process(
