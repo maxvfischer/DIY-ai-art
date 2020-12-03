@@ -66,9 +66,9 @@ class Kiosk:
         self.tk.attributes("-fullscreen", False)
         return "break"
 
-    def _image_to_recently_modified(self) -> bool:
+    def _image_too_recently_modified(self) -> bool:
         """
-        Check if active artwork image file was to recently modified.
+        Check if active artwork image file was too recently modified.
 
         Returns
         -------
