@@ -1,5 +1,10 @@
 active_artwork_file_path: 'active_artwork.jpg'
 
+frame:
+  path: 'frame_gray.png'
+  inner_width: 1710
+  inner_height: 870
+
 aiartbutton:
   GPIO_mode: 'BOARD'
   GPIO_button: 15
