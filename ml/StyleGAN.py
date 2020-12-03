@@ -47,20 +47,14 @@ class StyleGAN(object):
         image_frame_dim = int(np.floor(np.sqrt(self.batch_size)))
 
         for i in tqdm(range(num_images)):
-            if self.batch_size == 1:
-                seed = np.random.randint(low=0, high=1000000)
-                test_z = tf.cast(np.random.RandomState(seed).normal(size=[self.batch_size, self.z_dim]), tf.float32)
-                alpha = tf.constant(0.0, dtype=tf.float32, shape=[])
-                self.fake_images = self.generator(test_z, alpha=alpha, target_img_size=self.img_size, is_training=False)
-                samples = self.sess.run(self.fake_images)
+            seed = int(time.time())
+            test_z = tf.cast(np.random.RandomState(seed).normal(size=[self.batch_size, self.z_dim]), tf.float32)
+            alpha = tf.constant(0.0, dtype=tf.float32, shape=[])
+            self.fake_images = self.generator(test_z, alpha=alpha, target_img_size=self.img_size, is_training=False)
+            samples = self.sess.run(self.fake_images)
 
-                save_images(samples[:image_frame_dim * image_frame_dim, :, :, :], [image_frame_dim, image_frame_dim],
-                            '{}/artwork_{}.jpg'.format(self.image_directory, int(time.time())))
-            else:
-                samples = self.sess.run(self.fake_images)
-
-                save_images(samples[:image_frame_dim * image_frame_dim, :, :, :], [image_frame_dim, image_frame_dim],
-                            '{}/artwork_{}.jpg'.format(self.image_directory, int(time.time())))
+            save_images(samples[:image_frame_dim * image_frame_dim, :, :, :], [image_frame_dim, image_frame_dim],
+                        '{}/artwork_{}.jpg'.format(self.image_directory, int(time.time())))
 
     def load_checkpoint(self, checkpoint_dir):
         ckpt = tf.train.get_checkpoint_state(checkpoint_dir)
