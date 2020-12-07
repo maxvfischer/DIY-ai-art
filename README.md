@@ -17,7 +17,7 @@ assemble the control box and button box etc.
     1. ...
     2. ...
 
-### Build control box
+### Build the control box
 To get a nice looking installation with few visible cables, a control box was built to 
 encapsulate the Nvidia computer, power adapters, Samsung One Connect box etc.
 
@@ -49,10 +49,10 @@ used to cut out the final pieces.
 #### Cut cable slots
 Two cable slots were cut out:
 
-1. Cable slot in top side panel for One Connect cable and button cables.
-2. Cable slot in bottom side panel for an electrical cable.
+1. Cable slot in the top side panel for One Connect cable and button cables.
+2. Cable slot in the bottom side panel for an electrical cable.
 
-A caliper was used to measure the diameter of the cables. I then added an extra ~1mm to the slot for
+A caliper was used to measure the diameter of the cables. An extra ~1mm was then added to the slots for
 the cables to fit nicely.
 
 ![caliper](./tutorial_images/build_control_box/caliper.jpg)
@@ -63,7 +63,7 @@ The slots were then outlined at the center of the panels.
 
 ![cable_slot_2](./tutorial_images/build_control_box/cable_slot_2.jpg)
 
-A jigsaw was used to cut out the edges slots.
+A jigsaw was used to cut out the slots.
 
 ![jigsaw_1](./tutorial_images/build_control_box/jigsaw_1.jpg)
 
@@ -97,12 +97,41 @@ right place.
 
 ![wood_biscuit_all_pieces](./tutorial_images/build_control_box/wood_biscuit_all_pieces.jpg)
 
-Before gluing the pieces together, check that the connecting holes are correctly aligning.
+Before gluing the pieces together, check that the connecting holes are correctly aligning and that all
+wood biscuits fit nicely (they can somethings vary a bit in size).
 
 ![wood_biscuit_asseble](./tutorial_images/build_control_box/wood_biscuit_asseble.jpg)
 
 #### Glue parts together
+When gluing the parts together, you'll need to be fairly quick and structured. Prepare by placing the 
+aligning panels next to each other and have all the wood biscuits ready.
 
+![gluing_1](./tutorial_images/build_control_box/gluing_1.jpg)
+
+![gluing_2](./tutorial_images/build_control_box/gluing_2.jpg)
+
+Start of by adding the glue in the wood biscuit holes.
+
+![gluing_3](./tutorial_images/build_control_box/gluing_3.jpg)
+
+Press down the wood biscuits into the holes and apply wood glue along all the connecting parts.
+
+![gluing_4](./tutorial_images/build_control_box/gluing_4.jpg)
+
+Now, assemble all the connecting parts together and apply force using clamps. You should see
+glue seeping out between the panels.
+
+![gluing_5](./tutorial_images/build_control_box/gluing_5.jpg)
+
+Use an engineer's square to check that you have 90 degrees in each corner of the box.
+
+![gluing_6](./tutorial_images/build_control_box/gluing_6.jpg)
+
+Finally, remove all the visible redundant glue with a wet paper tissue.
+
+![gluing_7](./tutorial_images/build_control_box/gluing_7.jpg)
+
+![gluing_8](./tutorial_images/build_control_box/gluing_8.jpg)
 
 ### Set up Nvidia Jetson Xavier NX
 
