@@ -133,6 +133,37 @@ Finally, remove all the visible redundant glue with a wet paper tissue.
 
 ![gluing_8](./tutorial_images/build_control_box/gluing_8.jpg)
 
+#### Spackling paste and sanding
+After removing the clamps, there were some visible gaps and cracks that needed to be filled.
+
+![spackling_1](./tutorial_images/build_control_box/spackling_1.jpg)
+
+![spackling_2](./tutorial_images/build_control_box/spackling_2.jpg)
+
+![spackling_3](./tutorial_images/build_control_box/spackling_3.jpg)
+
+Plastic padding (two component plastic spackling paste) was used to cover up the gaps and cracks.
+
+![spackling_4](./tutorial_images/build_control_box/spackling_4.jpg)
+
+![spackling_5](./tutorial_images/build_control_box/spackling_5.jpg)
+
+![spackling_6](./tutorial_images/build_control_box/spackling_6.jpg)
+
+![spackling_7](./tutorial_images/build_control_box/spackling_7.jpg)
+
+When everything had dried, an electric sander was used to remove redundant plastic padding.
+The inside of the box was smoothed by manual sanding. A rule of thumb, if you can
+feel an edge or a crack, it will be visible after you paint the it. So use your fingers to
+scan the box for roughness.
+
+![spackling_8](./tutorial_images/build_control_box/spackling_8.jpg)
+
+![spackling_9](./tutorial_images/build_control_box/spackling_9.jpg)
+
+#### Add hinges
+
+
 ### Set up Nvidia Jetson Xavier NX
 
 #### Clone repository
