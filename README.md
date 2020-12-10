@@ -22,11 +22,11 @@ assemble the control box and button etc.
     1. ...
     2. ...
 
-### Build the control box
+## Build the control box
 To get a nice looking installation with as few visible cables as possible, a control box 
 was built to encapsulate the Nvidia computer, power adapters, Samsung One Connect box etc.
 
-#### Hand-cut parts
+### Hand-cut parts
 The control box was build using 12mm (0.472") MDF. MDF is quite simple to work with and
 looks good when painted. A disadvantage is that it produces very fine-graned
 dust when cut or sanded.
@@ -53,7 +53,7 @@ used to cut out the final pieces.
 
 ![raw_pieces_with_lid](./tutorial_images/build_control_box/raw_pieces_with_lid.jpg)
 
-#### Cut cable slots
+### Cut cable slots
 To enable the cables to go in and out of the box, two cable slots were cut out:
 
 1. One cable slot in the top side panel for the One Connect cable and button cables.
@@ -86,7 +86,7 @@ A small chisel and a hammer was used to remove the cut out piece.
 
 ![cable_slot_3](./tutorial_images/build_control_box/cable_slot_3.jpg)
 
-#### Cut wood biscuits holes
+### Cut wood biscuits holes
 To make the control box robust, wood biscuits were used to glue the parts together. By using wood biscuits, 
 no screws were needed, thus giving a nice finish without visible screw heads. It also helps to aligning the
 pieces when gluing.
@@ -109,7 +109,7 @@ wood biscuits fit nicely (they can somethings vary a bit in size).
 
 ![wood_biscuit_asseble](./tutorial_images/build_control_box/wood_biscuit_asseble.jpg)
 
-#### Glue parts together
+### Glue parts together
 When gluing the parts together, you'll need to be fairly quick and structured. Prepare by placing the 
 aligning panels next to each other and have all the wood biscuits ready.
 
@@ -140,7 +140,7 @@ Finally, remove all the visible redundant glue with a wet paper tissue.
 
 ![gluing_8](./tutorial_images/build_control_box/gluing_8.jpg)
 
-#### Spackling paste and sanding
+### Spackling paste and sanding
 After removing the clamps, there were some visible gaps and cracks that needed to be filled.
 
 ![spackling_1](./tutorial_images/build_control_box/spackling_1.jpg)
@@ -169,7 +169,7 @@ feel an edge or a crack, it will be visible when you paint it.
 
 ![spackling_9](./tutorial_images/build_control_box/spackling_9.jpg)
 
-#### Add hinges
+### Add hinges
 The hinges were first added to the lid. It made it easier to align the lid on the box 
 later on.
 
@@ -241,7 +241,7 @@ the lid.
 
 ![hinge_24](./tutorial_images/build_control_box/hinge_24.jpg)
 
-#### Add magnetic lock
+### Add magnetic lock
 A standard magnetic lock was used to keep the lid in place.
 
 ![magnetic_lock_1](./tutorial_images/build_control_box/magnetic_lock_1.jpg)
@@ -262,8 +262,7 @@ A standard magnetic lock was used to keep the lid in place.
 
 ![magnetic_lock_9](./tutorial_images/build_control_box/magnetic_lock_9.jpg)
 
-#### Milling edges
-
+### Milling edges
 To give a nice finish, all the edges were milled.
 
 ![milling_1](./tutorial_images/build_control_box/milling_1.jpg)
@@ -272,14 +271,14 @@ To give a nice finish, all the edges were milled.
 
 ![milling_3](./tutorial_images/build_control_box/milling_3.jpg)
 
-### Set up Nvidia Jetson Xavier NX
+## Set up Nvidia Jetson Xavier NX
 
-#### Clone repository
+### Clone repository
 ```bash
 git clone https://github.com/maxvfischer/Arthur.git
 ```
 
-#### Set up virtual environemnt
+### Set up virtual environemnt
 Install `venv`:
 ```bash
 sudo apt-get install python3-venv
@@ -300,12 +299,12 @@ Install `wheel`:
 sudo pip3 install wheel
 ```
 
-#### Install dependencies
+### Install dependencies
 ```bash
 pip3 install -r requirements.txt
 ```
 
-#### Set up user permission
+### Set up user permission
 We need to set up user permissions to be able to access the GPIOs.
 
 Create new GPIO user group (remember to change `your_user_name`):
@@ -319,7 +318,7 @@ Copy custom GPIO rules (remember to change `pythonNN`):
 sudo cp venv/lib/pythonNN/site-packages/Jetson/GPIO/99-gpio.rules /etc/udev/rules.d/
 ```
 
-#### Add AI-model checkpoint
+### Add AI-model checkpoint
 Copy the model checkpoint into `arthur/ml/checkpoint`:
 
     ├── arthur
@@ -328,10 +327,10 @@ Copy the model checkpoint into `arthur/ml/checkpoint`:
              ├── StyleGAN.model-XXXXXXX.index
              └── StyleGAN.model-XXXXXXX.meta
 
-#### Add initial active artwork
+### Add initial active artwork
 Add an initial active artwork image by copying an image here: `arthur/active_artwork.jpg`
 
-#### Adjust config.yaml
+### Adjust config.yaml
 The config.yaml contains all the settings.
 
 ```
