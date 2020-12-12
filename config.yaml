@@ -5,6 +5,10 @@ frame:
   inner_width: 1710
   inner_height: 870
 
+pir_sensor:
+  GPIO_mode: 'BOARD'
+  GPIO_button: 31
+
 aiartbutton:
   GPIO_mode: 'BOARD'
   GPIO_button: 15
