@@ -1,13 +1,13 @@
 active_artwork_file_path: 'active_artwork.jpg'
 
-frame:
+kiosk:
   path: 'frame_gray.png'
   inner_width: 1710
   inner_height: 870
-
-pir_sensor:
   GPIO_mode: 'BOARD'
-  GPIO_button: 31
+  GPIO_sensor: 31
+  loop_sleep_ms: 100
+  screen_saver_after_sec: 10
 
 aiartbutton:
   GPIO_mode: 'BOARD'
