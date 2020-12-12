@@ -94,7 +94,7 @@ class Kiosk:
         ------
         None
         """
-        if self._image_to_recently_modified():
+        if self._image_too_recently_modified():
             return
         time.sleep(0.1)
         img_path = event.src_path
