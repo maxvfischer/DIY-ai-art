@@ -322,12 +322,13 @@ sudo cp venv/lib/pythonNN/site-packages/Jetson/GPIO/99-gpio.rules /etc/udev/rule
 The default screen saver on Ubuntu is `gnome-screensaver`. It's not a screen saver in the traditional sense. Instead of showing moving images, it blanks the screen,
 basically shuts down the HDMI signals to the screen, enabling the screen to fall into low energy mode.
 
-The screen used in this project is a Samsung The Frame 32" (2020). When the screen is set to HDMI (1/2) and no HDMI signal is provided, it shows a static image telling the user that no HDMI signal is found. This is a unwanted behaviour in this set up, as we either wants the screen to go blank, or show some kind of a moving image, to reduce the risk of burn-in. We do not want to see a static
-screen telling us that no hdmi signal is found.
+The screen used in this project is a Samsung The Frame 32" (2020). When the screen is set to HDMI (1/2) and no HDMI signal is provided, it shows a static image telling the user that no HDMI signal is found. This is what happened when using `gnome-screensaver`. This is a unwanted behaviour in this set up, as we either wants the screen to go blank, or show some kind of a moving image, to reduce the risk of burn-in. We do not want to see a static screen telling us that no hdmi signal is found.
 
-To solve this problem, `xscreensaver` was installed instead. It's a screen saver that allows for moving images.
+To solve this problem, `xscreensaver` was installed instead. It's an alternative screen saver that allows for moving images. Also, it seems like `xscreensaver's`
+blank screen mode works differently than `gnome-screensaver`. When `xscreensaver's` blank screen is triggered, it doesn't seems to shut down the HDMI signal,
+but rather turn the screen black. This is the behaviour we want in this installation. 
 
-Full installation guide: https://askubuntu.com/questions/292995/configure-screensaver-in-ubuntu
+Follow these steps to uninstall `gnome-screensaver` and install `xscreensaver`:
 
 ```bash
 sudo apt-get remove gnome-screensaver
@@ -338,6 +339,8 @@ After uninstalling `gnome-screensaver` and installing `xscreensaver`, we need to
 ![screen_saver_installation_1](./tutorial_images/setup_computer/screen_saver_installation_1.png)
 
 ![screen_saver_installation_2](./tutorial_images/setup_computer/screen_saver_installation_2.png)
+
+Full installation guide: https://askubuntu.com/questions/292995/configure-screensaver-in-ubuntu
 
 ### Add AI-model checkpoint
 Copy the model checkpoint into `arthur/ml/checkpoint`:

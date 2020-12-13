@@ -238,10 +238,10 @@ class Kiosk:
         sec_since_pir_firing = (datetime.now() - self.datetime_last_pir_firing).seconds
 
         if (sec_since_pir_firing > self.screen_saver_after_sec) and (not self.screensaver_active):
-            os.popen('gnome-screensaver-command --activate')  # Activate Ubuntu screen saver
+            os.popen('xscreensaver-command -activate')
             self.screensaver_active = True
         elif (sec_since_pir_firing <= self.screen_saver_after_sec) and (self.screensaver_active):
-            os.popen('gnome-screensaver-command --deactivate')  # Deactivate Ubuntu screen saver
+            os.popen('xscreensaver-command -deactivate')
             self.screensaver_active = False
 
         self.tk.after(self.loop_sleep_ms, self._check_screen_saver)
