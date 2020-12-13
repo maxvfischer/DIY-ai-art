@@ -1,13 +1,19 @@
+import os
 import cv2
 import sys
+import dbus
 import time
 import PIL.Image
 import PIL.ImageTk
+import Jetson.GPIO as GPIO
+import multiprocessing
+from kiosk.utils import GPIO_MODES
 from datetime import datetime, timedelta
 from watchdog.observers import Observer
 from watchdog.events import FileSystemEventHandler, FileModifiedEvent
 from tkinter import *
 from typing import Optional, Tuple
+
 
 
 class Kiosk:
@@ -19,6 +25,18 @@ class Kiosk:
     active_artwork_path : str
         Path to active artwork to be displayed. If the active artwork image is updated, the new image will be rendered.
 
+    GPIO_mode : str
+        GPIO mode used to set up the Nvidia Jetson board. Accepted values: {'BOARD', 'BCM'}
+
+    GPIO_sensor : int
+        GPIO pin number to which the PIR sensor is connected.
+
+    loop_sleep_ms : int, default=100
+        Seconds to sleep when reading PIR sensor and checking screen saver.
+
+    screen_saver_after_sec : int
+        Seconds before the screen saver will be activated.
+
     frame_path : Optional[str], default=None
         Path to frame image (.jpg or .png)
 
@@ -27,8 +45,26 @@ class Kiosk:
     """
     def __init__(self,
                  active_artwork_path: str,
+                 GPIO_mode: str,
+                 GPIO_sensor: int,
+                 loop_sleep_ms: int = 100,
+                 screen_saver_after_sec: int = 10,
                  frame_path: Optional[str] = None,
                  frame_inner_size: Optional[Tuple[int, int]] = None) -> None:
+        # Set up PIR sensor
+        try:
+            mode = GPIO_MODES[GPIO_mode]
+            GPIO.setmode(mode)
+            GPIO.setup(GPIO_sensor, GPIO.IN)
+            self.GPIO_sensor = GPIO_sensor
+        except Exception as e:
+            print(e.message)
+            sys.exit(1)
+        self.loop_sleep_ms = loop_sleep_ms
+        self.screen_saver_after_sec = screen_saver_after_sec
+        self.datetime_last_pir_firing = datetime.now()
+        self.screensaver_active = False
+
         self.tk = Tk()
         self.tk.attributes('-zoomed', True)  # This just maximizes it so we can see the window. It's nothing to do with fullscreen.
         self.frame = Frame(self.tk)
@@ -43,7 +79,7 @@ class Kiosk:
         self.frame_path = frame_path
         self.frame_inner_size = frame_inner_size
         self.image_last_modified = datetime.now()
-        
+
         self._start_image_event_handler()
 
     def _start_image_event_handler(self) -> None:
@@ -97,7 +133,6 @@ class Kiosk:
         if self._image_too_recently_modified():
             return
         time.sleep(0.1)
-        img_path = event.src_path
         img = self._read_image(
             img_path=self.active_artwork_path,
             frame_path=self.frame_path,
@@ -175,26 +210,8 @@ class Kiosk:
                 frame_path=frame_path,
                 frame_inner_size=frame_inner_size
             )
-
-        img = self._convert_PIL_to_TK(img)
+        img = PIL.ImageTk.PhotoImage(img)
         return img
-
-    @staticmethod
-    def _convert_PIL_to_TK(img: PIL.Image) -> PIL.ImageTk:
-        """
-        Convert PIL.Image to PIL.ImageTk.PhotoImage.
-
-        Parameters
-        ----------
-        img : PIL.Image
-            Image to convert.
-
-        Returns
-        -------
-        PIL.ImageTk
-            Converted image.
-        """
-        return PIL.ImageTk.PhotoImage(img)
 
     def _setup_image_on_start(self) -> None:
         """Initially setting up and displaying the active artwork image."""
@@ -207,7 +224,31 @@ class Kiosk:
         self.panel.image = img
         self.panel.pack()
 
+    def _check_change_pir_sensor(self) -> None:
+        """Infinate (TK) loop listening to PIR sensor."""
+        # TODO: Remove __not__ when real sensor is integrated
+        sensor_is_firing = not GPIO.input(self.GPIO_sensor)
+        if sensor_is_firing == True:
+           self.datetime_last_pir_firing = datetime.now()
+
+        self.tk.after(self.loop_sleep_ms, self._check_change_pir_sensor)
+
+    def _check_screen_saver(self) -> None:
+        """Inifite (TK) loop handling if screen saver should be activated/deactivated"""
+        sec_since_pir_firing = (datetime.now() - self.datetime_last_pir_firing).seconds
+
+        if (sec_since_pir_firing > self.screen_saver_after_sec) and (not self.screensaver_active):
+            os.popen('gnome-screensaver-command --activate')  # Activate Ubuntu screen saver
+            self.screensaver_active = True
+        elif (sec_since_pir_firing <= self.screen_saver_after_sec) and (self.screensaver_active):
+            os.popen('gnome-screensaver-command --deactivate')  # Deactivate Ubuntu screen saver
+            self.screensaver_active = False
+
+        self.tk.after(self.loop_sleep_ms, self._check_screen_saver)
+
     def start(self) -> None:
         """Start GUI"""
         self._setup_image_on_start()
-
+        self.tk.after(self.loop_sleep_ms, self._check_change_pir_sensor)
+        self.tk.after(self.loop_sleep_ms, self._check_screen_saver)
+        self.tk.mainloop()        

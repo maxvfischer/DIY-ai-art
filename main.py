@@ -23,14 +23,22 @@ def start_aiartbutton(GPIO_mode: str,
     
 
 def start_kiosk(active_artwork_file_path: str,
+                GPIO_mode: str,
+                GPIO_sensor: int,
+                loop_sleep_ms: int,
+                screen_saver_after_sec: int,
                 frame_path: str,
                 frame_inner_size: tuple):
     kiosk = Kiosk(
         active_artwork_path=active_artwork_file_path, 
+        GPIO_mode=GPIO_mode,
+        GPIO_sensor=GPIO_sensor,
+        loop_sleep_ms=loop_sleep_ms,
+        screen_saver_after_sec=screen_saver_after_sec,
         frame_path=frame_path,
         frame_inner_size=frame_inner_size)
     kiosk.start()
-    kiosk.tk.mainloop()
+
 
 
 def start_gan(batch_size: int,
@@ -68,12 +76,17 @@ if __name__ == '__main__':
             config['aiartbutton']['button_sleep']
         )
     )
+
     p_kiosk = multiprocessing.Process(
         target=start_kiosk,
         args=(
             config['active_artwork_file_path'],
-            config['frame']['path'],
-            (config['frame']['inner_width'], config['frame']['inner_height'])
+            config['kiosk']['GPIO_mode'],
+            config['kiosk']['GPIO_sensor'],
+            config['kiosk']['loop_sleep_ms'],
+            config['kiosk']['screen_saver_after_sec'],
+            config['kiosk']['path'],
+            (config['kiosk']['inner_width'], config['kiosk']['inner_height'])
         )
     )
 
