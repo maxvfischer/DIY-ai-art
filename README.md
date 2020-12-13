@@ -22,6 +22,147 @@ assemble the control box and button etc.
     1. ...
     2. ...
 
+## Set up Nvidia Jetson Xavier NX Dev Kit
+The Nvidia Jetson Xavier NX module (https://developer.nvidia.com/embedded/jetson-xavier-nx)
+is an embedded system-on-module developed by Nvidia for running computationally demanding tasks
+on edge.
+
+The Nvidia Jetson Xavier NX Development Kit 
+(https://www.nvidia.com/en-us/autonomous-machines/embedded-systems/jetson-xavier-nx/) is a single-board computer
+with an integrated Nvidia Jetson Xavier NX module. Similar to the Raspberry Pi, it has 40 GPIO pins that you can
+interact with.
+
+The development kit includes:
+* x1 Nvidia Jetson Xavier NX board
+* x1 19.0V/2.37A power adapter
+* x2 Power cables:
+    * Plug type I -> C5
+    * Plug type B -> C5
+* Quick start / Support guide
+
+![xavier_1](./tutorial_images/setup_computer/xavier_1.jpg)
+
+![xavier_2](./tutorial_images/setup_computer/xavier_2.jpg)
+
+### Install operating system
+As Raspberry Pi, Jetson Xavier is using a micro-SD card as a hard drive. To install the operating system, start by 
+inserting the micro-SD card into another computer. 
+
+![xavier_4](./tutorial_images/setup_computer/xavier_4.svg)
+
+![xavier_5](./tutorial_images/setup_computer/xavier_5.svg)
+
+
+Full instruction from Nvidia can be found here: 
+https://developer.nvidia.com/embedded/learn/get-started-jetson-xavier-nx-devkit
+
+![xavier_3](./tutorial_images/setup_computer/xavier_3.jpg)
+
+### Clone repository
+```bash
+git clone https://github.com/maxvfischer/Arthur.git
+```
+
+### Set up virtual environemnt
+Install `venv`:
+```bash
+sudo apt-get install python3-venv
+```
+
+Create environment:
+```bash
+python3 -m venv venv
+```
+
+Activate environment:
+```bash
+source venv/bin/activate
+```
+
+Install `wheel`:
+```bash
+sudo pip3 install wheel
+```
+
+### Install dependencies
+```bash
+pip3 install -r requirements.txt
+```
+
+### Set up user permission
+We need to set up user permissions to be able to access the GPIOs.
+
+Create new GPIO user group (remember to change `your_user_name`):
+```bash
+sudo groupadd -f -r gpio
+sudo usermod -a -G gpio your_user_name
+```
+
+Copy custom GPIO rules (remember to change `pythonNN`):
+```bash
+sudo cp venv/lib/pythonNN/site-packages/Jetson/GPIO/99-gpio.rules /etc/udev/rules.d/
+```
+
+### Install xscreensaver
+To reduce the risk of burn-in when displaying static art on the screen, a PIR (passive infrared) sensor was integrated. When no movement has been registered around 
+the art installation, a screen saver is triggered.
+
+The default screen saver on Ubuntu is `gnome-screensaver`. It's not a screen saver in the traditional sense. Instead of showing moving images, it blanks the screen,
+basically shuts down the HDMI signals to the screen, enabling the screen to fall into low energy mode.
+
+The screen used in this project is a Samsung The Frame 32" (2020). When the screen is set to HDMI (1/2) and no HDMI signal is provided, it shows a static image telling the user that no HDMI signal is found. This is what happened when using `gnome-screensaver`. This is a unwanted behaviour in this set up, as we either wants the screen to go blank, or show some kind of a moving image, to reduce the risk of burn-in. We do not want to see a static screen telling us that no hdmi signal is found.
+
+To solve this problem, `xscreensaver` was installed instead. It's an alternative screen saver that allows for moving images. Also, it seems like `xscreensaver's`
+blank screen mode works differently than `gnome-screensaver`. When `xscreensaver's` blank screen is triggered, it doesn't seems to shut down the HDMI signal,
+but rather turn the screen black. This is the behaviour we want in this installation. 
+
+Follow these steps to uninstall `gnome-screensaver` and install `xscreensaver`:
+
+```bash
+sudo apt-get remove gnome-screensaver
+sudo apt-get install xscreensaver xscreensaver-data-extra xscreensaver-gl-extra
+```
+After uninstalling `gnome-screensaver` and installing `xscreensaver`, we need to add it to `Startup Applications` for it to start on boot:
+
+![screen_saver_installation_1](./tutorial_images/setup_computer/screen_saver_installation_1.png)
+
+![screen_saver_installation_2](./tutorial_images/setup_computer/screen_saver_installation_2.png)
+
+Full installation guide: https://askubuntu.com/questions/292995/configure-screensaver-in-ubuntu
+
+### Add AI-model checkpoint
+Copy the model checkpoint into `arthur/ml/checkpoint`:
+
+    ├── arthur
+         ├── ml
+             ├── StyleGAN.model-XXXXXXX.data-00000-of-00001
+             ├── StyleGAN.model-XXXXXXX.index
+             └── StyleGAN.model-XXXXXXX.meta
+
+### Add initial active artwork
+Add an initial active artwork image by copying an image here: `arthur/active_artwork.jpg`
+
+### Adjust config.yaml
+The config.yaml contains all the settings.
+
+```
+active_artwork_file_path: 'active_artwork.jpg'  # Path and name of active artwork
+
+aiartbutton:
+  GPIO_mode: 'BOARD'  # GPIO mode
+  GPIO_button: 15  # GPIO pinout used for the button
+  image_directory: 'images'  # Directory to copy new images from
+  button_sleep: 1.0  # Timeout in seconds after button has been pressed
+
+ml_model:
+  batch_size: 1  # Latent batch size used when generating images
+  img_size: 1024  # Size of generated image (img_size, img_size)
+  test_num: 20  # Number of images generated when model is triggered
+  checkpoint_directory: 'ml/checkpoint'  # Checkpoint directory
+  image_directory: 'images'  # Output directory of generated images
+  lower_limit_num_images: 200  # Trigger model if number of images in image_directory is below this value
+```
+
 ## Build the control box
 To get a nice looking installation with as few visible cables as possible, a control box 
 was built to encapsulate the Nvidia computer, power adapters, Samsung One Connect box etc.
@@ -270,110 +411,3 @@ To give a nice finish, all the edges were milled.
 ![milling_2](./tutorial_images/build_control_box/milling_2.jpg)
 
 ![milling_3](./tutorial_images/build_control_box/milling_3.jpg)
-
-## Set up Nvidia Jetson Xavier NX
-
-### Clone repository
-```bash
-git clone https://github.com/maxvfischer/Arthur.git
-```
-
-### Set up virtual environemnt
-Install `venv`:
-```bash
-sudo apt-get install python3-venv
-```
-
-Create environment:
-```bash
-python3 -m venv venv
-```
-
-Activate environment:
-```bash
-source venv/bin/activate
-```
-
-Install `wheel`:
-```bash
-sudo pip3 install wheel
-```
-
-### Install dependencies
-```bash
-pip3 install -r requirements.txt
-```
-
-### Set up user permission
-We need to set up user permissions to be able to access the GPIOs.
-
-Create new GPIO user group (remember to change `your_user_name`):
-```bash
-sudo groupadd -f -r gpio
-sudo usermod -a -G gpio your_user_name
-```
-
-Copy custom GPIO rules (remember to change `pythonNN`):
-```bash
-sudo cp venv/lib/pythonNN/site-packages/Jetson/GPIO/99-gpio.rules /etc/udev/rules.d/
-```
-
-### Install xscreensaver
-To reduce the risk of burn-in when displaying static art on the screen, a PIR (passive infrared) sensor was integrated. When no movement has been registered around 
-the art installation, a screen saver is triggered.
-
-The default screen saver on Ubuntu is `gnome-screensaver`. It's not a screen saver in the traditional sense. Instead of showing moving images, it blanks the screen,
-basically shuts down the HDMI signals to the screen, enabling the screen to fall into low energy mode.
-
-The screen used in this project is a Samsung The Frame 32" (2020). When the screen is set to HDMI (1/2) and no HDMI signal is provided, it shows a static image telling the user that no HDMI signal is found. This is what happened when using `gnome-screensaver`. This is a unwanted behaviour in this set up, as we either wants the screen to go blank, or show some kind of a moving image, to reduce the risk of burn-in. We do not want to see a static screen telling us that no hdmi signal is found.
-
-To solve this problem, `xscreensaver` was installed instead. It's an alternative screen saver that allows for moving images. Also, it seems like `xscreensaver's`
-blank screen mode works differently than `gnome-screensaver`. When `xscreensaver's` blank screen is triggered, it doesn't seems to shut down the HDMI signal,
-but rather turn the screen black. This is the behaviour we want in this installation. 
-
-Follow these steps to uninstall `gnome-screensaver` and install `xscreensaver`:
-
-```bash
-sudo apt-get remove gnome-screensaver
-sudo apt-get install xscreensaver xscreensaver-data-extra xscreensaver-gl-extra
-```
-After uninstalling `gnome-screensaver` and installing `xscreensaver`, we need to add it to `Startup Applications` for it to start on boot:
-
-![screen_saver_installation_1](./tutorial_images/setup_computer/screen_saver_installation_1.png)
-
-![screen_saver_installation_2](./tutorial_images/setup_computer/screen_saver_installation_2.png)
-
-Full installation guide: https://askubuntu.com/questions/292995/configure-screensaver-in-ubuntu
-
-### Add AI-model checkpoint
-Copy the model checkpoint into `arthur/ml/checkpoint`:
-
-    ├── arthur
-         ├── ml
-             ├── StyleGAN.model-XXXXXXX.data-00000-of-00001
-             ├── StyleGAN.model-XXXXXXX.index
-             └── StyleGAN.model-XXXXXXX.meta
-
-### Add initial active artwork
-Add an initial active artwork image by copying an image here: `arthur/active_artwork.jpg`
-
-### Adjust config.yaml
-The config.yaml contains all the settings.
-
-```
-active_artwork_file_path: 'active_artwork.jpg'  # Path and name of active artwork
-
-aiartbutton:
-  GPIO_mode: 'BOARD'  # GPIO mode
-  GPIO_button: 15  # GPIO pinout used for the button
-  image_directory: 'images'  # Directory to copy new images from
-  button_sleep: 1.0  # Timeout in seconds after button has been pressed
-
-ml_model:
-  batch_size: 1  # Latent batch size used when generating images
-  img_size: 1024  # Size of generated image (img_size, img_size)
-  test_num: 20  # Number of images generated when model is triggered
-  checkpoint_directory: 'ml/checkpoint'  # Checkpoint directory
-  image_directory: 'images'  # Output directory of generated images
-  lower_limit_num_images: 200  # Trigger model if number of images in image_directory is below this value
-```
