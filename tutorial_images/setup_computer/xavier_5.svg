@@ -1,0 +1,92 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" id="terminal" baseProfile="full" viewBox="0 0 703 251" width="703" version="1.1">
+    <defs>
+        <termtosvg:template_settings xmlns:termtosvg="https://github.com/nbedos/termtosvg">
+            <termtosvg:screen_geometry columns="82" rows="10"/>
+            <termtosvg:animation type="css"/>
+        </termtosvg:template_settings>
+        <style type="text/css" id="generated-style"><![CDATA[#screen {
+                font-family: 'DejaVu Sans Mono', monospace;
+                font-style: normal;
+                font-size: 14px;
+            }
+
+        text {
+            dominant-baseline: text-before-edge;
+            white-space: pre;
+        }
+    
+            :root {
+                --animation-duration: 21000ms;
+            }
+
+            @keyframes roll {
+                0.000%{transform:translateY(0px)}
+2.381%{transform:translateY(-204px)}
+3.571%{transform:translateY(-408px)}
+4.762%{transform:translateY(-612px)}
+5.952%{transform:translateY(-816px)}
+7.143%{transform:translateY(-1020px)}
+8.333%{transform:translateY(-1224px)}
+9.524%{transform:translateY(-1428px)}
+10.714%{transform:translateY(-1632px)}
+11.905%{transform:translateY(-1836px)}
+13.095%{transform:translateY(-2040px)}
+14.286%{transform:translateY(-2244px)}
+15.476%{transform:translateY(-2448px)}
+16.667%{transform:translateY(-2652px)}
+17.857%{transform:translateY(-2856px)}
+19.048%{transform:translateY(-3060px)}
+20.238%{transform:translateY(-3264px)}
+21.429%{transform:translateY(-3468px)}
+22.619%{transform:translateY(-3672px)}
+23.810%{transform:translateY(-3876px)}
+25.000%{transform:translateY(-4080px)}
+26.190%{transform:translateY(-4284px)}
+27.381%{transform:translateY(-4488px)}
+28.571%{transform:translateY(-4692px)}
+29.762%{transform:translateY(-4896px)}
+34.524%{transform:translateY(-5100px)}
+35.714%{transform:translateY(-5304px)}
+36.905%{transform:translateY(-5508px)}
+95.238%{transform:translateY(-5712px)}
+100.000%{transform:translateY(-5712px)}
+            }
+
+            #screen_view {
+                animation-duration: 21000ms;
+                animation-iteration-count:infinite;
+                animation-name:roll;
+                animation-timing-function: steps(1,end);
+                animation-fill-mode: forwards;
+            }
+        ]]></style>
+        <style type="text/css" id="user-style">
+            /* The colors defined below are the default 16 colors used for rendering text of the terminal. Adjust
+               them as needed.
+               gjm8 color theme (source: https://terminal.sexy/) */
+            .foreground {fill: #f8f8f2}
+            .background {fill: #272822}
+            .color0 {fill: #272822}
+            .color1 {fill: #f92672}
+            .color2 {fill: #a6e22e}
+            .color3 {fill: #f4bf75}
+            .color4 {fill: #66d9ef}
+            .color5 {fill: #ae81ff}
+            .color6 {fill: #a1efe4}
+            .color7 {fill: #f8f8f2}
+            .color8 {fill: #75715e}
+            .color9 {fill: #fd971f}
+            .color10 {fill: #383830}
+            .color11 {fill: #49483e}
+            .color12 {fill: #a59f85}
+            .color13 {fill: #f5f4f1}
+            .color14 {fill: #cc6633}
+            .color15 {fill: #f9f8f5}
+        </style>
+    </defs>
+    <rect id="terminalui" class="background" width="100%" height="100%" ry="4.5826941"/>
+    <circle cx="24" cy="23" r="7" class="color1"/>
+    <circle cx="44" cy="23" r="7" class="color3"/>
+    <circle cx="64" cy="23" r="7" class="color2"/>
+    <svg id="screen" width="656" height="170" x="23" y="50" viewBox="0 0 656 170" preserveAspectRatio="xMidYMin slice"><rect class="background" height="100%" width="100%" x="0" y="0"/><defs><g id="g1"><text class="foreground" textLength="80" x="0">bash-3.2$ </text><text class="background" textLength="8" x="80"> </text></g><g id="g2"><text class="foreground" textLength="88" x="0">bash-3.2$ d</text><text class="background" textLength="8" x="88"> </text></g><g id="g3"><text class="foreground" textLength="96" x="0">bash-3.2$ di</text><text class="background" textLength="8" x="96"> </text></g><g id="g4"><text class="foreground" textLength="104" x="0">bash-3.2$ dis</text><text class="background" textLength="8" x="104"> </text></g><g id="g5"><text class="foreground" textLength="112" x="0">bash-3.2$ disk</text><text class="background" textLength="8" x="112"> </text></g><g id="g6"><text class="foreground" textLength="120" x="0">bash-3.2$ disku</text><text class="background" textLength="8" x="120"> </text></g><g id="g7"><text class="foreground" textLength="128" x="0">bash-3.2$ diskut</text><text class="background" textLength="8" x="128"> </text></g><g id="g8"><text class="foreground" textLength="136" x="0">bash-3.2$ diskuti</text><text class="background" textLength="8" x="136"> </text></g><g id="g9"><text class="foreground" textLength="144" x="0">bash-3.2$ diskutil</text><text class="background" textLength="8" x="144"> </text></g><g id="g10"><text class="foreground" textLength="152" x="0">bash-3.2$ diskutil </text><text class="background" textLength="8" x="152"> </text></g><g id="g11"><text class="foreground" textLength="160" x="0">bash-3.2$ diskutil u</text><text class="background" textLength="8" x="160"> </text></g><g id="g12"><text class="foreground" textLength="168" x="0">bash-3.2$ diskutil un</text><text class="background" textLength="8" x="168"> </text></g><g id="g13"><text class="foreground" textLength="176" x="0">bash-3.2$ diskutil unm</text><text class="background" textLength="8" x="176"> </text></g><g id="g14"><text class="foreground" textLength="184" x="0">bash-3.2$ diskutil unmo</text><text class="background" textLength="8" x="184"> </text></g><g id="g15"><text class="foreground" textLength="192" x="0">bash-3.2$ diskutil unmou</text><text class="background" textLength="8" x="192"> </text></g><g id="g16"><text class="foreground" textLength="200" x="0">bash-3.2$ diskutil unmoun</text><text class="background" textLength="8" x="200"> </text></g><g id="g17"><text class="foreground" textLength="208" x="0">bash-3.2$ diskutil unmount</text><text class="background" textLength="8" x="208"> </text></g><g id="g18"><text class="foreground" textLength="216" x="0">bash-3.2$ diskutil unmountD</text><text class="background" textLength="8" x="216"> </text></g><g id="g19"><text class="foreground" textLength="224" x="0">bash-3.2$ diskutil unmountDi</text><text class="background" textLength="8" x="224"> </text></g><g id="g20"><text class="foreground" textLength="232" x="0">bash-3.2$ diskutil unmountDis</text><text class="background" textLength="8" x="232"> </text></g><g id="g21"><text class="foreground" textLength="240" x="0">bash-3.2$ diskutil unmountDisk</text><text class="background" textLength="8" x="240"> </text></g><g id="g22"><text class="foreground" textLength="248" x="0">bash-3.2$ diskutil unmountDisk </text><text class="background" textLength="8" x="248"> </text></g><g id="g23"><text class="foreground" textLength="256" x="0">bash-3.2$ diskutil unmountDisk /</text><text class="background" textLength="8" x="256"> </text></g><g id="g24"><text class="foreground" textLength="320" x="0">bash-3.2$ diskutil unmountDisk /dev/disk</text><text class="background" textLength="8" x="320"> </text></g><g id="g25"><text class="foreground" textLength="328" x="0">bash-3.2$ diskutil unmountDisk /dev/disk2</text><text class="background" textLength="8" x="328"> </text></g><g id="g26"><text class="foreground" textLength="328" x="0">bash-3.2$ diskutil unmountDisk /dev/disk2</text></g><g id="g27"><text class="background" textLength="8" x="0"> </text></g><g id="g28"><text class="foreground" textLength="368" x="0">Unmount of all volumes on disk2 was successful</text></g></defs><g id="screen_view"><g><rect class="foreground" height="17" width="8" x="80" y="0"/><use y="0" xlink:href="#g1"/></g><g><rect class="foreground" height="17" width="8" x="88" y="204"/><use y="204" xlink:href="#g2"/></g><g><rect class="foreground" height="17" width="8" x="96" y="408"/><use y="408" xlink:href="#g3"/></g><g><rect class="foreground" height="17" width="8" x="104" y="612"/><use y="612" xlink:href="#g4"/></g><g><rect class="foreground" height="17" width="8" x="112" y="816"/><use y="816" xlink:href="#g5"/></g><g><rect class="foreground" height="17" width="8" x="120" y="1020"/><use y="1020" xlink:href="#g6"/></g><g><rect class="foreground" height="17" width="8" x="128" y="1224"/><use y="1224" xlink:href="#g7"/></g><g><rect class="foreground" height="17" width="8" x="136" y="1428"/><use y="1428" xlink:href="#g8"/></g><g><rect class="foreground" height="17" width="8" x="144" y="1632"/><use y="1632" xlink:href="#g9"/></g><g><rect class="foreground" height="17" width="8" x="152" y="1836"/><use y="1836" xlink:href="#g10"/></g><g><rect class="foreground" height="17" width="8" x="160" y="2040"/><use y="2040" xlink:href="#g11"/></g><g><rect class="foreground" height="17" width="8" x="168" y="2244"/><use y="2244" xlink:href="#g12"/></g><g><rect class="foreground" height="17" width="8" x="176" y="2448"/><use y="2448" xlink:href="#g13"/></g><g><rect class="foreground" height="17" width="8" x="184" y="2652"/><use y="2652" xlink:href="#g14"/></g><g><rect class="foreground" height="17" width="8" x="192" y="2856"/><use y="2856" xlink:href="#g15"/></g><g><rect class="foreground" height="17" width="8" x="200" y="3060"/><use y="3060" xlink:href="#g16"/></g><g><rect class="foreground" height="17" width="8" x="208" y="3264"/><use y="3264" xlink:href="#g17"/></g><g><rect class="foreground" height="17" width="8" x="216" y="3468"/><use y="3468" xlink:href="#g18"/></g><g><rect class="foreground" height="17" width="8" x="224" y="3672"/><use y="3672" xlink:href="#g19"/></g><g><rect class="foreground" height="17" width="8" x="232" y="3876"/><use y="3876" xlink:href="#g20"/></g><g><rect class="foreground" height="17" width="8" x="240" y="4080"/><use y="4080" xlink:href="#g21"/></g><g><rect class="foreground" height="17" width="8" x="248" y="4284"/><use y="4284" xlink:href="#g22"/></g><g><rect class="foreground" height="17" width="8" x="256" y="4488"/><use y="4488" xlink:href="#g23"/></g><g><rect class="foreground" height="17" width="8" x="320" y="4692"/><use y="4692" xlink:href="#g24"/></g><g><rect class="foreground" height="17" width="8" x="328" y="4896"/><use y="4896" xlink:href="#g25"/></g><g><use y="5100" xlink:href="#g26"/><rect class="foreground" height="17" width="8" x="0" y="5117"/><use y="5117" xlink:href="#g27"/></g><g><use y="5304" xlink:href="#g26"/><use y="5321" xlink:href="#g28"/><rect class="foreground" height="17" width="8" x="0" y="5338"/><use y="5338" xlink:href="#g27"/></g><g><use y="5508" xlink:href="#g26"/><use y="5525" xlink:href="#g28"/><rect class="foreground" height="17" width="8" x="80" y="5542"/><use y="5542" xlink:href="#g1"/></g><g><use y="5712" xlink:href="#g26"/><use y="5729" xlink:href="#g28"/><rect class="foreground" height="17" width="8" x="80" y="5746"/><use y="5746" xlink:href="#g1"/></g></g></svg>
+</svg>
