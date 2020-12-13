@@ -318,6 +318,27 @@ Copy custom GPIO rules (remember to change `pythonNN`):
 sudo cp venv/lib/pythonNN/site-packages/Jetson/GPIO/99-gpio.rules /etc/udev/rules.d/
 ```
 
+### Install xscreensaver
+The default screen saver on Ubuntu is `gnome-screensaver`. It's not a screen saver in the traditional sense. Instead of showing moving images, it blanks the screen,
+basically shuts down the HDMI signals to the screen, enabling the screen to fall into low energy mode.
+
+The screen used in this project is a Samsung The Frame 32" (2020). When the screen is set to HDMI (1/2) and no HDMI signal is provided, it shows a static image telling the user that no HDMI signal is found. This is a unwanted behaviour in this set up, as we either wants the screen to go blank, or show some kind of a moving image, to reduce the risk of burn-in. We do not want to see a static
+screen telling us that no hdmi signal is found.
+
+To solve this problem, `xscreensaver` was installed instead. It's a screen saver that allows for moving images.
+
+Full installation guide: https://askubuntu.com/questions/292995/configure-screensaver-in-ubuntu
+
+```bash
+sudo apt-get remove gnome-screensaver
+sudo apt-get install xscreensaver xscreensaver-data-extra xscreensaver-gl-extra
+```
+After uninstalling `gnome-screensaver` and installing `xscreensaver`, we need to add it to `Startup Applications` for it to start on boot:
+
+![screen_saver_installation_1](./tutorial_images/setup_computer/screen_saver_installation_1.png)
+
+![screen_saver_installation_2](./tutorial_images/setup_computer/screen_saver_installation_2.png)
+
 ### Add AI-model checkpoint
 Copy the model checkpoint into `arthur/ml/checkpoint`:
 
