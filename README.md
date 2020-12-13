@@ -48,38 +48,49 @@ The development kit includes:
 As Raspberry Pi, Jetson Xavier is using a micro-SD card as its hard drive. As far as I know, there's only one supported
 OS image (Ubuntu) provided by Nvidia.
 
-For these steps, you need to use another computer. 
+To install the OS, you'll need to use a second computer. 
 
 Start of by downloading the OS image. 
 To do this, you need to sign up for a `NVIDIA Developer Program Membership`. It's free and quite useful as you'll get 
 access to the Nvidia Developer forum. When you've created the account, you can download the image here: 
 https://developer.nvidia.com/jetson-nx-developer-kit-sd-card-image
 
-After it's downloaded, unzip it. 
+After you've downloaded it, unzip it. 
 
-To flash the OS image to the micro-SD card, start by inserting the micro-SD card into the computer and list the 
-available disks. Find the name of the micro-SD card you just inserted. In my case, it's `/dev/disk2`:
+To flash the OS image to the micro-SD card, start of by inserting the micro-SD card into the second computer and list 
+the available disks. Find the disk name of the micro-SD card you just inserted. In my case, it's `/dev/disk2`:
 
 ![xavier_4](./tutorial_images/setup_computer/xavier_4.svg)
 
-When you've found the name of the micro-SD card, un-mount it. Be careful, you don't want to unmount any of the other 
-disks!
+When you've found the name of the micro-SD card, un-mount it. Be careful, you definitely don't want to unmount any of 
+the other disks!
 
 ![xavier_5](./tutorial_images/setup_computer/xavier_5.svg)
 
-Change your current directory to where you downloaded the image (usually ~/Downloads).
+Now, change your current directory to where you downloaded and un-zipped the image (usually ~/Downloads).
 
 ![xavier_6](./tutorial_images/setup_computer/xavier_6.svg)
 
-To flash the micro-SD card with the OS image, run the command below. Replace `/dev/disk2` with the name of your micro-SD 
-card and replace `sd-blob.img` with the name of the image you downloaded. I've speed up the animation, it will probably 
-take 10-20 min depending on your computer.
+To flash the micro-SD card with the OS image, run the command below. Replace `/dev/disk2` with the disk name of your 
+micro-SD card and replace `sd-blob.img` with the name of the un-zipped image you downloaded. I've sped up the 
+animation, flashing the card usually takes quite a long time (it took ~55 min @ ~4.6 MB/s for me).
 
 ![xavier_7](./tutorial_images/setup_computer/xavier_7.svg)
 
 When you're done flashing the micro-SD card with the image, you're ready to boot up the Jetson! Remove the SD-card 
-from the computer and insert it into the Jetson computer. There's no power button, it will boot when you plug in the 
-power cable.
+from the second computer and insert it into the Jetson computer. The SD-slot is found under the Xavier NX Module.
+
+![xavier_8](./tutorial_images/setup_computer/xavier_8.jpg)
+
+There's no power button, it will boot when you plug in the power cable. After booting and filling in the initial 
+system configuration, you should see the Ubuntu desktop.
+
+![xavier_9](./tutorial_images/setup_computer/xavier_9.gif)
+
+If you get stuck during boot-up with an output as below, try to reboot the machine.
+```bash
+[ *** ] (1 of 2) A start job is running for End-user configuration after initial OEM installation...
+```
 
 Full instruction from Nvidia can be found here: 
 https://developer.nvidia.com/embedded/learn/get-started-jetson-xavier-nx-devkit
