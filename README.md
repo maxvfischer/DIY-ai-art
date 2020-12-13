@@ -333,6 +333,11 @@ Full installation guide: https://askubuntu.com/questions/292995/configure-screen
 sudo apt-get remove gnome-screensaver
 sudo apt-get install xscreensaver xscreensaver-data-extra xscreensaver-gl-extra
 ```
+After uninstalling `gnome-screensaver` and installing `xscreensaver`, we need to add it to `Startup Applications` for it to start on boot:
+
+![screen_saver_installation_1](./tutorial_images/setup_computer/screen_saver_installation_1.png)
+
+![screen_saver_installation_2](./tutorial_images/setup_computer/screen_saver_installation_2.png)
 
 ### Add AI-model checkpoint
 Copy the model checkpoint into `arthur/ml/checkpoint`:
