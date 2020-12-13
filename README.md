@@ -319,6 +319,9 @@ sudo cp venv/lib/pythonNN/site-packages/Jetson/GPIO/99-gpio.rules /etc/udev/rule
 ```
 
 ### Install xscreensaver
+To reduce the risk of burn-in when displaying static art on the screen, a PIR (passive infrared) sensor was integrated. When no movement has been registered around 
+the art installation, a screen saver is triggered.
+
 The default screen saver on Ubuntu is `gnome-screensaver`. It's not a screen saver in the traditional sense. Instead of showing moving images, it blanks the screen,
 basically shuts down the HDMI signals to the screen, enabling the screen to fall into low energy mode.
 
