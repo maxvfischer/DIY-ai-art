@@ -9,16 +9,16 @@ import tensorflow as tf
 from watchdog.observers import Observer
 
 def start_artbutton(GPIO_mode: str,
-                    GPIO_button: int,
+                    GPIO_pinout: int,
                     active_artwork_file_path: str,
                     image_directory: str,
-                    button_sleep: float):
+                    loop_sleep_sec: float):
     button = ArtButton(
         GPIO_mode=GPIO_mode,
-        GPIO_button=GPIO_button,
+        GPIO_pinout=GPIO_pinout,
         active_artwork_file_path=active_artwork_file_path,
         image_directory=image_directory,
-        button_sleep=button_sleep
+        loop_sleep_sec=loop_sleep_sec
     )
     button.start()
     
@@ -34,12 +34,12 @@ def start_kiosk(active_artwork_file_path: str,
 
 
 def start_pir(GPIO_mode: str,
-              GPIO_sensor: int,
+              GPIO_pinout: int,
               loop_sleep_sec: float,
               screensaver_after_sec: float):
     pir = PIRSensorScreensaver(
         GPIO_mode=GPIO_mode,
-        GPIO_sensor=GPIO_sensor,
+        GPIO_pinout=GPIO_pinout,
         loop_sleep_sec=loop_sleep_sec,
         screensaver_after_sec=screensaver_after_sec
     )
@@ -75,10 +75,10 @@ if __name__ == '__main__':
         target=start_artbutton,
         args=(
             config['artbutton']['GPIO_mode'],
-            config['artbutton']['GPIO_button'],
+            config['artbutton']['GPIO_pinout'],
             config['active_artwork_file_path'],
-            config['artbutton']['image_directory'],
-            config['artbutton']['button_sleep']
+            config['image_directory'],
+            config['artbutton']['loop_sleep_sec']
         )
     )
 
@@ -95,7 +95,7 @@ if __name__ == '__main__':
         target=start_pir,
         args=(
             config['pirsensor']['GPIO_mode'],
-            config['pirsensor']['GPIO_sensor'],
+            config['pirsensor']['GPIO_pinout'],
             config['pirsensor']['loop_sleep_sec'],
             config['pirsensor']['screensaver_after_sec'],
         )
@@ -108,7 +108,7 @@ if __name__ == '__main__':
             config['ml_model']['img_size'],
             config['ml_model']['test_num'],
             config['ml_model']['checkpoint_directory'],
-            config['ml_model']['image_directory'],
+            config['image_directory'],
             config['ml_model']['lower_limit_num_images']
         )
     )

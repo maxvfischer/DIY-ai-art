@@ -18,7 +18,7 @@ class ArtButton():
     GPIO_mode : str
         GPIO mode used to set up the Nvidia Jetson board. Accepted values: {'BOARD', 'BCM'}
 
-    GPIO_button : int
+    GPIO_pinout : int
         GPIO pin number to which the button is connected.
 
     active_artwork_file_path : str
@@ -27,21 +27,21 @@ class ArtButton():
     image_directory : str
         Path to the image directory from where the images will be randomly sampled.
 
-    button_sleep : float, default=1.0
+    loop_sleep_sec : float, default=1.0
         Seconds to sleep after registered button click. Risk of multiple unexpected simultaneous clicks
         if set to low.
     """
     def __init__(self,
                  GPIO_mode: str,
-                 GPIO_button: int,
+                 GPIO_pinout: int,
                  active_artwork_file_path: str,
                  image_directory: str,
-                 button_sleep: float = 1.0) -> None:
+                 loop_sleep_sec: float = 1.0) -> None:
         try:
             mode = GPIO_MODES[GPIO_mode]
             GPIO.setmode(mode)
-            GPIO.setup(GPIO_button, GPIO.IN)
-            self.GPIO_button = GPIO_button
+            GPIO.setup(GPIO_pinout, GPIO.IN)
+            self.GPIO_pinout = GPIO_pinout
         except Exception as e:
             print(e.message)
             sys.exit(1)
@@ -53,7 +53,7 @@ class ArtButton():
         if os.path.isdir(image_directory):
             self.image_directory = image_directory
 
-        self.button_sleep = button_sleep
+        self.loop_sleep_sec = loop_sleep_sec
 
     def _get_random_image_path(self) -> str:
         """
@@ -81,8 +81,8 @@ class ArtButton():
     def start(self) -> None:
         """Starts infinate loop listening to button click. When clicked, it changes the active artwork."""
         while True:
-            input_state = GPIO.input(self.GPIO_button)
+            input_state = GPIO.input(self.GPIO_pinout)
             if input_state == False:
                 self._change_active_artwork()
-                time.sleep(self.button_sleep)
+                time.sleep(self.loop_sleep_sec)
                 
