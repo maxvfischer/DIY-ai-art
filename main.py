@@ -34,12 +34,12 @@ def start_kiosk(active_artwork_file_path: str,
 
 
 def start_pir(GPIO_mode: str,
-              GPIO_sensor: int,
+              GPIO_pinout: int,
               loop_sleep_sec: float,
               screensaver_after_sec: float):
     pir = PIRSensorScreensaver(
         GPIO_mode=GPIO_mode,
-        GPIO_sensor=GPIO_sensor,
+        GPIO_pinout=GPIO_pinout,
         loop_sleep_sec=loop_sleep_sec,
         screensaver_after_sec=screensaver_after_sec
     )
