@@ -22,6 +22,251 @@ assemble the control box and button etc.
     1. ...
     2. ...
 
+## Set up Nvidia Jetson Xavier NX Dev Kit
+The Nvidia Jetson Xavier NX module (https://developer.nvidia.com/embedded/jetson-xavier-nx)
+is an embedded system-on-module developed by Nvidia for running computationally demanding tasks
+on edge.
+
+The Nvidia Jetson Xavier NX Development Kit 
+(https://www.nvidia.com/en-us/autonomous-machines/embedded-systems/jetson-xavier-nx/) is a single-board computer
+with an integrated Nvidia Jetson Xavier NX module. Similar to the Raspberry Pi, it has 40 GPIO pins that you can
+interact with.
+
+The development kit includes:
+* x1 Nvidia Jetson Xavier NX board
+* x1 19.0V/2.37A power adapter
+* x2 Power cables:
+    * Plug type I -> C5
+    * Plug type B -> C5
+* Quick start / Support guide
+
+![xavier_1](./tutorial_images/setup_computer/xavier_1.jpg)
+
+![xavier_2](./tutorial_images/setup_computer/xavier_2.jpg)
+
+### Install operating system
+As Raspberry Pi, Jetson Xavier is using a micro-SD card as its hard drive. As far as I know, there's only one supported
+OS image (Ubuntu) provided by Nvidia.
+
+To install the OS, you'll need to use a second computer. 
+
+Start of by downloading the OS image. 
+To do this, you need to sign up for a `NVIDIA Developer Program Membership`. It's free and quite useful as you'll get 
+access to the Nvidia Developer forum. When you've created the account, you can download the image here: 
+https://developer.nvidia.com/jetson-nx-developer-kit-sd-card-image
+
+After you've downloaded it, unzip it. 
+
+To flash the OS image to the micro-SD card, start of by inserting the micro-SD card into the second computer and list 
+the available disks. Find the disk name of the micro-SD card you just inserted. In my case, it's `/dev/disk2`:
+
+![xavier_4](./tutorial_images/setup_computer/xavier_4.svg)
+
+When you've found the name of the micro-SD card, un-mount it. Be careful, you definitely don't want to unmount any of 
+the other disks!
+
+![xavier_5](./tutorial_images/setup_computer/xavier_5.svg)
+
+Now, change your current directory to where you downloaded and un-zipped the image (usually ~/Downloads).
+
+![xavier_6](./tutorial_images/setup_computer/xavier_6.svg)
+
+To flash the micro-SD card with the OS image, run the command below. Replace `/dev/disk2` with the disk name of your 
+micro-SD card and replace `sd-blob.img` with the name of the un-zipped image you downloaded. I've sped up the 
+animation, flashing the card usually takes quite a long time (it took ~55 min @ ~4.6 MB/s for me).
+
+![xavier_7](./tutorial_images/setup_computer/xavier_7.svg)
+
+When you're done flashing the micro-SD card with the image, you're ready to boot up the Jetson! Remove the SD-card 
+from the second computer and insert it into the Jetson computer. The SD-slot is found under the Xavier NX Module.
+
+![xavier_8](./tutorial_images/setup_computer/xavier_8.jpg)
+
+There's no power button, it will boot when you plug in the power cable. After booting and filling in the initial 
+system configuration, you should see the Ubuntu desktop.
+
+![xavier_9](./tutorial_images/setup_computer/xavier_9.gif)
+
+If you get stuck during boot-up with an output as below, try to reboot the machine.
+```bash
+[ *** ] (1 of 2) A start job is running for End-user configuration after initial OEM installation...
+```
+
+Full instruction from Nvidia can be found here: 
+https://developer.nvidia.com/embedded/learn/get-started-jetson-xavier-nx-devkit
+
+### Install base dependencies
+Before we clone the repository and install the project dependencies, we need to install some base 
+dependencies. These are good to install regardless if you're setting up an AI-installation or will
+do something else with the Xavier NX Dev Kit.
+
+#### Update and upgrade apt-get
+```
+sudo apt-get update
+sudo apt-get upgrade
+```
+
+If asked to choose between `gdm3` and `lightdm`, choose `gdm3`.
+
+Lets reboot the system before we continue:
+```bash
+sudo reboot
+```
+
+#### Install pip
+```bash
+sudo apt install python3-pip
+```
+
+#### Install, create and activate virtual environment
+Install virtual environment:
+```bash
+sudo apt install -y python3-venv
+```
+
+Create a virtual environment called `aiart`:
+```bash
+python3 -m venv ~/venvs/aiart
+```
+
+Activate virtual environment:
+```bash
+source ~/venvs/aiart/bin/activate
+```
+
+#### Install python wheel
+```bash
+pip3 install wheel
+```
+
+#### GPIO access
+Jetson.GPIO is a Python package that works in the same way as RPi.GPIO, but for the Jetson
+family of computers. It enables us to, through Python code, interact with the GPIO pinouts
+on the Xavier.
+
+First, install the Jetson.GPIO package into your virtual environment:
+```bash
+pip3 install Jetson.GPIO
+```
+
+Then, we need to set up user permissions to be able to access the GPIOs. Create new GPIO user group (remember to change 
+`your_user_name`):
+```bash
+sudo groupadd -f -r gpio
+sudo usermod -a -G gpio your_user_name
+```
+
+Copy custom GPIO rules (remember to change `pythonNN` with your Python version):
+```bash
+sudo cp venvs/aiart/lib/pythonNN/site-packages/Jetson/GPIO/99-gpio.rules /etc/udev/rules.d/
+```
+
+#### Install Jetson stats (optional)
+[Jetson stats](https://github.com/rbonghi/jetson_stats) is a really nice open-source package to monitor and control the 
+Jetson. It enables you to track CPU/GPU usage, check temperatures etc.
+
+To install Jetson stats:
+```bash
+sudo -H pip install -U jetson-stats
+```
+
+You need to reboot the machine before you can use it.
+
+TODO: ADD SVG ANIMATION
+
+### Set up art kiosk
+The program running the art kiosk is writting in `Python`. The program is running as 4 different
+processes (`Kiosk`, `ArtButton`, `PIRSensorScreensaver` and `GANEventHandler`), seen in the diagram below.
+
+![screen_saver_installation_1](./tutorial_images/install_art_kiosk/art_kiosk_diagram.png)
+
+The `Kiosk` process handles all the GUI, toggling (<F11>) and ending (<Escape>) fullscreen, listens to change
+of active artwork to be displayed etc.
+
+The `ArtButton` process listens to a GPIO pinout (defined in config.yaml) connected to a button (see how to solder and
+connect the button under #.....). When triggered, it replaces the active artwork (active_artwork.jpg) with a random 
+image sampled from the image directory (defined in config.yaml, default `/images`).
+
+The `PIRSensorScreensaver` process listens to a GPIO pinout (defined in config.yaml) connected to a PIR sensor (see how 
+to solder and connect the PIR sensor under #.....). When no motion has triggered the PIR sensor within a predefined 
+threshold (defined in config.yaml), the computer's screensaver is activated. When motion is detected, it is deactivated.
+
+
+The `GANEventHandler` process is listening to deleted items in the image directory. When an image is deleted (replacing
+the active artwork), the process checks how many images that are left in the image directory. If the number of images 
+are below a predefined threshold (defined in config.yaml), a new process is spawned, generating new images using the GAN
+network.
+
+#### Clone this repository
+```bash
+git clone https://github.com/maxvfischer/Arthur.git
+```
+
+### Install dependencies
+```bash
+pip3 install -r requirements.txt
+```
+
+### Install xscreensaver
+To reduce the risk of burn-in when displaying static art on the screen, a PIR (passive infrared) sensor was integrated. 
+When no movement has been registered around the art installation, a screen saver is triggered.
+
+The default screen saver on Ubuntu is `gnome-screensaver`. It's not a screen saver in the traditional sense. Instead of showing moving images, it blanks the screen,
+basically shuts down the HDMI signals to the screen, enabling the screen to fall into low energy mode.
+
+The screen used in this project is a Samsung The Frame 32" (2020). When the screen is set to HDMI (1/2) and no HDMI signal is provided, it shows a static image telling the user that no HDMI signal is found. This is what happened when using `gnome-screensaver`. This is a unwanted behaviour in this set up, as we either wants the screen to go blank, or show some kind of a moving image, to reduce the risk of burn-in. We do not want to see a static screen telling us that no hdmi signal is found.
+
+To solve this problem, `xscreensaver` was installed instead. It's an alternative screen saver that allows for moving images. Also, it seems like `xscreensaver's`
+blank screen mode works differently than `gnome-screensaver`. When `xscreensaver's` blank screen is triggered, it doesn't seems to shut down the HDMI signal,
+but rather turn the screen black. This is the behaviour we want in this installation. 
+
+Follow these steps to uninstall `gnome-screensaver` and install `xscreensaver`:
+
+```bash
+sudo apt-get remove gnome-screensaver
+sudo apt-get install xscreensaver xscreensaver-data-extra xscreensaver-gl-extra
+```
+After uninstalling `gnome-screensaver` and installing `xscreensaver`, we need to add it to `Startup Applications` for it to start on boot:
+
+![screen_saver_installation_1](./tutorial_images/setup_computer/screen_saver_installation_1.png)
+
+![screen_saver_installation_2](./tutorial_images/setup_computer/screen_saver_installation_2.png)
+
+Full installation guide: https://askubuntu.com/questions/292995/configure-screensaver-in-ubuntu
+
+### Add AI-model checkpoint
+Copy the model checkpoint into `arthur/ml/checkpoint`:
+
+    ├── arthur
+         ├── ml
+             ├── StyleGAN.model-XXXXXXX.data-00000-of-00001
+             ├── StyleGAN.model-XXXXXXX.index
+             └── StyleGAN.model-XXXXXXX.meta
+
+### Add initial active artwork
+Add an initial active artwork image by copying an image here: `arthur/active_artwork.jpg`
+
+### Adjust config.yaml
+The config.yaml contains all the settings.
+
+```
+active_artwork_file_path: 'active_artwork.jpg'  # Path and name of active artwork
+
+aiartbutton:
+  GPIO_mode: 'BOARD'  # GPIO mode
+  GPIO_button: 15  # GPIO pinout used for the button
+  image_directory: 'images'  # Directory to copy new images from
+  button_sleep: 1.0  # Timeout in seconds after button has been pressed
+
+ml_model:
+  batch_size: 1  # Latent batch size used when generating images
+  img_size: 1024  # Size of generated image (img_size, img_size)
+  test_num: 20  # Number of images generated when model is triggered
+  checkpoint_directory: 'ml/checkpoint'  # Checkpoint directory
+  image_directory: 'images'  # Output directory of generated images
+  lower_limit_num_images: 200  # Trigger model if number of images in image_directory is below this value
+```
+
 ## Build the control box
 To get a nice looking installation with as few visible cables as possible, a control box 
 was built to encapsulate the Nvidia computer, power adapters, Samsung One Connect box etc.
@@ -270,83 +515,3 @@ To give a nice finish, all the edges were milled.
 ![milling_2](./tutorial_images/build_control_box/milling_2.jpg)
 
 ![milling_3](./tutorial_images/build_control_box/milling_3.jpg)
-
-## Set up Nvidia Jetson Xavier NX
-
-### Clone repository
-```bash
-git clone https://github.com/maxvfischer/Arthur.git
-```
-
-### Set up virtual environemnt
-Install `venv`:
-```bash
-sudo apt-get install python3-venv
-```
-
-Create environment:
-```bash
-python3 -m venv venv
-```
-
-Activate environment:
-```bash
-source venv/bin/activate
-```
-
-Install `wheel`:
-```bash
-sudo pip3 install wheel
-```
-
-### Install dependencies
-```bash
-pip3 install -r requirements.txt
-```
-
-### Set up user permission
-We need to set up user permissions to be able to access the GPIOs.
-
-Create new GPIO user group (remember to change `your_user_name`):
-```bash
-sudo groupadd -f -r gpio
-sudo usermod -a -G gpio your_user_name
-```
-
-Copy custom GPIO rules (remember to change `pythonNN`):
-```bash
-sudo cp venv/lib/pythonNN/site-packages/Jetson/GPIO/99-gpio.rules /etc/udev/rules.d/
-```
-
-### Add AI-model checkpoint
-Copy the model checkpoint into `arthur/ml/checkpoint`:
-
-    ├── arthur
-         ├── ml
-             ├── StyleGAN.model-XXXXXXX.data-00000-of-00001
-             ├── StyleGAN.model-XXXXXXX.index
-             └── StyleGAN.model-XXXXXXX.meta
-
-### Add initial active artwork
-Add an initial active artwork image by copying an image here: `arthur/active_artwork.jpg`
-
-### Adjust config.yaml
-The config.yaml contains all the settings.
-
-```
-active_artwork_file_path: 'active_artwork.jpg'  # Path and name of active artwork
-
-aiartbutton:
-  GPIO_mode: 'BOARD'  # GPIO mode
-  GPIO_button: 15  # GPIO pinout used for the button
-  image_directory: 'images'  # Directory to copy new images from
-  button_sleep: 1.0  # Timeout in seconds after button has been pressed
-
-ml_model:
-  batch_size: 1  # Latent batch size used when generating images
-  img_size: 1024  # Size of generated image (img_size, img_size)
-  test_num: 20  # Number of images generated when model is triggered
-  checkpoint_directory: 'ml/checkpoint'  # Checkpoint directory
-  image_directory: 'images'  # Output directory of generated images
-  lower_limit_num_images: 200  # Trigger model if number of images in image_directory is below this value
-```
