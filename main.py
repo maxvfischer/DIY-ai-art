@@ -2,18 +2,18 @@ import time
 import multiprocessing
 from kiosk.kiosk import Kiosk
 from kiosk.utils import read_yaml
-from kiosk.aiartbutton import AiArtButton
+from kiosk.artbutton import ArtButton
 from kiosk.pirsensorscreensaver import PIRSensorScreensaver
 from ml.StyleGAN import GANEventHandler
 import tensorflow as tf
 from watchdog.observers import Observer
 
-def start_aiartbutton(GPIO_mode: str,
-                      GPIO_button: int,
-                      active_artwork_file_path: str,
-                      image_directory: str,
-                      button_sleep: float):
-    button = AiArtButton(
+def start_artbutton(GPIO_mode: str,
+                    GPIO_button: int,
+                    active_artwork_file_path: str,
+                    image_directory: str,
+                    button_sleep: float):
+    button = ArtButton(
         GPIO_mode=GPIO_mode,
         GPIO_button=GPIO_button,
         active_artwork_file_path=active_artwork_file_path,
@@ -72,13 +72,13 @@ if __name__ == '__main__':
     config = read_yaml('config.yaml')
 
     p_button = multiprocessing.Process(
-        target=start_aiartbutton,
+        target=start_artbutton,
         args=(
-            config['aiartbutton']['GPIO_mode'],
-            config['aiartbutton']['GPIO_pinout'],
+            config['artbutton']['GPIO_mode'],
+            config['artbutton']['GPIO_pinout'],
             config['active_artwork_file_path'],
-            config['aiartbutton']['image_directory'],
-            config['aiartbutton']['button_sleep']
+            config['artbutton']['image_directory'],
+            config['artbutton']['button_sleep']
         )
     )
 
@@ -94,10 +94,10 @@ if __name__ == '__main__':
     p_pir = multiprocessing.Process(
         target=start_pir,
         args=(
-            config['pir_sensor']['GPIO_mode'],
-            config['pir_sensor']['GPIO_pinout'],
-            config['pir_sensor']['loop_sleep_sec'],
-            config['pir_sensor']['screensaver_after_sec'],
+            config['pirsensor']['GPIO_mode'],
+            config['pirsensor']['GPIO_pinout'],
+            config['pirsensor']['loop_sleep_sec'],
+            config['pirsensor']['screensaver_after_sec'],
         )
     )
 

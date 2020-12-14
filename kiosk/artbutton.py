@@ -7,7 +7,7 @@ import Jetson.GPIO as GPIO
 from kiosk.utils import GPIO_MODES
 
 
-class AiArtButton():
+class ArtButton():
     """
     Listens to GPIO connected button. When clicked, the currently active artwork displayed in the Kiosk is
     replaced with a randomly sampled image from the image directory. The sampled image is removed from the

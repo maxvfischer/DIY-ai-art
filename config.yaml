@@ -5,13 +5,13 @@ kiosk:
   inner_width: 1710
   inner_height: 870
 
-pir_sensor:
+pirsensor:
   GPIO_mode: 'BOARD'
   GPIO_pinout: 31
   loop_sleep_sec: 0.1
   screensaver_after_sec: 10
 
-aiartbutton:
+artbutton:
   GPIO_mode: 'BOARD'
   GPIO_pinout: 15
   image_directory: 'images'
