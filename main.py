@@ -77,7 +77,7 @@ if __name__ == '__main__':
             config['artbutton']['GPIO_mode'],
             config['artbutton']['GPIO_pinout'],
             config['active_artwork_file_path'],
-            config['artbutton']['image_directory'],
+            config['image_directory'],
             config['artbutton']['button_sleep']
         )
     )
@@ -108,7 +108,7 @@ if __name__ == '__main__':
             config['ml_model']['img_size'],
             config['ml_model']['test_num'],
             config['ml_model']['checkpoint_directory'],
-            config['ml_model']['image_directory'],
+            config['image_directory'],
             config['ml_model']['lower_limit_num_images']
         )
     )
