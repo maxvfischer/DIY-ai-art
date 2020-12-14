@@ -95,30 +95,111 @@ If you get stuck during boot-up with an output as below, try to reboot the machi
 Full instruction from Nvidia can be found here: 
 https://developer.nvidia.com/embedded/learn/get-started-jetson-xavier-nx-devkit
 
-### Clone repository
+### Install base dependencies
+Before we clone the repository and install the project dependencies, we need to install some base 
+dependencies. These are good to install regardless if you're setting up an AI-installation or will
+do something else with the Xavier NX Dev Kit.
+
+#### Update and upgrade apt-get
+```
+sudo apt-get update
+sudo apt-get upgrade
+```
+
+If asked to choose between `gdm3` and `lightdm`, choose `gdm3`.
+
+Lets reboot the system before we continue:
+```bash
+sudo reboot
+```
+
+#### Install pip
+```bash
+sudo apt install python3-pip
+```
+
+#### Install, create and activate virtual environment
+Install virtual environment:
+```bash
+sudo apt install -y python3-venv
+```
+
+Create a virtual environment called `aiart`:
+```bash
+python3 -m venv ~/venvs/aiart
+```
+
+Activate virtual environment:
+```bash
+source ~/venvs/aiart/bin/activate
+```
+
+#### Install python wheel
+```bash
+pip3 install wheel
+```
+
+#### GPIO access
+Jetson.GPIO is a Python package that works in the same way as RPi.GPIO, but for the Jetson
+family of computers. It enables us to, through Python code, interact with the GPIO pinouts
+on the Xavier.
+
+First, install the Jetson.GPIO package into your virtual environment:
+```bash
+pip3 install Jetson.GPIO
+```
+
+Then, we need to set up user permissions to be able to access the GPIOs. Create new GPIO user group (remember to change 
+`your_user_name`):
+
+```bash
+sudo groupadd -f -r gpio
+sudo usermod -a -G gpio your_user_name
+```
+
+Copy custom GPIO rules (remember to change `pythonNN` with your Python version):
+```bash
+sudo cp venvs/aiart/lib/pythonNN/site-packages/Jetson/GPIO/99-gpio.rules /etc/udev/rules.d/
+```
+
+#### Install Jetson stats (optional)
+[Jetson stats](https://github.com/rbonghi/jetson_stats) is a really nice open-source package to monitor and control the 
+Jetson. It enables you to track CPU/GPU usage, check temperatures etc.
+
+To install Jetson stats:
+```bash
+sudo -H pip install -U jetson-stats
+```
+
+You need to reboot the machine before you can use it.
+
+TODO: ADD SVG ANIMATION
+
+### Set up art kiosk
+The program running the art kiosk is writting in `Python`. The program is running as 4 different
+processes (`Kiosk`, `ArtButton`, `PIRSensorScreensaver` and `GANEventHandler`), seen in the diagram below.
+
+![screen_saver_installation_1](./tutorial_images/install_art_kiosk/art_kiosk_diagram.png)
+
+The `Kiosk` process handles all the GUI, toggling (<F11>) and ending (<Escape>) fullscreen, listens to change
+of active artwork to be displayed etc.
+
+The `ArtButton` process listens to a GPIO pinout (defined in config.yaml) connected to a button (see how to solder and
+connect the button under #.....). When triggered, it replaces the active artwork (active_artwork.jpg) with a random 
+image sampled from the image directory (defined in config.yaml, default `/images`).
+
+The `PIRSensorScreensaver` process listens to a GPIO pinout (defined in config.yaml) connected to a PIR sensor (see how 
+to solder and connect the PIR sensor under #.....). When no motion has triggered the PIR sensor within a predefined 
+threshold (defined in config.yaml), the computer's screensaver is activated. When motion is detected, it is deactivated.
+
+The `GANEventHandler` process is listening to deleted items in the image directory. When an image is deleted (replacing
+the active artwork), the process checks how many images that are left in the image directory. If the number of images 
+are below a predefined threshold (defined in config.yaml), a new process is spawned, generating new images using the GAN
+network.
+
+#### Clone this repository
 ```bash
 git clone https://github.com/maxvfischer/Arthur.git
-```
-
-### Set up virtual environemnt
-Install `venv`:
-```bash
-sudo apt-get install python3-venv
-```
-
-Create environment:
-```bash
-python3 -m venv venv
-```
-
-Activate environment:
-```bash
-source venv/bin/activate
-```
-
-Install `wheel`:
-```bash
-sudo pip3 install wheel
 ```
 
 ### Install dependencies
@@ -126,23 +207,9 @@ sudo pip3 install wheel
 pip3 install -r requirements.txt
 ```
 
-### Set up user permission
-We need to set up user permissions to be able to access the GPIOs.
-
-Create new GPIO user group (remember to change `your_user_name`):
-```bash
-sudo groupadd -f -r gpio
-sudo usermod -a -G gpio your_user_name
-```
-
-Copy custom GPIO rules (remember to change `pythonNN`):
-```bash
-sudo cp venv/lib/pythonNN/site-packages/Jetson/GPIO/99-gpio.rules /etc/udev/rules.d/
-```
-
 ### Install xscreensaver
-To reduce the risk of burn-in when displaying static art on the screen, a PIR (passive infrared) sensor was integrated. When no movement has been registered around 
-the art installation, a screen saver is triggered.
+To reduce the risk of burn-in when displaying static art on the screen, a PIR (passive infrared) sensor was integrated. 
+When no movement has been registered around the art installation, a screen saver is triggered.
 
 The default screen saver on Ubuntu is `gnome-screensaver`. It's not a screen saver in the traditional sense. Instead of showing moving images, it blanks the screen,
 basically shuts down the HDMI signals to the screen, enabling the screen to fall into low energy mode.
