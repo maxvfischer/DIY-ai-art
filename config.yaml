@@ -1,7 +1,7 @@
 active_artwork_file_path: 'active_artwork.jpg'
 
 kiosk:
-  path: 'frame_gray.png'
+  path: 'frame.png'
   inner_width: 1710
   inner_height: 870
 
