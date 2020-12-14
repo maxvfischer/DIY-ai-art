@@ -1,5 +1,3 @@
-import cv2
-import sys
 import time
 import PIL.Image
 import PIL.ImageTk
@@ -8,6 +6,7 @@ from watchdog.observers import Observer
 from watchdog.events import FileSystemEventHandler, FileModifiedEvent
 from tkinter import *
 from typing import Optional, Tuple
+
 
 
 class Kiosk:
@@ -43,7 +42,7 @@ class Kiosk:
         self.frame_path = frame_path
         self.frame_inner_size = frame_inner_size
         self.image_last_modified = datetime.now()
-        
+
         self._start_image_event_handler()
 
     def _start_image_event_handler(self) -> None:
@@ -94,10 +93,9 @@ class Kiosk:
         ------
         None
         """
-        if self._image_to_recently_modified():
+        if self._image_too_recently_modified():
             return
         time.sleep(0.1)
-        img_path = event.src_path
         img = self._read_image(
             img_path=self.active_artwork_path,
             frame_path=self.frame_path,
@@ -175,26 +173,8 @@ class Kiosk:
                 frame_path=frame_path,
                 frame_inner_size=frame_inner_size
             )
-
-        img = self._convert_PIL_to_TK(img)
+        img = PIL.ImageTk.PhotoImage(img)
         return img
-
-    @staticmethod
-    def _convert_PIL_to_TK(img: PIL.Image) -> PIL.ImageTk:
-        """
-        Convert PIL.Image to PIL.ImageTk.PhotoImage.
-
-        Parameters
-        ----------
-        img : PIL.Image
-            Image to convert.
-
-        Returns
-        -------
-        PIL.ImageTk
-            Converted image.
-        """
-        return PIL.ImageTk.PhotoImage(img)
 
     def _setup_image_on_start(self) -> None:
         """Initially setting up and displaying the active artwork image."""
@@ -210,4 +190,4 @@ class Kiosk:
     def start(self) -> None:
         """Start GUI"""
         self._setup_image_on_start()
-
+        self.tk.mainloop()        

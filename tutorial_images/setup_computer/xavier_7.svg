@@ -1,0 +1,109 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" id="terminal" baseProfile="full" viewBox="0 0 703 251" width="703" version="1.1">
+    <defs>
+        <termtosvg:template_settings xmlns:termtosvg="https://github.com/nbedos/termtosvg">
+            <termtosvg:screen_geometry columns="82" rows="10"/>
+            <termtosvg:animation type="css"/>
+        </termtosvg:template_settings>
+        <style type="text/css" id="generated-style"><![CDATA[#screen {
+                font-family: 'DejaVu Sans Mono', monospace;
+                font-style: normal;
+                font-size: 14px;
+            }
+
+        text {
+            dominant-baseline: text-before-edge;
+            white-space: pre;
+        }
+    
+            :root {
+                --animation-duration: 31000ms;
+            }
+
+            @keyframes roll {
+                0.000%{transform:translateY(0px)}
+1.613%{transform:translateY(-204px)}
+2.419%{transform:translateY(-408px)}
+3.226%{transform:translateY(-612px)}
+4.032%{transform:translateY(-816px)}
+4.839%{transform:translateY(-1020px)}
+5.645%{transform:translateY(-1224px)}
+6.452%{transform:translateY(-1428px)}
+7.258%{transform:translateY(-1632px)}
+8.065%{transform:translateY(-1836px)}
+8.871%{transform:translateY(-2040px)}
+9.677%{transform:translateY(-2244px)}
+10.484%{transform:translateY(-2448px)}
+11.290%{transform:translateY(-2652px)}
+12.097%{transform:translateY(-2856px)}
+15.261%{transform:translateY(-3060px)}
+15.323%{transform:translateY(-3264px)}
+16.129%{transform:translateY(-3468px)}
+16.935%{transform:translateY(-3672px)}
+17.742%{transform:translateY(-3876px)}
+18.548%{transform:translateY(-4080px)}
+19.355%{transform:translateY(-4284px)}
+20.161%{transform:translateY(-4488px)}
+20.968%{transform:translateY(-4692px)}
+21.774%{transform:translateY(-4896px)}
+22.581%{transform:translateY(-5100px)}
+23.387%{transform:translateY(-5304px)}
+24.194%{transform:translateY(-5508px)}
+25.000%{transform:translateY(-5712px)}
+25.806%{transform:translateY(-5916px)}
+26.613%{transform:translateY(-6120px)}
+27.419%{transform:translateY(-6324px)}
+28.226%{transform:translateY(-6528px)}
+29.032%{transform:translateY(-6732px)}
+29.839%{transform:translateY(-6936px)}
+30.645%{transform:translateY(-7140px)}
+31.452%{transform:translateY(-7344px)}
+32.258%{transform:translateY(-7548px)}
+33.065%{transform:translateY(-7752px)}
+33.871%{transform:translateY(-7956px)}
+34.677%{transform:translateY(-8160px)}
+35.484%{transform:translateY(-8364px)}
+45.161%{transform:translateY(-8568px)}
+51.613%{transform:translateY(-8772px)}
+51.645%{transform:translateY(-8976px)}
+96.774%{transform:translateY(-9180px)}
+100.000%{transform:translateY(-9180px)}
+            }
+
+            #screen_view {
+                animation-duration: 31000ms;
+                animation-iteration-count:infinite;
+                animation-name:roll;
+                animation-timing-function: steps(1,end);
+                animation-fill-mode: forwards;
+            }
+        ]]></style>
+        <style type="text/css" id="user-style">
+            /* The colors defined below are the default 16 colors used for rendering text of the terminal. Adjust
+               them as needed.
+               gjm8 color theme (source: https://terminal.sexy/) */
+            .foreground {fill: #f8f8f2}
+            .background {fill: #272822}
+            .color0 {fill: #272822}
+            .color1 {fill: #f92672}
+            .color2 {fill: #a6e22e}
+            .color3 {fill: #f4bf75}
+            .color4 {fill: #66d9ef}
+            .color5 {fill: #ae81ff}
+            .color6 {fill: #a1efe4}
+            .color7 {fill: #f8f8f2}
+            .color8 {fill: #75715e}
+            .color9 {fill: #fd971f}
+            .color10 {fill: #383830}
+            .color11 {fill: #49483e}
+            .color12 {fill: #a59f85}
+            .color13 {fill: #f5f4f1}
+            .color14 {fill: #cc6633}
+            .color15 {fill: #f9f8f5}
+        </style>
+    </defs>
+    <rect id="terminalui" class="background" width="100%" height="100%" ry="4.5826941"/>
+    <circle cx="24" cy="23" r="7" class="color1"/>
+    <circle cx="44" cy="23" r="7" class="color3"/>
+    <circle cx="64" cy="23" r="7" class="color2"/>
+    <svg id="screen" width="656" height="170" x="23" y="50" viewBox="0 0 656 170" preserveAspectRatio="xMidYMin slice"><rect class="background" height="100%" width="100%" x="0" y="0"/><defs><g id="g1"><text class="foreground" textLength="80" x="0">bash-3.2$ </text><text class="background" textLength="8" x="80"> </text></g><g id="g2"><text class="foreground" textLength="88" x="0">bash-3.2$ s</text><text class="background" textLength="8" x="88"> </text></g><g id="g3"><text class="foreground" textLength="96" x="0">bash-3.2$ su</text><text class="background" textLength="8" x="96"> </text></g><g id="g4"><text class="foreground" textLength="104" x="0">bash-3.2$ sud</text><text class="background" textLength="8" x="104"> </text></g><g id="g5"><text class="foreground" textLength="112" x="0">bash-3.2$ sudo</text><text class="background" textLength="8" x="112"> </text></g><g id="g6"><text class="foreground" textLength="120" x="0">bash-3.2$ sudo </text><text class="background" textLength="8" x="120"> </text></g><g id="g7"><text class="foreground" textLength="128" x="0">bash-3.2$ sudo d</text><text class="background" textLength="8" x="128"> </text></g><g id="g8"><text class="foreground" textLength="136" x="0">bash-3.2$ sudo dd</text><text class="background" textLength="8" x="136"> </text></g><g id="g9"><text class="foreground" textLength="144" x="0">bash-3.2$ sudo dd </text><text class="background" textLength="8" x="144"> </text></g><g id="g10"><text class="foreground" textLength="152" x="0">bash-3.2$ sudo dd b</text><text class="background" textLength="8" x="152"> </text></g><g id="g11"><text class="foreground" textLength="160" x="0">bash-3.2$ sudo dd bs</text><text class="background" textLength="8" x="160"> </text></g><g id="g12"><text class="foreground" textLength="168" x="0">bash-3.2$ sudo dd bs=</text><text class="background" textLength="8" x="168"> </text></g><g id="g13"><text class="foreground" textLength="176" x="0">bash-3.2$ sudo dd bs=1</text><text class="background" textLength="8" x="176"> </text></g><g id="g14"><text class="foreground" textLength="184" x="0">bash-3.2$ sudo dd bs=1m</text><text class="background" textLength="8" x="184"> </text></g><g id="g15"><text class="foreground" textLength="192" x="0">bash-3.2$ sudo dd bs=1m </text><text class="background" textLength="8" x="192"> </text></g><g id="g16"><text class="foreground" textLength="224" x="0">bash-3.2$ sudo dd bs=1m of=/</text><text class="background" textLength="8" x="224"> </text></g><g id="g17"><text class="foreground" textLength="232" x="0">bash-3.2$ sudo dd bs=1m of=/d</text><text class="background" textLength="8" x="232"> </text></g><g id="g18"><text class="foreground" textLength="240" x="0">bash-3.2$ sudo dd bs=1m of=/de</text><text class="background" textLength="8" x="240"> </text></g><g id="g19"><text class="foreground" textLength="248" x="0">bash-3.2$ sudo dd bs=1m of=/dev</text><text class="background" textLength="8" x="248"> </text></g><g id="g20"><text class="foreground" textLength="256" x="0">bash-3.2$ sudo dd bs=1m of=/dev/</text><text class="background" textLength="8" x="256"> </text></g><g id="g21"><text class="foreground" textLength="264" x="0">bash-3.2$ sudo dd bs=1m of=/dev/d</text><text class="background" textLength="8" x="264"> </text></g><g id="g22"><text class="foreground" textLength="272" x="0">bash-3.2$ sudo dd bs=1m of=/dev/di</text><text class="background" textLength="8" x="272"> </text></g><g id="g23"><text class="foreground" textLength="280" x="0">bash-3.2$ sudo dd bs=1m of=/dev/dis</text><text class="background" textLength="8" x="280"> </text></g><g id="g24"><text class="foreground" textLength="288" x="0">bash-3.2$ sudo dd bs=1m of=/dev/disk</text><text class="background" textLength="8" x="288"> </text></g><g id="g25"><text class="foreground" textLength="296" x="0">bash-3.2$ sudo dd bs=1m of=/dev/disk2</text><text class="background" textLength="8" x="296"> </text></g><g id="g26"><text class="foreground" textLength="304" x="0">bash-3.2$ sudo dd bs=1m of=/dev/disk2 </text><text class="background" textLength="8" x="304"> </text></g><g id="g27"><text class="foreground" textLength="312" x="0">bash-3.2$ sudo dd bs=1m of=/dev/disk2 i</text><text class="background" textLength="8" x="312"> </text></g><g id="g28"><text class="foreground" textLength="320" x="0">bash-3.2$ sudo dd bs=1m of=/dev/disk2 if</text><text class="background" textLength="8" x="320"> </text></g><g id="g29"><text class="foreground" textLength="328" x="0">bash-3.2$ sudo dd bs=1m of=/dev/disk2 if=</text><text class="background" textLength="8" x="328"> </text></g><g id="g30"><text class="foreground" textLength="336" x="0">bash-3.2$ sudo dd bs=1m of=/dev/disk2 if=s</text><text class="background" textLength="8" x="336"> </text></g><g id="g31"><text class="foreground" textLength="344" x="0">bash-3.2$ sudo dd bs=1m of=/dev/disk2 if=sd</text><text class="background" textLength="8" x="344"> </text></g><g id="g32"><text class="foreground" textLength="352" x="0">bash-3.2$ sudo dd bs=1m of=/dev/disk2 if=sd-</text><text class="background" textLength="8" x="352"> </text></g><g id="g33"><text class="foreground" textLength="360" x="0">bash-3.2$ sudo dd bs=1m of=/dev/disk2 if=sd-b</text><text class="background" textLength="8" x="360"> </text></g><g id="g34"><text class="foreground" textLength="368" x="0">bash-3.2$ sudo dd bs=1m of=/dev/disk2 if=sd-bl</text><text class="background" textLength="8" x="368"> </text></g><g id="g35"><text class="foreground" textLength="376" x="0">bash-3.2$ sudo dd bs=1m of=/dev/disk2 if=sd-blo</text><text class="background" textLength="8" x="376"> </text></g><g id="g36"><text class="foreground" textLength="384" x="0">bash-3.2$ sudo dd bs=1m of=/dev/disk2 if=sd-blob</text><text class="background" textLength="8" x="384"> </text></g><g id="g37"><text class="foreground" textLength="392" x="0">bash-3.2$ sudo dd bs=1m of=/dev/disk2 if=sd-blob.</text><text class="background" textLength="8" x="392"> </text></g><g id="g38"><text class="foreground" textLength="400" x="0">bash-3.2$ sudo dd bs=1m of=/dev/disk2 if=sd-blob.i</text><text class="background" textLength="8" x="400"> </text></g><g id="g39"><text class="foreground" textLength="408" x="0">bash-3.2$ sudo dd bs=1m of=/dev/disk2 if=sd-blob.im</text><text class="background" textLength="8" x="408"> </text></g><g id="g40"><text class="foreground" textLength="416" x="0">bash-3.2$ sudo dd bs=1m of=/dev/disk2 if=sd-blob.img</text><text class="background" textLength="8" x="416"> </text></g><g id="g41"><text class="foreground" textLength="416" x="0">bash-3.2$ sudo dd bs=1m of=/dev/disk2 if=sd-blob.img</text></g><g id="g42"><text class="background" textLength="8" x="0"> </text></g><g id="g43"><text class="foreground" textLength="72" x="0">Password:</text><text class="background" textLength="8" x="72"> </text></g><g id="g44"><text class="foreground" textLength="72" x="0">Password:</text></g><g id="g45"><text class="foreground" textLength="120" x="0">XX+0 records in</text></g><g id="g46"><text class="foreground" textLength="128" x="0">XX+0 records out</text></g><g id="g47"><text class="foreground" textLength="528" x="0">XXXXXXXXX bytes transferred in X.XXXXXXXX secs (XXXXXXX bytes/sec)</text></g></defs><g id="screen_view"><g><rect class="foreground" height="17" width="8" x="80" y="0"/><use y="0" xlink:href="#g1"/></g><g><rect class="foreground" height="17" width="8" x="88" y="204"/><use y="204" xlink:href="#g2"/></g><g><rect class="foreground" height="17" width="8" x="96" y="408"/><use y="408" xlink:href="#g3"/></g><g><rect class="foreground" height="17" width="8" x="104" y="612"/><use y="612" xlink:href="#g4"/></g><g><rect class="foreground" height="17" width="8" x="112" y="816"/><use y="816" xlink:href="#g5"/></g><g><rect class="foreground" height="17" width="8" x="120" y="1020"/><use y="1020" xlink:href="#g6"/></g><g><rect class="foreground" height="17" width="8" x="128" y="1224"/><use y="1224" xlink:href="#g7"/></g><g><rect class="foreground" height="17" width="8" x="136" y="1428"/><use y="1428" xlink:href="#g8"/></g><g><rect class="foreground" height="17" width="8" x="144" y="1632"/><use y="1632" xlink:href="#g9"/></g><g><rect class="foreground" height="17" width="8" x="152" y="1836"/><use y="1836" xlink:href="#g10"/></g><g><rect class="foreground" height="17" width="8" x="160" y="2040"/><use y="2040" xlink:href="#g11"/></g><g><rect class="foreground" height="17" width="8" x="168" y="2244"/><use y="2244" xlink:href="#g12"/></g><g><rect class="foreground" height="17" width="8" x="176" y="2448"/><use y="2448" xlink:href="#g13"/></g><g><rect class="foreground" height="17" width="8" x="184" y="2652"/><use y="2652" xlink:href="#g14"/></g><g><rect class="foreground" height="17" width="8" x="192" y="2856"/><use y="2856" xlink:href="#g15"/></g><g><rect class="foreground" height="17" width="8" x="224" y="3060"/><use y="3060" xlink:href="#g16"/></g><g><rect class="foreground" height="17" width="8" x="232" y="3264"/><use y="3264" xlink:href="#g17"/></g><g><rect class="foreground" height="17" width="8" x="240" y="3468"/><use y="3468" xlink:href="#g18"/></g><g><rect class="foreground" height="17" width="8" x="248" y="3672"/><use y="3672" xlink:href="#g19"/></g><g><rect class="foreground" height="17" width="8" x="256" y="3876"/><use y="3876" xlink:href="#g20"/></g><g><rect class="foreground" height="17" width="8" x="264" y="4080"/><use y="4080" xlink:href="#g21"/></g><g><rect class="foreground" height="17" width="8" x="272" y="4284"/><use y="4284" xlink:href="#g22"/></g><g><rect class="foreground" height="17" width="8" x="280" y="4488"/><use y="4488" xlink:href="#g23"/></g><g><rect class="foreground" height="17" width="8" x="288" y="4692"/><use y="4692" xlink:href="#g24"/></g><g><rect class="foreground" height="17" width="8" x="296" y="4896"/><use y="4896" xlink:href="#g25"/></g><g><rect class="foreground" height="17" width="8" x="304" y="5100"/><use y="5100" xlink:href="#g26"/></g><g><rect class="foreground" height="17" width="8" x="312" y="5304"/><use y="5304" xlink:href="#g27"/></g><g><rect class="foreground" height="17" width="8" x="320" y="5508"/><use y="5508" xlink:href="#g28"/></g><g><rect class="foreground" height="17" width="8" x="328" y="5712"/><use y="5712" xlink:href="#g29"/></g><g><rect class="foreground" height="17" width="8" x="336" y="5916"/><use y="5916" xlink:href="#g30"/></g><g><rect class="foreground" height="17" width="8" x="344" y="6120"/><use y="6120" xlink:href="#g31"/></g><g><rect class="foreground" height="17" width="8" x="352" y="6324"/><use y="6324" xlink:href="#g32"/></g><g><rect class="foreground" height="17" width="8" x="360" y="6528"/><use y="6528" xlink:href="#g33"/></g><g><rect class="foreground" height="17" width="8" x="368" y="6732"/><use y="6732" xlink:href="#g34"/></g><g><rect class="foreground" height="17" width="8" x="376" y="6936"/><use y="6936" xlink:href="#g35"/></g><g><rect class="foreground" height="17" width="8" x="384" y="7140"/><use y="7140" xlink:href="#g36"/></g><g><rect class="foreground" height="17" width="8" x="392" y="7344"/><use y="7344" xlink:href="#g37"/></g><g><rect class="foreground" height="17" width="8" x="400" y="7548"/><use y="7548" xlink:href="#g38"/></g><g><rect class="foreground" height="17" width="8" x="408" y="7752"/><use y="7752" xlink:href="#g39"/></g><g><rect class="foreground" height="17" width="8" x="416" y="7956"/><use y="7956" xlink:href="#g40"/></g><g><use y="8160" xlink:href="#g41"/><rect class="foreground" height="17" width="8" x="0" y="8177"/><use y="8177" xlink:href="#g42"/></g><g><use y="8364" xlink:href="#g41"/><rect class="foreground" height="17" width="8" x="72" y="8381"/><use y="8381" xlink:href="#g43"/></g><g><use y="8568" xlink:href="#g41"/><use y="8585" xlink:href="#g44"/><rect class="foreground" height="17" width="8" x="0" y="8602"/><use y="8602" xlink:href="#g42"/></g><g><use y="8772" xlink:href="#g41"/><use y="8789" xlink:href="#g44"/><use y="8806" xlink:href="#g45"/><use y="8823" xlink:href="#g46"/><use y="8840" xlink:href="#g47"/><rect class="foreground" height="17" width="8" x="0" y="8857"/><use y="8857" xlink:href="#g42"/></g><g><use y="8976" xlink:href="#g41"/><use y="8993" xlink:href="#g44"/><use y="9010" xlink:href="#g45"/><use y="9027" xlink:href="#g46"/><use y="9044" xlink:href="#g47"/><rect class="foreground" height="17" width="8" x="80" y="9061"/><use y="9061" xlink:href="#g1"/></g><g><use y="9180" xlink:href="#g41"/><use y="9197" xlink:href="#g44"/><use y="9214" xlink:href="#g45"/><use y="9231" xlink:href="#g46"/><use y="9248" xlink:href="#g47"/><rect class="foreground" height="17" width="8" x="80" y="9265"/><use y="9265" xlink:href="#g1"/></g></g></svg>
+</svg>

@@ -151,6 +151,7 @@ pip3 install Jetson.GPIO
 
 Then, we need to set up user permissions to be able to access the GPIOs. Create new GPIO user group (remember to change 
 `your_user_name`):
+
 ```bash
 sudo groupadd -f -r gpio
 sudo usermod -a -G gpio your_user_name
@@ -190,7 +191,6 @@ image sampled from the image directory (defined in config.yaml, default `/images
 The `PIRSensorScreensaver` process listens to a GPIO pinout (defined in config.yaml) connected to a PIR sensor (see how 
 to solder and connect the PIR sensor under #.....). When no motion has triggered the PIR sensor within a predefined 
 threshold (defined in config.yaml), the computer's screensaver is activated. When motion is detected, it is deactivated.
-
 
 The `GANEventHandler` process is listening to deleted items in the image directory. When an image is deleted (replacing
 the active artwork), the process checks how many images that are left in the image directory. If the number of images 

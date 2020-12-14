@@ -2,22 +2,23 @@ import time
 import multiprocessing
 from kiosk.kiosk import Kiosk
 from kiosk.utils import read_yaml
-from kiosk.aiartbutton import AiArtButton
+from kiosk.artbutton import ArtButton
+from kiosk.pirsensorscreensaver import PIRSensorScreensaver
 from ml.StyleGAN import GANEventHandler
 import tensorflow as tf
 from watchdog.observers import Observer
 
-def start_aiartbutton(GPIO_mode: str,
-                      GPIO_button: int,
-                      active_artwork_file_path: str,
-                      image_directory: str,
-                      button_sleep: float):
-    button = AiArtButton(
+def start_artbutton(GPIO_mode: str,
+                    GPIO_pinout: int,
+                    active_artwork_file_path: str,
+                    image_directory: str,
+                    loop_sleep_sec: float):
+    button = ArtButton(
         GPIO_mode=GPIO_mode,
-        GPIO_button=GPIO_button,
+        GPIO_pinout=GPIO_pinout,
         active_artwork_file_path=active_artwork_file_path,
         image_directory=image_directory,
-        button_sleep=button_sleep
+        loop_sleep_sec=loop_sleep_sec
     )
     button.start()
     
@@ -30,7 +31,19 @@ def start_kiosk(active_artwork_file_path: str,
         frame_path=frame_path,
         frame_inner_size=frame_inner_size)
     kiosk.start()
-    kiosk.tk.mainloop()
+
+
+def start_pir(GPIO_mode: str,
+              GPIO_pinout: int,
+              loop_sleep_sec: float,
+              screensaver_after_sec: float):
+    pir = PIRSensorScreensaver(
+        GPIO_mode=GPIO_mode,
+        GPIO_pinout=GPIO_pinout,
+        loop_sleep_sec=loop_sleep_sec,
+        screensaver_after_sec=screensaver_after_sec
+    )
+    pir.start()
 
 
 def start_gan(batch_size: int,
@@ -59,21 +72,32 @@ if __name__ == '__main__':
     config = read_yaml('config.yaml')
 
     p_button = multiprocessing.Process(
-        target=start_aiartbutton,
+        target=start_artbutton,
         args=(
-            config['aiartbutton']['GPIO_mode'],
-            config['aiartbutton']['GPIO_button'],
+            config['artbutton']['GPIO_mode'],
+            config['artbutton']['GPIO_pinout'],
             config['active_artwork_file_path'],
-            config['aiartbutton']['image_directory'],
-            config['aiartbutton']['button_sleep']
+            config['image_directory'],
+            config['artbutton']['loop_sleep_sec']
         )
     )
+
     p_kiosk = multiprocessing.Process(
         target=start_kiosk,
         args=(
             config['active_artwork_file_path'],
-            config['frame']['path'],
-            (config['frame']['inner_width'], config['frame']['inner_height'])
+            config['kiosk']['path'],
+            (config['kiosk']['inner_width'], config['kiosk']['inner_height'])
+        )
+    )
+
+    p_pir = multiprocessing.Process(
+        target=start_pir,
+        args=(
+            config['pirsensor']['GPIO_mode'],
+            config['pirsensor']['GPIO_pinout'],
+            config['pirsensor']['loop_sleep_sec'],
+            config['pirsensor']['screensaver_after_sec'],
         )
     )
 
@@ -84,15 +108,17 @@ if __name__ == '__main__':
             config['ml_model']['img_size'],
             config['ml_model']['test_num'],
             config['ml_model']['checkpoint_directory'],
-            config['ml_model']['image_directory'],
+            config['image_directory'],
             config['ml_model']['lower_limit_num_images']
         )
     )
 
     p_button.start()
     p_kiosk.start()
+    p_pir.start()
     p_ml.start()
 
     p_button.join()
     p_kiosk.join()
+    p_pir.join()
     p_ml.join()
