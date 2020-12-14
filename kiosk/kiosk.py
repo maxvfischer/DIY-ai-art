@@ -1,7 +1,3 @@
-import os
-import cv2
-import sys
-import dbus
 import time
 import PIL.Image
 import PIL.ImageTk
