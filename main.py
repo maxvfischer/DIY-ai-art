@@ -75,7 +75,7 @@ if __name__ == '__main__':
         target=start_aiartbutton,
         args=(
             config['aiartbutton']['GPIO_mode'],
-            config['aiartbutton']['GPIO_button'],
+            config['aiartbutton']['GPIO_pinout'],
             config['active_artwork_file_path'],
             config['aiartbutton']['image_directory'],
             config['aiartbutton']['button_sleep']
@@ -95,7 +95,7 @@ if __name__ == '__main__':
         target=start_pir,
         args=(
             config['pir_sensor']['GPIO_mode'],
-            config['pir_sensor']['GPIO_sensor'],
+            config['pir_sensor']['GPIO_pinout'],
             config['pir_sensor']['loop_sleep_sec'],
             config['pir_sensor']['screensaver_after_sec'],
         )
