@@ -27,7 +27,7 @@ class ArtButton():
     image_directory : str
         Path to the image directory from where the images will be randomly sampled.
 
-    button_sleep : float, default=1.0
+    loop_sleep_sec : float, default=1.0
         Seconds to sleep after registered button click. Risk of multiple unexpected simultaneous clicks
         if set to low.
     """
@@ -36,7 +36,7 @@ class ArtButton():
                  GPIO_pinout: int,
                  active_artwork_file_path: str,
                  image_directory: str,
-                 button_sleep: float = 1.0) -> None:
+                 loop_sleep_sec: float = 1.0) -> None:
         try:
             mode = GPIO_MODES[GPIO_mode]
             GPIO.setmode(mode)
@@ -53,7 +53,7 @@ class ArtButton():
         if os.path.isdir(image_directory):
             self.image_directory = image_directory
 
-        self.button_sleep = button_sleep
+        self.loop_sleep_sec = loop_sleep_sec
 
     def _get_random_image_path(self) -> str:
         """
@@ -84,5 +84,5 @@ class ArtButton():
             input_state = GPIO.input(self.GPIO_pinout)
             if input_state == False:
                 self._change_active_artwork()
-                time.sleep(self.button_sleep)
+                time.sleep(self.loop_sleep_sec)
                 

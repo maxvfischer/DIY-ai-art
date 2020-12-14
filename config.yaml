@@ -15,7 +15,7 @@ pirsensor:
 artbutton:
   GPIO_mode: 'BOARD'
   GPIO_pinout: 15
-  button_sleep: 1.0
+  loop_sleep_sec: 1.0
 
 ml_model:
   batch_size: 1

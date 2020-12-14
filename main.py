@@ -12,13 +12,13 @@ def start_artbutton(GPIO_mode: str,
                     GPIO_pinout: int,
                     active_artwork_file_path: str,
                     image_directory: str,
-                    button_sleep: float):
+                    loop_sleep_sec: float):
     button = ArtButton(
         GPIO_mode=GPIO_mode,
         GPIO_pinout=GPIO_pinout,
         active_artwork_file_path=active_artwork_file_path,
         image_directory=image_directory,
-        button_sleep=button_sleep
+        loop_sleep_sec=loop_sleep_sec
     )
     button.start()
     
@@ -78,7 +78,7 @@ if __name__ == '__main__':
             config['artbutton']['GPIO_pinout'],
             config['active_artwork_file_path'],
             config['image_directory'],
-            config['artbutton']['button_sleep']
+            config['artbutton']['loop_sleep_sec']
         )
     )
 
