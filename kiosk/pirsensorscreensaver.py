@@ -1,3 +1,4 @@
+import time
 import Jetson.GPIO as GPIO
 from datetime import datetime
 from kiosk.utils import GPIO_MODES
@@ -23,7 +24,7 @@ class PIRSensorScreensaver():
     """
     def __init__(GPIO_mode: str,
                  GPIO_sensor: int,
-                 loop_sleep_ms: int = 100,
+                 loop_sleep_sec: int = 1,
                  screen_saver_after_sec: int = 10):
         try:
             mode = GPIO_MODES[GPIO_mode]
@@ -33,8 +34,7 @@ class PIRSensorScreensaver():
         except Exception as e:
             print(e.message)
             sys.exit(1)
-        self.loop_sleep_ms = loop_sleep_ms
+        self.loop_sleep_sec = loop_sleep_sec
         self.screen_saver_after_sec = screen_saver_after_sec
         self.datetime_last_pir_firing = datetime.now()
         self.screensaver_active = False
-    
