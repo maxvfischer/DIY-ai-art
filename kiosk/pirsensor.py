@@ -3,7 +3,7 @@ from datetime import datetime
 from kiosk.utils import GPIO_MODES
 
 
-class PIRSensor():
+class PIRSensorScreensaver():
     """
     Listens to PIR sensor and activate screensaver if no movement.
 
