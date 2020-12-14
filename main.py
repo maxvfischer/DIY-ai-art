@@ -9,13 +9,13 @@ import tensorflow as tf
 from watchdog.observers import Observer
 
 def start_artbutton(GPIO_mode: str,
-                    GPIO_button: int,
+                    GPIO_pinout: int,
                     active_artwork_file_path: str,
                     image_directory: str,
                     button_sleep: float):
     button = ArtButton(
         GPIO_mode=GPIO_mode,
-        GPIO_button=GPIO_button,
+        GPIO_pinout=GPIO_pinout,
         active_artwork_file_path=active_artwork_file_path,
         image_directory=image_directory,
         button_sleep=button_sleep
