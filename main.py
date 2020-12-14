@@ -3,6 +3,7 @@ import multiprocessing
 from kiosk.kiosk import Kiosk
 from kiosk.utils import read_yaml
 from kiosk.aiartbutton import AiArtButton
+from kiosk.pirsensorscreensaver import PIRSensorScreensaver
 from ml.StyleGAN import GANEventHandler
 import tensorflow as tf
 from watchdog.observers import Observer
@@ -23,22 +24,26 @@ def start_aiartbutton(GPIO_mode: str,
     
 
 def start_kiosk(active_artwork_file_path: str,
-                GPIO_mode: str,
-                GPIO_sensor: int,
-                loop_sleep_ms: int,
-                screen_saver_after_sec: int,
                 frame_path: str,
                 frame_inner_size: tuple):
     kiosk = Kiosk(
         active_artwork_path=active_artwork_file_path, 
-        GPIO_mode=GPIO_mode,
-        GPIO_sensor=GPIO_sensor,
-        loop_sleep_ms=loop_sleep_ms,
-        screen_saver_after_sec=screen_saver_after_sec,
         frame_path=frame_path,
         frame_inner_size=frame_inner_size)
     kiosk.start()
 
+
+def start_pir(GPIO_mode: str,
+              GPIO_sensor: int,
+              loop_sleep_sec: float,
+              screensaver_after_sec: float):
+    pir = PIRSensorScreensaver(
+        GPIO_mode=GPIO_mode,
+        GPIO_sensor=GPIO_sensor,
+        loop_sleep_sec=loop_sleep_sec,
+        screensaver_after_sec=screensaver_after_sec
+    )
+    pir.start()
 
 
 def start_gan(batch_size: int,
@@ -81,12 +86,18 @@ if __name__ == '__main__':
         target=start_kiosk,
         args=(
             config['active_artwork_file_path'],
-            config['kiosk']['GPIO_mode'],
-            config['kiosk']['GPIO_sensor'],
-            config['kiosk']['loop_sleep_ms'],
-            config['kiosk']['screen_saver_after_sec'],
             config['kiosk']['path'],
             (config['kiosk']['inner_width'], config['kiosk']['inner_height'])
+        )
+    )
+
+    p_pir = multiprocessing.Process(
+        target=start_pir,
+        args=(
+            config['pir_sensor']['GPIO_mode'],
+            config['pir_sensor']['GPIO_sensor'],
+            config['pir_sensor']['loop_sleep_sec'],
+            config['pir_sensor']['screensaver_after_sec'],
         )
     )
 
@@ -104,8 +115,10 @@ if __name__ == '__main__':
 
     p_button.start()
     p_kiosk.start()
+    p_pir.start()
     p_ml.start()
 
     p_button.join()
     p_kiosk.join()
+    p_pir.join()
     p_ml.join()
