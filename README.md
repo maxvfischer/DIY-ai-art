@@ -1,7 +1,9 @@
-This guide goes through all the steps to build an AI-art installation, using a 
-Nvidia Jetson Xavier NX and a Samsung The Frame 32". It includes pre-designed CAD-files,
-how to set up the computer to run an art-kiosk (with code), how to build and 
-assemble the control box and button etc.
+![main_gif](./tutorial_images/main_gif.gif)
+
+This guide goes through all the steps to build an art installation, using a 
+Nvidia Jetson Xavier NX, a Samsung The Frame 32", a button and a passive infrared sensor. It includes how 
+to set up the computer to run an art-kiosk (with code), pre-designed CAD-files, how to build and assemble the control 
+box and button etc.
 
 ## Table of content
 1. [Build control box](#build-the-control-box)
@@ -95,12 +97,11 @@ If you get stuck during boot-up with an output as below, try to reboot the machi
 Full instruction from Nvidia can be found here: 
 https://developer.nvidia.com/embedded/learn/get-started-jetson-xavier-nx-devkit
 
-### Install base dependencies
 Before we clone the repository and install the project dependencies, we need to install some base 
 dependencies. These are good to install regardless if you're setting up an AI-installation or will
 do something else with the Xavier NX Dev Kit.
 
-#### Update and upgrade apt-get
+### Update and upgrade apt-get
 ```
 sudo apt-get update
 sudo apt-get upgrade
@@ -113,36 +114,34 @@ Lets reboot the system before we continue:
 sudo reboot
 ```
 
-#### Install pip
+### Install pip
 ```bash
 sudo apt install python3-pip
 ```
 
-#### Install, create and activate virtual environment
-Install virtual environment:
+### Install virtual environment
 ```bash
 sudo apt install -y python3-venv
 ```
 
-Create a virtual environment called `aiart`:
+### Create virtual environment
 ```bash
 python3 -m venv ~/venvs/aiart
 ```
 
-Activate virtual environment:
+### Activate virtual environment
 ```bash
 source ~/venvs/aiart/bin/activate
 ```
 
-#### Install python wheel
+### Install python wheel
 ```bash
 pip3 install wheel
 ```
 
-#### GPIO access
-Jetson.GPIO is a Python package that works in the same way as RPi.GPIO, but for the Jetson
-family of computers. It enables us to, through Python code, interact with the GPIO pinouts
-on the Xavier.
+### GPIO access
+Jetson.GPIO is a Python package that works in the same way as RPi.GPIO, but for the Jetson family of computers. It 
+enables us to, through Python code, interact with the GPIO pinouts on the Xavier.
 
 First, install the Jetson.GPIO package into your virtual environment:
 ```bash
@@ -162,7 +161,7 @@ Copy custom GPIO rules (remember to change `pythonNN` with your Python version):
 sudo cp venvs/aiart/lib/pythonNN/site-packages/Jetson/GPIO/99-gpio.rules /etc/udev/rules.d/
 ```
 
-#### Install Jetson stats (optional)
+### Install Jetson stats (optional)
 [Jetson stats](https://github.com/rbonghi/jetson_stats) is a really nice open-source package to monitor and control the 
 Jetson. It enables you to track CPU/GPU usage, check temperatures etc.
 
@@ -175,27 +174,18 @@ You need to reboot the machine before you can use it.
 
 TODO: ADD SVG ANIMATION
 
-### Set up art kiosk
-The program running the art kiosk is writting in `Python`. The program is running as 4 different
-processes (`Kiosk`, `ArtButton`, `PIRSensorScreensaver` and `GANEventHandler`), seen in the diagram below.
+## Set up art kiosk
+The program running the art kiosk is writting in `Python`. It is running as 4 different processes (`Kiosk`, `ArtButton`, 
+`PIRSensorScreensaver` and `GANEventHandler`), seen in the diagram below.
 
 ![screen_saver_installation_1](./tutorial_images/install_art_kiosk/art_kiosk_diagram.png)
 
-The `Kiosk` process handles all the GUI, toggling (<F11>) and ending (<Escape>) fullscreen, listens to change
-of active artwork to be displayed etc.
-
-The `ArtButton` process listens to a GPIO pinout (defined in config.yaml) connected to a button (see how to solder and
-connect the button under #.....). When triggered, it replaces the active artwork (active_artwork.jpg) with a random 
-image sampled from the image directory (defined in config.yaml, default `/images`).
-
-The `PIRSensorScreensaver` process listens to a GPIO pinout (defined in config.yaml) connected to a PIR sensor (see how 
-to solder and connect the PIR sensor under #.....). When no motion has triggered the PIR sensor within a predefined 
-threshold (defined in config.yaml), the computer's screensaver is activated. When motion is detected, it is deactivated.
-
-The `GANEventHandler` process is listening to deleted items in the image directory. When an image is deleted (replacing
-the active artwork), the process checks how many images that are left in the image directory. If the number of images 
-are below a predefined threshold (defined in config.yaml), a new process is spawned, generating new images using the GAN
-network.
+| **Process**              | **Description**                                                                                                                                                                                                                                                                                                                                                                  |
+|--------------------------|----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| **Kiosk**                | The `Kiosk` process handles all the GUI, toggling (\<F11>) and ending (\<Escape>) fullscreen, listens to change of the active artwork to be displayed etc.                                                                                                                                                                                                                             |
+| **ArtButton**            | The `ArtButton` process listens to a GPIO pinout (defined in config.yaml) connected to a button (see how to solder and connect the button under #.....). When triggered, it replaces the active artwork (active_artwork.jpg) with a random  image sampled from the image directory (defined in config.yaml, default  `/images`).                                                 |
+| **PIRSensorScreensaver** | The `PIRSensorScreensaver` process listens to a GPIO pinout (defined in config.yaml) connected to a PIR sensor (see how  to solder and connect the PIR sensor under #.....). When no motion has triggered the PIR sensor within a predefined  threshold (defined in config.yaml), the computer's screensaver is activated. When motion is detected, it is deactivated.           |
+| **GANEventHandler**      | The `GANEventHandler` process is listening to deleted items in the image directory. When an image is deleted (replacing active_artwork.jpg), the process checks how many images that are left in the image directory. If the number of images  are below a predefined threshold (defined in config.yaml), a new process is spawned, generating new images using the GAN network. |
 
 #### Clone this repository
 ```bash
