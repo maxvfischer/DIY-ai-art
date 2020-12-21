@@ -507,3 +507,25 @@ To give a nice finish, all the edges were milled.
 ![milling_2](./tutorial_images/build_control_box/milling_2.jpg)
 
 ![milling_3](./tutorial_images/build_control_box/milling_3.jpg)
+
+## Build button box
+
+![button_box_1](./tutorial_images/build_button_box/button_box_1.jpg)
+
+![button_box_2](./tutorial_images/build_button_box/button_box_2.jpg)
+
+![button_box_3](./tutorial_images/build_button_box/button_box_3.jpg)
+
+![button_box_4](./tutorial_images/build_button_box/button_box_4.jpg)
+
+![button_box_5](./tutorial_images/build_button_box/button_box_5.jpg)
+
+![button_box_6](./tutorial_images/build_button_box/button_box_6.jpg)
+
+![button_box_7](./tutorial_images/build_button_box/button_box_7.jpg)
+
+![button_box_8](./tutorial_images/build_button_box/button_box_8.jpg)
+
+![button_box_9](./tutorial_images/build_button_box/button_box_9.jpg)
+
+![button_box_10](./tutorial_images/build_button_box/button_box_10.jpg)
