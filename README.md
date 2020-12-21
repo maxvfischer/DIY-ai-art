@@ -509,6 +509,9 @@ To give a nice finish, all the edges were milled.
 ![milling_3](./tutorial_images/build_control_box/milling_3.jpg)
 
 ## Build button box
+A modified black plastic enclosure box was used as a button box. To integrate the 
+button, the vertical and horizontal center was first measured and pre-drilled. Then, 
+a hole with the diameter of the button was drilled.
 
 ![button_box_1](./tutorial_images/build_button_box/button_box_1.jpg)
 
@@ -520,11 +523,21 @@ To give a nice finish, all the edges were milled.
 
 ![button_box_5](./tutorial_images/build_button_box/button_box_5.jpg)
 
+As the button box will be located between the control box and the screen, the two 
+button cables and the One Connect cable (bringing electricity and HDMI to the screen) 
+will enter the button box at the bottom. The One Connect cable will also exit 
+the button box at the top. Two cable slots were therefore extracted at the top
+and the bottom, using a Japanese hand saw/Dozuki saw. The slots were then smoothed
+by manual sanding.
+
 ![button_box_6](./tutorial_images/build_button_box/button_box_6.jpg)
 
 ![button_box_7](./tutorial_images/build_button_box/button_box_7.jpg)
 
 ![button_box_8](./tutorial_images/build_button_box/button_box_8.jpg)
+
+The screws were colored black using an aerosol varnish paint. A tip
+when painting screws is to stick them into a piece of styrofoam.
 
 ![button_box_9](./tutorial_images/build_button_box/button_box_9.jpg)
 
