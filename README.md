@@ -1,12 +1,23 @@
 ![main_gif](./tutorial_images/main_gif.gif)
 
-This guide goes through all the steps to build an art installation, using a 
-Nvidia Jetson Xavier NX, a Samsung The Frame 32", a button and a passive infrared sensor. It includes how 
-to set up the computer to run an art-kiosk (with code), pre-designed CAD-files, how to build and assemble the control 
-box and button etc.
+This guide goes through all the steps to build an AI art installation using:
+* Nvidia Jetson Xavier NX
+* Screen with HDMI support (I used a Samsung The Frame 32")
+* Button to change artwork
+* Passive infrared sensor to reduce risk of screen burn-in
+
+The guide includes how to set up the computer to run an art kiosk (with code), how to build and assemble the control 
+box, how to integrate the button and PIR sensor etc.
 
 ## Table of content
-1. [Build control box](#build-the-control-box)
+1. [Prepare Nvidia Jetson Xavier NX](#prepare-nvidia-jetson-xavier-nx-dev-kit)
+    1. [Install operating system](#install-operating-system)
+    2. [Install base requirements](#install-base-requirements)
+    3. [Install Jetson GPIO](#install-jetson-gpio)
+    4. [Install Jetson stats (optional)](#install-jetson-stats-(optional))
+    5. [Install art kiosk](#install-art-kiosk)
+    6. [Install xscreensaver (optional)](#install-xscreensaver-(optional))
+2. [Build control box](#build-the-control-box)
     1. [Hand-cut parts](#hand-cut-parts)
     2. [Cut cable slots](#cut-cable-slots)
     3. [Cut wood biscuits holes](#cut-wood-biscuits-holes)
@@ -14,17 +25,14 @@ box and button etc.
     5. [Spackling paste and sanding](#spackling-paste-and-sanding)
     6. [Add hinges](#add-hinges)
     7. [Add magnetic lock](#add-magnetic-lock)
-2. [Build button box]()
-    1. ...
-    2. ...
-3. [Set up Nvidia Jetson Xavier NX]()
+3. [Build button box]()
     1. ...
     2. ...
 4. [Assemble art installation]()
     1. ...
     2. ...
 
-## Set up Nvidia Jetson Xavier NX Dev Kit
+## Prepare Nvidia Jetson Xavier NX Dev Kit
 The Nvidia Jetson Xavier NX module (https://developer.nvidia.com/embedded/jetson-xavier-nx)
 is an embedded system-on-module developed by Nvidia for running computationally demanding tasks
 on edge.
@@ -47,15 +55,14 @@ The development kit includes:
 ![xavier_2](./tutorial_images/setup_computer/xavier_2.jpg)
 
 ### Install operating system
-As Raspberry Pi, Jetson Xavier is using a micro-SD card as its hard drive. As far as I know, there's only one supported
+As the Raspberry Pi, Jetson Xavier is using a micro-SD card as its hard drive. As far as I know, there's only one supported
 OS image (Ubuntu) provided by Nvidia.
 
 To install the OS, you'll need to use a second computer. 
 
-Start of by downloading the OS image. 
-To do this, you need to sign up for a `NVIDIA Developer Program Membership`. It's free and quite useful as you'll get 
-access to the Nvidia Developer forum. When you've created the account, you can download the image here: 
-https://developer.nvidia.com/jetson-nx-developer-kit-sd-card-image
+Start of by downloading the OS image: https://developer.nvidia.com/jetson-nx-developer-kit-sd-card-image.
+To be able to download it, you need to sign up for a `NVIDIA Developer Program Membership`. It's free and quite useful as you'll get 
+access to the Nvidia Developer forum. 
 
 After you've downloaded it, unzip it. 
 
@@ -97,16 +104,12 @@ If you get stuck during boot-up with an output as below, try to reboot the machi
 Full instruction from Nvidia can be found here: 
 https://developer.nvidia.com/embedded/learn/get-started-jetson-xavier-nx-devkit
 
-Before we clone the repository and install the project dependencies, we need to install some base 
-dependencies. These are good to install regardless if you're setting up an AI-installation or will
-do something else with the Xavier NX Dev Kit.
-
-### Update and upgrade apt-get
+### Install base requirements
+Update and upgrade apt-get
 ```
 sudo apt-get update
 sudo apt-get upgrade
 ```
-
 If asked to choose between `gdm3` and `lightdm`, choose `gdm3`.
 
 Lets reboot the system before we continue:
@@ -114,41 +117,42 @@ Lets reboot the system before we continue:
 sudo reboot
 ```
 
-### Install pip
+Install pip3:
 ```bash
 sudo apt install python3-pip
 ```
 
-### Install virtual environment
+Install virtual environment:
 ```bash
 sudo apt install -y python3-venv
 ```
 
-### Create virtual environment
+Create a virtual environment in the directory `~/venvs` with the name `artkiosk`:
 ```bash
-python3 -m venv ~/venvs/aiart
+python3 -m venv ~/venvs/artkiosk
 ```
 
-### Activate virtual environment
+Activate the virtual environment:
 ```bash
-source ~/venvs/aiart/bin/activate
+source ~/venvs/artkiosk/bin/activate
 ```
 
-### Install python wheel
+Install python wheel:
 ```bash
 pip3 install wheel
 ```
 
-### GPIO access
-Jetson.GPIO is a Python package that works in the same way as RPi.GPIO, but for the Jetson family of computers. It 
-enables us to, through Python code, interact with the GPIO pinouts on the Xavier.
+### Install Jetson GPIO
+[Jetson.GPIO](https://github.com/NVIDIA/jetson-gpio) is a Python package developed by Nvidia that works in the same way
+as RPi.GPIO, but for the Jetson family of computers. It enables the user to, through Python code, interact with the GPIO 
+pinouts on the Xavier Dev Kit.
 
-First, install the Jetson.GPIO package into your virtual environment:
+First, install the Jetson.GPIO package into the virtual environment:
 ```bash
 pip3 install Jetson.GPIO
 ```
 
-Then, we need to set up user permissions to be able to access the GPIOs. Create new GPIO user group (remember to change 
+Then, set up user permissions to be able to access the GPIOs. Create new GPIO user group (remember to change 
 `your_user_name`):
 
 ```bash
@@ -158,104 +162,102 @@ sudo usermod -a -G gpio your_user_name
 
 Copy custom GPIO rules (remember to change `pythonNN` with your Python version):
 ```bash
-sudo cp venvs/aiart/lib/pythonNN/site-packages/Jetson/GPIO/99-gpio.rules /etc/udev/rules.d/
+sudo cp venvs/artkiosk/lib/pythonNN/site-packages/Jetson/GPIO/99-gpio.rules /etc/udev/rules.d/
 ```
 
 ### Install Jetson stats (optional)
-[Jetson stats](https://github.com/rbonghi/jetson_stats) is a really nice open-source package to monitor and control the 
-Jetson. It enables you to track CPU/GPU usage, check temperatures etc.
+[Jetson stats](https://github.com/rbonghi/jetson_stats) is a really useful open-source package to monitor and control 
+the Jetson. It enables you to track CPU/GPU/Memory usage, check temperatures, increase the swap memory etc.
 
 To install Jetson stats:
 ```bash
 sudo -H pip install -U jetson-stats
 ```
 
-You need to reboot the machine before you can use it.
+Reboot your machine:
+```bash
+sudo reboot
+```
+
+To check CPU/GPU/Memory usage etc:
+```bash
+jtop
+```
+
+Full list of commands can be found here: https://github.com/rbonghi/jetson_stats
 
 TODO: ADD SVG ANIMATION
 
-## Set up art kiosk
-The program running the art kiosk is writting in `Python`. It is running as 4 different processes (`Kiosk`, `ArtButton`, 
-`PIRSensorScreensaver` and `GANEventHandler`), seen in the diagram below.
+### Install art kiosk
+We're now ready to set up the art kiosk! The program running the art kiosk is written in `Python` and is running as 4 
+parallel processes: `Kiosk`, `ArtButton`, `PIRSensorScreensaver` and `GANEventHandler`.
 
 ![screen_saver_installation_1](./tutorial_images/install_art_kiosk/art_kiosk_diagram.png)
 
-| **Process**              | **Description**                                                                                                                                                                                                                                                                                                                                                                  |
-|--------------------------|----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| **Kiosk**                | The `Kiosk` process handles all the GUI, toggling (\<F11>) and ending (\<Escape>) fullscreen, listens to change of the active artwork to be displayed etc.                                                                                                                                                                                                                             |
-| **ArtButton**            | The `ArtButton` process listens to a GPIO pinout (defined in config.yaml) connected to a button (see how to solder and connect the button under #.....). When triggered, it replaces the active artwork (active_artwork.jpg) with a random  image sampled from the image directory (defined in config.yaml, default  `/images`).                                                 |
-| **PIRSensorScreensaver** | The `PIRSensorScreensaver` process listens to a GPIO pinout (defined in config.yaml) connected to a PIR sensor (see how  to solder and connect the PIR sensor under #.....). When no motion has triggered the PIR sensor within a predefined  threshold (defined in config.yaml), the computer's screensaver is activated. When motion is detected, it is deactivated.           |
-| **GANEventHandler**      | The `GANEventHandler` process is listening to deleted items in the image directory. When an image is deleted (replacing active_artwork.jpg), the process checks how many images that are left in the image directory. If the number of images  are below a predefined threshold (defined in config.yaml), a new process is spawned, generating new images using the GAN network. |
+| **Process**              | **File**                   | **Description**                                                                                                                                                                                                                                                                                                                                                                                      |
+|--------------------------|----------------------------|------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| **Kiosk**                | kiosk/kiosk.py             |The `Kiosk` process handles all the GUI: toggling (\<F11>) and ending (\<Escape>) fullscreen, listens to change of the active artwork to be displayed etc.                                                                                                                                                                                                                                            |
+| **ArtButton**            | kiosk/artbutton.py         |The `ArtButton` process listens to a GPIO pinout (default: 15) connected to a button (see how to solder and connect the button under #.....). When triggered, it replaces the active artwork (default: active_artwork.jpg) with a random image sampled from the image directory (default: /images).                                                                                                   |
+| **PIRSensorScreensaver** | kiosk/pirsensorscreensaver |The `PIRSensorScreensaver` process listens to a GPIO pinout (default: 31) connected to a PIR sensor (see how to solder and connect the PIR sensor under #.....). When no motion has triggered the PIR sensor within a predefined threshold of seconds, the computer's screensaver is activated. When motion is detected, the screensaver is deactivated.                                              |
+| **GANEventHandler**      | ml/StyleGAN.py             |The `GANEventHandler` process is listening to deleted items in the image directory. When the button is clicked and an image is deleted (moved to replace active_artwork.jpg), the process checks how many images that are left in the image directory. If the number of images  are below a predefined threshold (default: 200), a new process is spawned, generating new images using a GAN network. |
 
-#### Clone this repository
+All the parameters used are set in `config.yaml` (e.g. path to image directory, GPIO pinouts used etc).
+
+Start by clone this repository:
 ```bash
 git clone https://github.com/maxvfischer/Arthur.git
 ```
 
-### Install dependencies
+Change active directory and install the dependencies:
 ```bash
+cd Arthur
 pip3 install -r requirements.txt
 ```
 
-### Install xscreensaver
+The art kiosk is started by executing:
+```bash
+python3 -m main
+```
+
+NOTE: The art kiosk will **NOT** work properly if you don't attach the button and the PIR sensor (you might experience
+automat. Please continue to 
+follow the instructions.
+
+### Install xscreensaver (optional)
 To reduce the risk of burn-in when displaying static art on the screen, a PIR (passive infrared) sensor was integrated. 
 When no movement has been registered around the art installation, a screen saver is triggered.
 
-The default screen saver on Ubuntu is `gnome-screensaver`. It's not a screen saver in the traditional sense. Instead of showing moving images, it blanks the screen,
-basically shuts down the HDMI signals to the screen, enabling the screen to fall into low energy mode.
+The default screen saver on Ubuntu is `gnome-screensaver`. It's not a screen saver in the traditional sense. Instead of 
+showing moving images, it blanks the screen, basically shuts down the HDMI signals to the screen, enabling the screen to 
+fall into low energy mode.
 
-The screen used in this project is a Samsung The Frame 32" (2020). When the screen is set to HDMI (1/2) and no HDMI signal is provided, it shows a static image telling the user that no HDMI signal is found. This is what happened when using `gnome-screensaver`. This is a unwanted behaviour in this set up, as we either wants the screen to go blank, or show some kind of a moving image, to reduce the risk of burn-in. We do not want to see a static screen telling us that no hdmi signal is found.
+The screen I used in this project was a Samsung The Frame 32" (2020). When the screen is set to HDMI (1/2) and no HDMI 
+signal is provided, it shows a static image telling the user that no HDMI signal is found. This is what happened when 
+using `gnome-screensaver` together with Samsung The Frame. This is a unwanted behaviour in this set up, as we either 
+wants the screen to go blank, or show some kind of a moving image, to reduce the risk of burn-in. We do not want to see 
+a new static screen telling us that no hdmi signal is found.
 
-To solve this problem, `xscreensaver` was installed instead. It's an alternative screen saver that allows for moving images. Also, it seems like `xscreensaver's`
-blank screen mode works differently than `gnome-screensaver`. When `xscreensaver's` blank screen is triggered, it doesn't seems to shut down the HDMI signal,
-but rather turn the screen black. This is the behaviour we want in this installation. 
+To solve this problem, `xscreensaver` was installed instead. It's an alternative screen saver that support moving 
+images. Also, it seems like `xscreensaver's` blank screen mode works differently than `gnome-screensaver`. When 
+`xscreensaver's` blank screen is triggered, it doesn't seems to shut down the HDMI signal, but rather turn the screen 
+black. This is the behaviour we want in this installation. 
 
-Follow these steps to uninstall `gnome-screensaver` and install `xscreensaver`:
+This is an optional step. If you're experiencing the same challenge as I did with the screen saver, follow these steps 
+to uninstall `gnome-screensaver` and install `xscreensaver`:
 
 ```bash
 sudo apt-get remove gnome-screensaver
 sudo apt-get install xscreensaver xscreensaver-data-extra xscreensaver-gl-extra
 ```
-After uninstalling `gnome-screensaver` and installing `xscreensaver`, we need to add it to `Startup Applications` for it to start on boot:
+After uninstalling `gnome-screensaver` and installing `xscreensaver`, we need to add it to `Startup Applications` for 
+it to start on boot:
 
 ![screen_saver_installation_1](./tutorial_images/setup_computer/screen_saver_installation_1.png)
 
 ![screen_saver_installation_2](./tutorial_images/setup_computer/screen_saver_installation_2.png)
 
+
 Full installation guide: https://askubuntu.com/questions/292995/configure-screensaver-in-ubuntu
-
-### Add AI-model checkpoint
-Copy the model checkpoint into `arthur/ml/checkpoint`:
-
-    ├── arthur
-         ├── ml
-             ├── StyleGAN.model-XXXXXXX.data-00000-of-00001
-             ├── StyleGAN.model-XXXXXXX.index
-             └── StyleGAN.model-XXXXXXX.meta
-
-### Add initial active artwork
-Add an initial active artwork image by copying an image here: `arthur/active_artwork.jpg`
-
-### Adjust config.yaml
-The config.yaml contains all the settings.
-
-```
-active_artwork_file_path: 'active_artwork.jpg'  # Path and name of active artwork
-
-aiartbutton:
-  GPIO_mode: 'BOARD'  # GPIO mode
-  GPIO_button: 15  # GPIO pinout used for the button
-  image_directory: 'images'  # Directory to copy new images from
-  button_sleep: 1.0  # Timeout in seconds after button has been pressed
-
-ml_model:
-  batch_size: 1  # Latent batch size used when generating images
-  img_size: 1024  # Size of generated image (img_size, img_size)
-  test_num: 20  # Number of images generated when model is triggered
-  checkpoint_directory: 'ml/checkpoint'  # Checkpoint directory
-  image_directory: 'images'  # Output directory of generated images
-  lower_limit_num_images: 200  # Trigger model if number of images in image_directory is below this value
-```
 
 ## Build the control box
 To get a nice looking installation with as few visible cables as possible, a control box 
@@ -505,3 +507,38 @@ To give a nice finish, all the edges were milled.
 ![milling_2](./tutorial_images/build_control_box/milling_2.jpg)
 
 ![milling_3](./tutorial_images/build_control_box/milling_3.jpg)
+
+## Build button box
+A modified black plastic enclosure box was used as a button box. To integrate the 
+button, the vertical and horizontal center was first measured and pre-drilled. Then, 
+a hole with the diameter of the button was drilled.
+
+![button_box_1](./tutorial_images/build_button_box/button_box_1.jpg)
+
+![button_box_2](./tutorial_images/build_button_box/button_box_2.jpg)
+
+![button_box_3](./tutorial_images/build_button_box/button_box_3.jpg)
+
+![button_box_4](./tutorial_images/build_button_box/button_box_4.jpg)
+
+![button_box_5](./tutorial_images/build_button_box/button_box_5.jpg)
+
+As the button box will be located between the control box and the screen, the two 
+button cables and the One Connect cable (bringing electricity and HDMI to the screen) 
+will enter the button box at the bottom. The One Connect cable will also exit 
+the button box at the top. Two cable slots were therefore extracted at the top
+and the bottom, using a Japanese hand saw/Dozuki saw. The slots were then smoothed
+by manual sanding.
+
+![button_box_6](./tutorial_images/build_button_box/button_box_6.jpg)
+
+![button_box_7](./tutorial_images/build_button_box/button_box_7.jpg)
+
+![button_box_8](./tutorial_images/build_button_box/button_box_8.jpg)
+
+The screws were colored black using an aerosol varnish paint. A tip
+when painting screws is to stick them into a piece of styrofoam.
+
+![button_box_9](./tutorial_images/build_button_box/button_box_9.jpg)
+
+![button_box_10](./tutorial_images/build_button_box/button_box_10.jpg)
