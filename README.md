@@ -219,8 +219,7 @@ The art kiosk is started by executing:
 python3 -m main
 ```
 
-NOTE: The art kiosk will **NOT** work properly if you don't attach the button and the PIR sensor (you might experience
-automat. Please continue to 
+NOTE: The art kiosk will **NOT** work properly if you don't attach the button and the PIR sensor. Please continue to 
 follow the instructions.
 
 ### Install xscreensaver (optional)
@@ -507,6 +506,25 @@ To give a nice finish, all the edges were milled.
 ![milling_2](./tutorial_images/build_control_box/milling_2.jpg)
 
 ![milling_3](./tutorial_images/build_control_box/milling_3.jpg)
+
+### Drill PIR sensor hole
+To integrate the PIR sensor, the lid was first removed from the control 
+box. A hole was then measured and drilled all the way through the lid to 
+enable the PIR reflector to stick out. A larger drill was then used to 
+carefully drill a slot from the inside for the PIR sensor. Finally, a
+sand paper was used to manually sand the edges for perfect fit.
+
+![pir_sensor_1](./tutorial_images/build_control_box/pir_sensor_1.jpg)
+
+![pir_sensor_2](./tutorial_images/build_control_box/pir_sensor_2.jpg)
+
+![pir_sensor_3](./tutorial_images/build_control_box/pir_sensor_3.jpg)
+
+![pir_sensor_4](./tutorial_images/build_control_box/pir_sensor_4.jpg)
+
+![pir_sensor_5](./tutorial_images/build_control_box/pir_sensor_5.jpg)
+
+![pir_sensor_6](./tutorial_images/build_control_box/pir_sensor_6.jpg)
 
 ## Build button box
 A modified black plastic enclosure box was used as a button box. To integrate the 
