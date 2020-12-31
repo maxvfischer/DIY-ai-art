@@ -179,6 +179,11 @@ Reboot your machine:
 sudo reboot
 ```
 
+Activate the virtual environment again after reboot:
+```bash
+source ~/venvs/artkiosk/bin/activate
+```
+
 To check CPU/GPU/Memory usage etc:
 ```bash
 jtop
@@ -219,8 +224,7 @@ The art kiosk is started by executing:
 python3 -m main
 ```
 
-NOTE: The art kiosk will **NOT** work properly if you don't attach the button and the PIR sensor (you might experience
-automat. Please continue to 
+NOTE: The art kiosk will **NOT** work properly if you don't attach the button and the PIR sensor. Please continue to 
 follow the instructions.
 
 ### Install xscreensaver (optional)
@@ -261,12 +265,11 @@ Full installation guide: https://askubuntu.com/questions/292995/configure-screen
 
 ## Build the control box
 To get a nice looking installation with as few visible cables as possible, a control box 
-was built to encapsulate the Nvidia computer, power adapters, Samsung One Connect box etc.
+was built to encapsulate the Nvidia computer, power adapters, Samsung One Connect box etc. 
 
 ### Hand-cut parts
 The control box was build using 12mm (0.472") MDF. MDF is quite simple to work with and
-looks good when painted. A disadvantage is that it produces very fine-graned
-dust when cut or sanded.
+looks good when painted, but produces a lot of fine-grained dust when processed.
 
 ![raw_mdf](./tutorial_images/build_control_box/raw_mdf.jpg)
 
@@ -289,39 +292,6 @@ used to cut out the final pieces.
 ![raw_pieces](./tutorial_images/build_control_box/raw_pieces.jpg)
 
 ![raw_pieces_with_lid](./tutorial_images/build_control_box/raw_pieces_with_lid.jpg)
-
-### Cut cable slots
-To enable the cables to go in and out of the box, two cable slots were cut out:
-
-1. One cable slot in the top side panel for the One Connect cable and button cables.
-2. One cable slot in the bottom side panel for the electrical cable.
-
-A caliper was used to measure the diameter of the cables. An extra ~1mm was then added to the slots for
-the cables to fit nicely.
-
-![caliper](./tutorial_images/build_control_box/caliper.jpg)
-
-The slots were then outlined at the center of the panels.
-
-![cable_slot_1](./tutorial_images/build_control_box/cable_slot_1.jpg)
-
-![cable_slot_2](./tutorial_images/build_control_box/cable_slot_2.jpg)
-
-A jigsaw was used to cut out the slots.
-
-![jigsaw_1](./tutorial_images/build_control_box/jigsaw_1.jpg)
-
-![jigsaw_2](./tutorial_images/build_control_box/jigsaw_2.jpg)
-
-A small chisel and a hammer was used to remove the cut out piece.
-
-![chisel_1](./tutorial_images/build_control_box/chisel_1.jpg)
-
-![chisel_2](./tutorial_images/build_control_box/chisel_2.jpg)
-
-![chisel_3](./tutorial_images/build_control_box/chisel_3.jpg)
-
-![cable_slot_3](./tutorial_images/build_control_box/cable_slot_3.jpg)
 
 ### Cut wood biscuits holes
 To make the control box robust, wood biscuits were used to glue the parts together. By using wood biscuits, 
@@ -386,11 +356,10 @@ After removing the clamps, there were some visible gaps and cracks that needed t
 
 ![spackling_3](./tutorial_images/build_control_box/spackling_3.jpg)
 
-I used plastic padding (a two component plastic spackling paste) to cover up the gaps and cracks.
+I used plastic padding (a two component plastic spackling paste) to cover up the gaps and cracks. Be careful with how 
+much hardener you add, as it will dry very quickly if adding to much.
 
 ![spackling_4](./tutorial_images/build_control_box/spackling_4.jpg)
-
-Be careful with how much hardener you add, as it will dry very quickly if adding to much.
 
 ![spackling_5](./tutorial_images/build_control_box/spackling_5.jpg)
 
@@ -407,7 +376,7 @@ feel an edge or a crack, it will be visible when you paint it.
 ![spackling_9](./tutorial_images/build_control_box/spackling_9.jpg)
 
 ### Add hinges
-The hinges were first added to the lid. It made it easier to align the lid on the box 
+The hinges were first added to the lid. It made it easier to align the lid on top of the box 
 later on.
 
 The hinge mortises were measured and outlined. An electric multicutter tool was then used 
@@ -429,7 +398,7 @@ by manual sanding.
 
 The hinges were aligned and a bradawl was used to mark the centers of the holes. MDF is a 
 very dense material, therefore it's important to pre-drill before screwing the hinges in 
-place. If you don't do this, there's a risk that the material will crack.
+place. If you don't do this, there's a high risk that the material will crack.
 
 ![hinge_7](./tutorial_images/build_control_box/hinge_7.jpg)
 
@@ -479,7 +448,7 @@ the lid.
 ![hinge_24](./tutorial_images/build_control_box/hinge_24.jpg)
 
 ### Add magnetic lock
-A standard magnetic lock was used to keep the lid in place.
+A magnetic lock was used to keep the lid in place.
 
 ![magnetic_lock_1](./tutorial_images/build_control_box/magnetic_lock_1.jpg)
 
@@ -500,13 +469,125 @@ A standard magnetic lock was used to keep the lid in place.
 ![magnetic_lock_9](./tutorial_images/build_control_box/magnetic_lock_9.jpg)
 
 ### Milling edges
-To give a nice finish, all the edges were milled.
+All the edges were rounded using a handheld milling machine.
 
 ![milling_1](./tutorial_images/build_control_box/milling_1.jpg)
 
 ![milling_2](./tutorial_images/build_control_box/milling_2.jpg)
 
 ![milling_3](./tutorial_images/build_control_box/milling_3.jpg)
+
+### Drill PIR sensor hole
+To integrate the PIR sensor, the control box was disassembled. A hole was 
+then measured, aligned and drilled all the way through the lid to enable 
+the PIR reflector to stick out. A larger drill with the same diameter as the 
+sensor was then used to carefully extend the slot from the inside of the lid. 
+The extended hole was not drilled all the way through, approximately 2 mm was 
+left for the sensor to rest on. Finally, a sand paper was used to manually 
+sand the edges for a perfect fit.
+
+![pir_sensor_1](./tutorial_images/build_control_box/pir_sensor_1.jpg)
+
+![pir_sensor_2](./tutorial_images/build_control_box/pir_sensor_2.jpg)
+
+![pir_sensor_3](./tutorial_images/build_control_box/pir_sensor_3.jpg)
+
+![pir_sensor_4](./tutorial_images/build_control_box/pir_sensor_4.jpg)
+
+![pir_sensor_5](./tutorial_images/build_control_box/pir_sensor_5.jpg)
+
+![pir_sensor_6](./tutorial_images/build_control_box/pir_sensor_6.jpg)
+
+### Cut cable slots
+To enable the cables to go in and out of the box, two cable slots were cut out:
+
+1. One cable slot in the top side panel for the One Connect cable and button cables.
+2. One cable slot in the bottom side panel for the electrical cable.
+
+Initially, the cable slots were only cut half way through the top and bottom panels. 
+But I then realized (after I had assembled and painted everything), that it will look much better if I cut the cable 
+slots all the way through and then glue a piece of MDF into the hole to cover up the redundant space. That's why the 
+control box is painted in the images below.
+
+A caliper was used to measure the diameter of the cables. An extra ~1mm was then added to the slots for
+the cables to fit nicely.
+
+![caliper](./tutorial_images/build_control_box/caliper.jpg)
+
+The slots were then outlined at the center of the top and bottom panels. The outlines were also extended approximately 
+15 mm into the back panel. A Japanese hand saw/Dozuki saw was used to cut out the slots. A small chisel and a hammer was used to remove the cut out pieces.
+
+![cable_slot_4](./tutorial_images/build_control_box/cable_slot_4.jpg)
+
+![cable_slot_5](./tutorial_images/build_control_box/cable_slot_5.jpg)
+
+![cable_slot_7](./tutorial_images/build_control_box/cable_slot_7.jpg)
+
+![cable_slot_6](./tutorial_images/build_control_box/cable_slot_6.jpg)
+
+A hole saw was used to extract a larger hole in the top of the back panel, connected to the top panel cable slot. It 
+enabled the One Connect Cable to be inserted.
+
+![cable_slot_8](./tutorial_images/build_control_box/cable_slot_8.jpg)
+
+Pieces of MDF with the same width and height as the cable slots were cut out. Sand paper was used to do small 
+adjustments. The cables were then inserted into the slots and the MDF pieces were aligned and cut to give just enought 
+space for the cables to fit.
+
+![cable_slot_11](./tutorial_images/build_control_box/cable_slot_11.jpg)
+
+![cable_slot_9](./tutorial_images/build_control_box/cable_slot_9.jpg)
+
+![cable_slot_10](./tutorial_images/build_control_box/cable_slot_10.jpg)
+
+Wood glue were applied and smeared out on the connecting parts. The MDF pieces were then squeezed 
+into the slots.
+
+![cable_slot_11](./tutorial_images/build_control_box/cable_slot_12.jpg)
+
+![cable_slot_12](./tutorial_images/build_control_box/cable_slot_13.jpg)
+
+![cable_slot_13](./tutorial_images/build_control_box/cable_slot_14.jpg)
+
+### Vent holes
+Vent holes were drilled in the bottom and the top panel to enable heat to flow out of the control box.
+
+![vent_holes_1](./tutorial_images/build_control_box/vent_holes_1.jpg)
+
+![vent_holes_2](./tutorial_images/build_control_box/vent_holes_2.jpg)
+
+### Spackling paste and sanding
+Plastic padding were used cover the cracks between the cables slots and the MDF pieces. The complete box was then 
+manually sanded to remove the redundant plastic padding and round the edges around the vent holes etc. 
+
+![spackling_11](./tutorial_images/build_control_box/spackling_11.jpg)
+
+![spackling_12](./tutorial_images/build_control_box/spackling_12.jpg)
+
+![spackling_13](./tutorial_images/build_control_box/spackling_13.jpg)
+
+![spackling_10](./tutorial_images/build_control_box/spackling_10.jpg)
+
+### Painting
+The control box was painted in the same color as the wall, for it to blend in. A tip is to buy a color sample can 
+instead of a full can. You will not need a full can, and the sample cans are usually cheaper per litre.
+
+A paint roller was used on the flat areas and a small brush was used to paint the smaller details etc.
+
+![painting_1](./tutorial_images/build_control_box/painting_1.jpg)
+
+![painting_2](./tutorial_images/build_control_box/painting_2.jpg)
+
+![painting_3](./tutorial_images/build_control_box/painting_3.jpg)
+
+![painting_4](./tutorial_images/build_control_box/painting_4.jpg)
+
+![painting_5](./tutorial_images/build_control_box/painting_5.jpg)
+
+After the paint had tried, everything was reassembled.
+
+![painting_6](./tutorial_images/build_control_box/painting_6.jpg)
+
 
 ## Build button box
 A modified black plastic enclosure box was used as a button box. To integrate the 
