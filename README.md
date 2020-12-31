@@ -623,3 +623,38 @@ when painting screws is to stick them into a piece of styrofoam.
 ![button_box_9](./tutorial_images/build_button_box/button_box_9.jpg)
 
 ![button_box_10](./tutorial_images/build_button_box/button_box_10.jpg)
+
+## Assemble art installation
+The screen was wall-mounted following the instructions included with the screen.
+A cross line laser was used to vertically align the screen, button box and control box. 
+
+![assembly_1](./tutorial_images/assemble_art_installation/assembly_1.jpg)
+
+Wall plug, screws and double-coated adhesive tape was used to attach the button box
+to the wall.
+
+![assembly_3](./tutorial_images/assemble_art_installation/assembly_3.jpg)
+
+![assembly_6](./tutorial_images/assemble_art_installation/assembly_6.jpg)
+
+![assembly_4](./tutorial_images/assemble_art_installation/assembly_4.jpg)
+
+![assembly_5](./tutorial_images/assemble_art_installation/assembly_5.jpg)
+
+![assembly_7](./tutorial_images/assemble_art_installation/assembly_7.jpg)
+
+![assembly_8](./tutorial_images/assemble_art_installation/assembly_8.jpg)
+
+![assembly_9](./tutorial_images/assemble_art_installation/assembly_9.jpg)
+
+All the electronic were temporarily placed in the control box to outline where
+the screws will go. Two holes were then drilled and the control box was attached
+to the wall using wall plugs and screws.
+
+![assembly_10](./tutorial_images/assemble_art_installation/assembly_10.jpg)
+
+![assembly_11](./tutorial_images/assemble_art_installation/assembly_11.jpg)
+
+![assembly_12](./tutorial_images/assemble_art_installation/assembly_12.jpg)
+
+![assembly_13](./tutorial_images/assemble_art_installation/assembly_13.jpg)
