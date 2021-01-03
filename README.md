@@ -1,49 +1,52 @@
 ![main_gif](./tutorial_images/main_gif.gif)
 
-This guide goes through all the steps to build an AI art installation using:
-* Nvidia Jetson Xavier NX
-* Screen with HDMI support (I used a Samsung The Frame 32")
+This guide goes through all the steps to build your own AI art installation, using a button to 
+change the AI artwork displayed on a screen. The main components used in this guide:
+ 
+* Nvidia Jetson Xavier NX (GPU-accelerated single-board computer)
+* Screen with HDMI support
 * Button to change artwork
 * Passive infrared sensor to reduce risk of screen burn-in
 
 The guide includes how to set up the computer to run an art kiosk (with code), how to build and assemble the control 
 box, how to integrate the button and PIR sensor etc.
 
-## Table of content
-1. [Prepare Nvidia Jetson Xavier NX](#prepare-nvidia-jetson-xavier-nx-dev-kit)
+# Table of content
+1. [Prepare the computer (Nvidia Jetson Xavier NX Dev Kit)](#prepare-the-computer-(nvidia-jetson-xavier-nx-dev-kit))
     1. [Install operating system](#install-operating-system)
     2. [Install base requirements](#install-base-requirements)
     3. [Install Jetson GPIO](#install-jetson-gpio)
-    4. [Install Jetson stats (optional)](#install-jetson-stats-(optional))
-    5. [Install art kiosk](#install-art-kiosk)
-    6. [Install xscreensaver (optional)](#install-xscreensaver-(optional))
-2. [Build control box](#build-the-control-box)
+    4. [Install xscreensaver (optional)](#install-xscreensaver-(optional))
+    5. [Install Jetson stats (optional)](#install-jetson-stats-(optional))
+2. [Install art kiosk](#install-art-kiosk)
+3. [Build the control box](#build-the-control-box)
     1. [Hand-cut parts](#hand-cut-parts)
-    2. [Cut cable slots](#cut-cable-slots)
-    3. [Cut wood biscuits holes](#cut-wood-biscuits-holes)
-    4. [Glue parts together](#glue-parts-together)
-    5. [Spackling paste and sanding](#spackling-paste-and-sanding)
-    6. [Add hinges](#add-hinges)
-    7. [Add magnetic lock](#add-magnetic-lock)
-3. [Build button box]()
-    1. ...
-    2. ...
-4. [Assemble art installation]()
-    1. ...
-    2. ...
+    2. [Cut wood biscuits holes](#cut-wood-biscuits-holes)
+    3. [Glue parts together](#glue-parts-together)
+    4. [Remove visible gaps](#remove-visible-gaps)
+    5. [Add hinges](#add-hinges)
+    6. [Add magnetic lock](#add-magnetic-lock)
+    7. [Milling edges](#milling-edges)
+    8. [Drill PIR sensor hole](#drill-pir-sensor-hole)
+    9. [Cut cable slots](#cut-cable-slots)
+    10. [Vent holes](#vent-holes)
+    11. [Spackling paste and sanding](#spackling-paste-and-sanding)
+    12. [Painting](#painting)
+4. [Build the button box](#build-the-button-box)
+5. [Assemble art installation](#assemble-art-installation)
+    1. [Screen](#screen)
+    2. [Button box](#button-box)
+    3. [Control box](#control-box)
 
-## Prepare Nvidia Jetson Xavier NX Dev Kit
-The Nvidia Jetson Xavier NX module (https://developer.nvidia.com/embedded/jetson-xavier-nx)
-is an embedded system-on-module developed by Nvidia for running computationally demanding tasks
-on edge.
-
+# Prepare the computer (Nvidia Jetson Xavier NX Dev Kit)
 The Nvidia Jetson Xavier NX Development Kit 
 (https://www.nvidia.com/en-us/autonomous-machines/embedded-systems/jetson-xavier-nx/) is a single-board computer
-with an integrated Nvidia Jetson Xavier NX module. Similar to the Raspberry Pi, it has 40 GPIO pins that you can
+with an integrated Nvidia Jetson Xavier NX module (https://developer.nvidia.com/embedded/jetson-xavier-nx). It's 
+developed by Nvidia for running computationally demanding tasks on edge. Similar to the Raspberry Pi, it has 40 GPIO pins that you can
 interact with.
 
 The development kit includes:
-* x1 Nvidia Jetson Xavier NX board
+* x1 Nvidia Jetson Xavier NX
 * x1 19.0V/2.37A power adapter
 * x2 Power cables:
     * Plug type I -> C5
@@ -54,15 +57,15 @@ The development kit includes:
 
 ![xavier_2](./tutorial_images/setup_computer/xavier_2.jpg)
 
-### Install operating system
-As the Raspberry Pi, Jetson Xavier is using a micro-SD card as its hard drive. As far as I know, there's only one supported
-OS image (Ubuntu) provided by Nvidia.
+## Install operating system
+As the Raspberry Pi, Jetson Xavier is using a micro-SD card as its hard drive. As far as I know, there's only one 
+supported OS image (Ubuntu) provided by Nvidia.
 
 To install the OS, you'll need to use a second computer. 
 
 Start of by downloading the OS image: https://developer.nvidia.com/jetson-nx-developer-kit-sd-card-image.
-To be able to download it, you need to sign up for a `NVIDIA Developer Program Membership`. It's free and quite useful as you'll get 
-access to the Nvidia Developer forum. 
+To be able to download it, you need to sign up for a `NVIDIA Developer Program Membership`. It's free and quite useful 
+as you'll get access to the Nvidia Developer forum. 
 
 After you've downloaded it, unzip it. 
 
@@ -76,7 +79,7 @@ the other disks!
 
 ![xavier_5](./tutorial_images/setup_computer/xavier_5.svg)
 
-Now, change your current directory to where you downloaded and un-zipped the image (usually ~/Downloads).
+Now, change your current directory to where you downloaded and un-zipped the OS image.
 
 ![xavier_6](./tutorial_images/setup_computer/xavier_6.svg)
 
@@ -104,7 +107,7 @@ If you get stuck during boot-up with an output as below, try to reboot the machi
 Full instruction from Nvidia can be found here: 
 https://developer.nvidia.com/embedded/learn/get-started-jetson-xavier-nx-devkit
 
-### Install base requirements
+## Install base requirements
 Update and upgrade apt-get
 ```
 sudo apt-get update
@@ -142,7 +145,7 @@ Install python wheel:
 pip3 install wheel
 ```
 
-### Install Jetson GPIO
+## Install Jetson GPIO
 [Jetson.GPIO](https://github.com/NVIDIA/jetson-gpio) is a Python package developed by Nvidia that works in the same way
 as RPi.GPIO, but for the Jetson family of computers. It enables the user to, through Python code, interact with the GPIO 
 pinouts on the Xavier Dev Kit.
@@ -152,7 +155,7 @@ First, install the Jetson.GPIO package into the virtual environment:
 pip3 install Jetson.GPIO
 ```
 
-Then, set up user permissions to be able to access the GPIOs. Create new GPIO user group (remember to change 
+Then, set up user permissions to be able to access the GPIOs. Create new GPIO user group (replace 
 `your_user_name`):
 
 ```bash
@@ -160,74 +163,12 @@ sudo groupadd -f -r gpio
 sudo usermod -a -G gpio your_user_name
 ```
 
-Copy custom GPIO rules (remember to change `pythonNN` with your Python version):
+Copy custom GPIO rules (replace `pythonNN` with your Python version):
 ```bash
 sudo cp venvs/artkiosk/lib/pythonNN/site-packages/Jetson/GPIO/99-gpio.rules /etc/udev/rules.d/
 ```
 
-### Install Jetson stats (optional)
-[Jetson stats](https://github.com/rbonghi/jetson_stats) is a really useful open-source package to monitor and control 
-the Jetson. It enables you to track CPU/GPU/Memory usage, check temperatures, increase the swap memory etc.
-
-To install Jetson stats:
-```bash
-sudo -H pip install -U jetson-stats
-```
-
-Reboot your machine:
-```bash
-sudo reboot
-```
-
-Activate the virtual environment again after reboot:
-```bash
-source ~/venvs/artkiosk/bin/activate
-```
-
-To check CPU/GPU/Memory usage etc:
-```bash
-jtop
-```
-
-Full list of commands can be found here: https://github.com/rbonghi/jetson_stats
-
-TODO: ADD SVG ANIMATION
-
-### Install art kiosk
-We're now ready to set up the art kiosk! The program running the art kiosk is written in `Python` and is running as 4 
-parallel processes: `Kiosk`, `ArtButton`, `PIRSensorScreensaver` and `GANEventHandler`.
-
-![screen_saver_installation_1](./tutorial_images/install_art_kiosk/art_kiosk_diagram.png)
-
-| **Process**              | **File**                   | **Description**                                                                                                                                                                                                                                                                                                                                                                                      |
-|--------------------------|----------------------------|------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| **Kiosk**                | kiosk/kiosk.py             |The `Kiosk` process handles all the GUI: toggling (\<F11>) and ending (\<Escape>) fullscreen, listens to change of the active artwork to be displayed etc.                                                                                                                                                                                                                                            |
-| **ArtButton**            | kiosk/artbutton.py         |The `ArtButton` process listens to a GPIO pinout (default: 15) connected to a button (see how to solder and connect the button under #.....). When triggered, it replaces the active artwork (default: active_artwork.jpg) with a random image sampled from the image directory (default: /images).                                                                                                   |
-| **PIRSensorScreensaver** | kiosk/pirsensorscreensaver |The `PIRSensorScreensaver` process listens to a GPIO pinout (default: 31) connected to a PIR sensor (see how to solder and connect the PIR sensor under #.....). When no motion has triggered the PIR sensor within a predefined threshold of seconds, the computer's screensaver is activated. When motion is detected, the screensaver is deactivated.                                              |
-| **GANEventHandler**      | ml/StyleGAN.py             |The `GANEventHandler` process is listening to deleted items in the image directory. When the button is clicked and an image is deleted (moved to replace active_artwork.jpg), the process checks how many images that are left in the image directory. If the number of images  are below a predefined threshold (default: 200), a new process is spawned, generating new images using a GAN network. |
-
-All the parameters used are set in `config.yaml` (e.g. path to image directory, GPIO pinouts used etc).
-
-Start by clone this repository:
-```bash
-git clone https://github.com/maxvfischer/Arthur.git
-```
-
-Change active directory and install the dependencies:
-```bash
-cd Arthur
-pip3 install -r requirements.txt
-```
-
-The art kiosk is started by executing:
-```bash
-python3 -m main
-```
-
-NOTE: The art kiosk will **NOT** work properly if you don't attach the button and the PIR sensor. Please continue to 
-follow the instructions.
-
-### Install xscreensaver (optional)
+## Install xscreensaver (optional)
 To reduce the risk of burn-in when displaying static art on the screen, a PIR (passive infrared) sensor was integrated. 
 When no movement has been registered around the art installation, a screen saver is triggered.
 
@@ -263,11 +204,73 @@ it to start on boot:
 
 Full installation guide: https://askubuntu.com/questions/292995/configure-screensaver-in-ubuntu
 
-## Build the control box
+## Install Jetson stats (optional)
+[Jetson stats](https://github.com/rbonghi/jetson_stats) is a really useful open-source package to monitor and control 
+the Jetson. It enables you to track CPU/GPU/Memory usage, check temperatures, increase the swap memory etc.
+
+To install Jetson stats:
+```bash
+sudo -H pip install -U jetson-stats
+```
+
+Reboot your machine:
+```bash
+sudo reboot
+```
+
+Activate the virtual environment again after reboot:
+```bash
+source ~/venvs/artkiosk/bin/activate
+```
+
+To check CPU/GPU/Memory usage etc:
+```bash
+jtop
+```
+
+Full list of commands can be found here: https://github.com/rbonghi/jetson_stats
+
+TODO: ADD SVG ANIMATION
+
+# Install art kiosk
+We're now ready to install the art kiosk on the computer! The program running the art kiosk is written in `Python` 
+and is running as 4 parallel processes, each implemented as its own class: `Kiosk`, `ArtButton`, `PIRSensorScreensaver` 
+and `GANEventHandler`. The entry point is `main.py` and all the parameters used are set in `config.yaml` (e.g. path to 
+image directory, GPIO pinouts used etc).
+
+![screen_saver_installation_1](./tutorial_images/install_art_kiosk/art_kiosk_diagram.png)
+
+| **Process/Class**              | **File**                   | **Description**                                                                                                                                                                                                                                                                                                                                                                                      |
+|--------------------------------|----------------------------|------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| **Kiosk**                      | kiosk/kiosk.py             |The `Kiosk` process handles all the GUI: toggling (\<F11>) and ending (\<Escape>) fullscreen, listens to change of the active artwork to be displayed etc.                                                                                                                                                                                                                                            |
+| **ArtButton**                  | kiosk/artbutton.py         |The `ArtButton` process listens to a GPIO pinout (default: 15) connected to a button (see how to solder and connect the button under #.....). When triggered, it replaces the active artwork (default: active_artwork.jpg) with a random image sampled from the image directory (default: /images).                                                                                                   |
+| **PIRSensorScreensaver**       | kiosk/pirsensorscreensaver |The `PIRSensorScreensaver` process listens to a GPIO pinout (default: 31) connected to a PIR sensor (see how to solder and connect the PIR sensor under #.....). When no motion has triggered the PIR sensor within a predefined threshold of seconds, the computer's screensaver is activated. When motion is detected, the screensaver is deactivated.                                              |
+| **GANEventHandler**            | ml/StyleGAN.py             |The `GANEventHandler` process is listening to deleted items in the image directory. When the button is clicked and an image is deleted (moved to replace active_artwork.jpg), the process checks how many images that are left in the image directory. If the number of images  are below a predefined threshold (default: 200), a new process is spawned, generating new images using a GAN network. |
+
+Start by clone this repository:
+```bash
+git clone https://github.com/maxvfischer/Arthur.git
+```
+
+Change active directory and install the dependencies:
+```bash
+cd Arthur
+pip3 install -r requirements.txt
+```
+
+The art kiosk is started by executing:
+```bash
+python3 -m main
+```
+
+NOTE: The art kiosk will **NOT** work properly if you don't attach the button and the PIR sensor. Please continue to 
+follow the instructions.
+
+# Build the control box
 To get a nice looking installation with as few visible cables as possible, a control box 
 was built to encapsulate the Nvidia computer, power adapters, Samsung One Connect box etc. 
 
-### Hand-cut parts
+## Hand-cut parts
 The control box was build using 12mm (0.472") MDF. MDF is quite simple to work with and
 looks good when painted, but produces a lot of fine-grained dust when processed.
 
@@ -293,7 +296,7 @@ used to cut out the final pieces.
 
 ![raw_pieces_with_lid](./tutorial_images/build_control_box/raw_pieces_with_lid.jpg)
 
-### Cut wood biscuits holes
+## Cut wood biscuits holes
 To make the control box robust, wood biscuits were used to glue the parts together. By using wood biscuits, 
 no screws were needed, thus giving a nice finish without visible screw heads. It also helps to aligning the
 pieces when gluing.
@@ -316,7 +319,7 @@ wood biscuits fit nicely (they can somethings vary a bit in size).
 
 ![wood_biscuit_asseble](./tutorial_images/build_control_box/wood_biscuit_asseble.jpg)
 
-### Glue parts together
+## Glue parts together
 When gluing the parts together, you'll need to be fairly quick and structured. Prepare by placing the 
 aligning panels next to each other and have all the wood biscuits ready.
 
@@ -328,7 +331,7 @@ Start of by adding the glue in the wood biscuit holes.
 
 ![gluing_3](./tutorial_images/build_control_box/gluing_3.jpg)
 
-Press down the wood biscuits into the holes and apply wood glue along all the connecting parts.
+Then, press down the wood biscuits into the holes and apply wood glue along all the connecting parts.
 
 ![gluing_4](./tutorial_images/build_control_box/gluing_4.jpg)
 
@@ -347,7 +350,7 @@ Finally, remove all the visible redundant glue with a wet paper tissue.
 
 ![gluing_8](./tutorial_images/build_control_box/gluing_8.jpg)
 
-### Spackling paste and sanding
+## Remove visible gaps
 After removing the clamps, there were some visible gaps and cracks that needed to be filled.
 
 ![spackling_1](./tutorial_images/build_control_box/spackling_1.jpg)
@@ -375,7 +378,7 @@ feel an edge or a crack, it will be visible when you paint it.
 
 ![spackling_9](./tutorial_images/build_control_box/spackling_9.jpg)
 
-### Add hinges
+## Add hinges
 The hinges were first added to the lid. It made it easier to align the lid on top of the box 
 later on.
 
@@ -414,9 +417,9 @@ on the drill head.
 ![hinge_11](./tutorial_images/build_control_box/hinge_11.jpg)
 
 Before aligning the hinges on the box, make sure to add some support under the lid,
-it should be able to rest at the same level as the box. Double-coated adhesive tape 
+it should be able to rest at the same level as the control box. Double-coated adhesive tape 
 was then attached to each hinge and the lid was aligned on top of the box. When the 
-lid was correctly aligned, I applied pressure to make the adhesive tape stick.
+lid was correctly aligned, pressure was applied to make the adhesive tape stick.
 
 ![hinge_12](./tutorial_images/build_control_box/hinge_12.jpg)
 
@@ -447,7 +450,7 @@ the lid.
 
 ![hinge_24](./tutorial_images/build_control_box/hinge_24.jpg)
 
-### Add magnetic lock
+## Add magnetic lock
 A magnetic lock was used to keep the lid in place.
 
 ![magnetic_lock_1](./tutorial_images/build_control_box/magnetic_lock_1.jpg)
@@ -468,7 +471,7 @@ A magnetic lock was used to keep the lid in place.
 
 ![magnetic_lock_9](./tutorial_images/build_control_box/magnetic_lock_9.jpg)
 
-### Milling edges
+## Milling edges
 All the edges were rounded using a handheld milling machine.
 
 ![milling_1](./tutorial_images/build_control_box/milling_1.jpg)
@@ -477,13 +480,13 @@ All the edges were rounded using a handheld milling machine.
 
 ![milling_3](./tutorial_images/build_control_box/milling_3.jpg)
 
-### Drill PIR sensor hole
+## Drill PIR sensor hole
 To integrate the PIR sensor, the control box was disassembled. A hole was 
 then measured, aligned and drilled all the way through the lid to enable 
 the PIR reflector to stick out. A larger drill with the same diameter as the 
-sensor was then used to carefully extend the slot from the inside of the lid. 
+sensor chip was then used to carefully extend the slot from the inside of the lid. 
 The extended hole was not drilled all the way through, approximately 2 mm was 
-left for the sensor to rest on. Finally, a sand paper was used to manually 
+left for the sensor chip to rest on. Finally, a sand paper was used to manually 
 sand the edges for a perfect fit.
 
 ![pir_sensor_1](./tutorial_images/build_control_box/pir_sensor_1.jpg)
@@ -498,7 +501,7 @@ sand the edges for a perfect fit.
 
 ![pir_sensor_6](./tutorial_images/build_control_box/pir_sensor_6.jpg)
 
-### Cut cable slots
+## Cut cable slots
 To enable the cables to go in and out of the box, two cable slots were cut out:
 
 1. One cable slot in the top side panel for the One Connect cable and button cables.
@@ -525,7 +528,7 @@ The slots were then outlined at the center of the top and bottom panels. The out
 
 ![cable_slot_6](./tutorial_images/build_control_box/cable_slot_6.jpg)
 
-A hole saw was used to extract a larger hole in the top of the back panel, connected to the top panel cable slot. It 
+A hole saw was used to extract a larger hole in the top of the back panel, connected to the top panel's cable slot. It 
 enabled the One Connect Cable to be inserted.
 
 ![cable_slot_8](./tutorial_images/build_control_box/cable_slot_8.jpg)
@@ -549,15 +552,15 @@ into the slots.
 
 ![cable_slot_13](./tutorial_images/build_control_box/cable_slot_14.jpg)
 
-### Vent holes
+## Vent holes
 Vent holes were drilled in the bottom and the top panel to enable heat to flow out of the control box.
 
 ![vent_holes_1](./tutorial_images/build_control_box/vent_holes_1.jpg)
 
 ![vent_holes_2](./tutorial_images/build_control_box/vent_holes_2.jpg)
 
-### Spackling paste and sanding
-Plastic padding were used cover the cracks between the cables slots and the MDF pieces. The complete box was then 
+## Spackling paste and sanding
+Plastic padding were used cover the cracks between the cables slots and the glued MDF pieces. The control box was then 
 manually sanded to remove the redundant plastic padding and round the edges around the vent holes etc. 
 
 ![spackling_11](./tutorial_images/build_control_box/spackling_11.jpg)
@@ -568,11 +571,11 @@ manually sanded to remove the redundant plastic padding and round the edges arou
 
 ![spackling_10](./tutorial_images/build_control_box/spackling_10.jpg)
 
-### Painting
-The control box was painted in the same color as the wall, for it to blend in. A tip is to buy a color sample can 
+## Painting
+The control box was painted in the same color as the wall it will be attached to, for it to blend in. A tip is to buy a color sample can 
 instead of a full can. You will not need a full can, and the sample cans are usually cheaper per litre.
 
-A paint roller was used on the flat areas and a small brush was used to paint the smaller details etc.
+A paint roller was used on the flat areas and a small brush was used to paint the smaller details.
 
 ![painting_1](./tutorial_images/build_control_box/painting_1.jpg)
 
@@ -588,8 +591,7 @@ After the paint had tried, everything was reassembled.
 
 ![painting_6](./tutorial_images/build_control_box/painting_6.jpg)
 
-
-## Build button box
+# Build the button box
 A modified black plastic enclosure box was used as a button box. To integrate the 
 button, the vertical and horizontal center was first measured and pre-drilled. Then, 
 a hole with the diameter of the button was drilled.
@@ -624,14 +626,19 @@ when painting screws is to stick them into a piece of styrofoam.
 
 ![button_box_10](./tutorial_images/build_button_box/button_box_10.jpg)
 
-## Assemble art installation
-The screen was wall-mounted following the instructions included with the screen.
-A cross line laser was used to vertically align the screen, button box and control box. 
+# Assemble art installation
+The art installation is now ready to be assembled and attached to the wall. A cross line laser was then used to 
+vertically align the screen, button box and control box. 
+
+## Screen
+The screen (Samsung The Frame 32" 2020) was wall-mounted following the instructions included when buying the screen.
 
 ![assembly_1](./tutorial_images/assemble_art_installation/assembly_1.jpg)
 
-Wall plug, screws and double-coated adhesive tape was used to attach the button box
-to the wall.
+## Button box
+Two screw holes were drilled in the bottom plate of the button box. Double-coated adhesive tape was also attached
+to the back side of the bottom plate for further support. The button box was then aligned using the laser and
+attached to the wall using two screws, two wall plugs and the double-coated adhesive tape.
 
 ![assembly_3](./tutorial_images/assemble_art_installation/assembly_3.jpg)
 
@@ -647,8 +654,9 @@ to the wall.
 
 ![assembly_9](./tutorial_images/assemble_art_installation/assembly_9.jpg)
 
-All the electronic were temporarily placed in the control box to outline where
-the screws will go. Two holes were then drilled and the control box was attached
+## Control box
+To find two good spots for the screws, all the electronics were temporarily placed 
+in the control box to outline where the screws would go. Two holes were then drilled and the control box was attached
 to the wall using wall plugs and screws.
 
 ![assembly_10](./tutorial_images/assemble_art_installation/assembly_10.jpg)
