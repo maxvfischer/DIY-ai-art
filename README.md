@@ -1,7 +1,7 @@
 ![main_gif](./tutorial_images/main_gif.gif)
 
 This guide goes through all the steps to build your own AI art installation, using a button to 
-change the AI artwork displayed on a screen. The main components used in this guide:
+change the AI artwork displayed on a screen. The main components used in this guide are:
  
 * Nvidia Jetson Xavier NX (GPU-accelerated single-board computer)
 * Screen with HDMI support
