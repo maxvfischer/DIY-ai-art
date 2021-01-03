@@ -372,7 +372,7 @@ much hardener you add, as it will dry very quickly if adding to much.
 
 When everything had dried, an electric sander was used to remove redundant plastic padding.
 The inside of the box was smoothed by manual sanding. As a rule of thumb, if you can
-feel an edge or a crack, it will be visible when you paint it.
+feel an edge or a crack, it will be visible when painted.
 
 ![spackling_8](./tutorial_images/build_control_box/spackling_8.jpg)
 
@@ -508,9 +508,9 @@ To enable the cables to go in and out of the box, two cable slots were cut out:
 2. One cable slot in the bottom side panel for the electrical cable.
 
 Initially, the cable slots were only cut half way through the top and bottom panels. 
-But I then realized (after I had assembled and painted everything), that it will look much better if I cut the cable 
-slots all the way through and then glue a piece of MDF into the hole to cover up the redundant space. That's why the 
-control box is painted in the images below.
+But I then realized (after I had assembled and painted everything ¯\(ツ)/¯), that it will look much better if I cut the 
+cable slots all the way through and then glue a piece of MDF into the hole to cover up the redundant space. That's why 
+the control box is painted in the images below.
 
 A caliper was used to measure the diameter of the cables. An extra ~1mm was then added to the slots for
 the cables to fit nicely.
@@ -587,7 +587,7 @@ A paint roller was used on the flat areas and a small brush was used to paint th
 
 ![painting_5](./tutorial_images/build_control_box/painting_5.jpg)
 
-After the paint had tried, everything was reassembled.
+After the paint had dried, everything was reassembled.
 
 ![painting_6](./tutorial_images/build_control_box/painting_6.jpg)
 
@@ -609,7 +609,7 @@ a hole with the diameter of the button was drilled.
 As the button box will be located between the control box and the screen, the two 
 button cables and the One Connect cable (bringing electricity and HDMI to the screen) 
 will enter the button box at the bottom. The One Connect cable will also exit 
-the button box at the top. Two cable slots were therefore extracted at the top
+the button box at the top (continuing to the TV). Two cable slots were therefore extracted at the top
 and the bottom, using a Japanese hand saw/Dozuki saw. The slots were then smoothed
 by manual sanding.
 
@@ -619,7 +619,7 @@ by manual sanding.
 
 ![button_box_8](./tutorial_images/build_button_box/button_box_8.jpg)
 
-The screws were colored black using an aerosol varnish paint. A tip
+The screws keeping the top and bottom pieces together were colored black using an aerosol varnish paint. A tip
 when painting screws is to stick them into a piece of styrofoam.
 
 ![button_box_9](./tutorial_images/build_button_box/button_box_9.jpg)
@@ -655,9 +655,8 @@ attached to the wall using two screws, two wall plugs and the double-coated adhe
 ![assembly_9](./tutorial_images/assemble_art_installation/assembly_9.jpg)
 
 ## Control box
-To find two good spots for the screws, all the electronics were temporarily placed 
-in the control box to outline where the screws would go. Two holes were then drilled and the control box was attached
-to the wall using wall plugs and screws.
+To outline the screw holes, all the electronics were temporarily placed in the control box. Two holes were then drilled 
+and the control box was attached to the wall using wall plugs and screws.
 
 ![assembly_10](./tutorial_images/assemble_art_installation/assembly_10.jpg)
 
