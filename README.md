@@ -235,7 +235,7 @@ TODO: ADD SVG ANIMATION
 # Install art kiosk
 We're now ready to install the art kiosk on the computer! The program running the art kiosk is written in `Python` 
 and is running as 4 parallel processes, each implemented as its own class: `Kiosk`, `ArtButton`, `PIRSensorScreensaver` 
-and `GANEventHandler`. The entry point is `main.py` and all the parameters used are set in `config.yaml` (e.g. path to 
+and `GANEventHandler`. The entry point is `main.py` and all the parameters used are defined in `config.yaml` (e.g. path to 
 image directory, GPIO pinouts used etc).
 
 ![screen_saver_installation_1](./tutorial_images/install_art_kiosk/art_kiosk_diagram.png)
