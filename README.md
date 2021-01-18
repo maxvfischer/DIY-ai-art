@@ -655,8 +655,8 @@ attached to the wall using two screws, two wall plugs and the double-coated adhe
 ![assembly_9](./tutorial_images/assemble_art_installation/assembly_9.jpg)
 
 ## Control box
-To outline the screw holes, all the electronics were temporarily placed in the control box. Two holes were then drilled 
-and the control box was attached to the wall using wall plugs and screws.
+To outline the screw holes, all the electronics were temporarily placed in the control box and two screw holes were outlined and drilled. The HDMI/One Connect
+cable were then inserted into the cable slot and the control box was attached to the wall using wall plugs and screws. 
 
 ![assembly_10](./tutorial_images/assemble_art_installation/assembly_10.jpg)
 
@@ -665,6 +665,18 @@ and the control box was attached to the wall using wall plugs and screws.
 ![assembly_12](./tutorial_images/assemble_art_installation/assembly_12.jpg)
 
 ![assembly_13](./tutorial_images/assemble_art_installation/assembly_13.jpg)
+
+## Electronic components
+
+**NOTE: This part includes wiring of high voltage electricity that can be 
+lethal if not done properly. Before you connect the power cord to the power 
+outlet, make sure to check with a licensed electrician that everything is 
+properly wired and that it follows your local legislation.**
+
+The female side of the main power cord was removed and the cable was inserted
+into the control box. A junction box was then attach in the bottom right 
+corner using velcro tape. Before the velcro tape was attached, the backside 
+was cleaned with denatured alcohol.
 
 ![assembly_14](./tutorial_images/assemble_art_installation/assembly_14.jpg)
 
