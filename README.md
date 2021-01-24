@@ -655,8 +655,8 @@ attached to the wall using two screws, two wall plugs and the double-coated adhe
 ![assembly_9](./tutorial_images/assemble_art_installation/assembly_9.jpg)
 
 ## Control box
-To outline the screw holes, all the electronics were temporarily placed in the control box. Two holes were then drilled 
-and the control box was attached to the wall using wall plugs and screws.
+To outline the screw holes, all the electronics were temporarily placed in the control box and two screw holes were outlined and drilled. The HDMI/One Connect
+cable were then inserted into the cable slot and the control box was attached to the wall using wall plugs and screws. 
 
 ![assembly_10](./tutorial_images/assemble_art_installation/assembly_10.jpg)
 
@@ -665,3 +665,210 @@ and the control box was attached to the wall using wall plugs and screws.
 ![assembly_12](./tutorial_images/assemble_art_installation/assembly_12.jpg)
 
 ![assembly_13](./tutorial_images/assemble_art_installation/assembly_13.jpg)
+
+## Electronic components
+
+**NOTE: THIS PART INCLUDES WIRING OF HIGH VOLTAGE ELECTRICITY THAT CAN BE
+LETHAL IF NOT DONE PROPERLY. THE COLORS OF THE CABLES CAN VARY DEPENDING ON 
+REGION/COUNTRY. BEFORE YOU CONNECT THE POWER CORD TO THE POWER OUTLET, MAKE
+SURE TO CONSULT WITH A LICENSED ELECTRICIAN THAT EVERYTHING IS PROPERLY WIRED 
+AND THAT IT FOLLOWS YOUR LOCAL LEGISLATIONS.**
+
+
+### Main power cable & junction box
+
+The female side of the main power cord was removed and the cable was inserted
+into the control box. A junction box was then attach in the bottom right 
+corner using velcro tape. Before the velcro tape was attached, the backside 
+was cleaned with denatured alcohol. Three holes were created in the side of the
+junction box to enable three cables to enter.
+
+![assembly_14](./tutorial_images/assemble_art_installation/assembly_14.jpg)
+
+![assembly_15](./tutorial_images/assemble_art_installation/assembly_15.jpg)
+
+![assembly_16](./tutorial_images/assemble_art_installation/assembly_16.jpg)
+
+![assembly_17](./tutorial_images/assemble_art_installation/assembly_17.jpg)
+
+![assembly_18](./tutorial_images/assemble_art_installation/assembly_18.jpg)
+
+![assembly_19](./tutorial_images/assemble_art_installation/assembly_19.jpg)
+
+A wire stripper was used to strip the jacket/insulation of the power cord, 
+as well as the wires. A splicing connector (Wago 221, 3-conductor) was then 
+attached to each wire, enabling electricity from a single power outlet to be 
+split to the One Connect Box and to the Nvidia Jetson Xavier NX, without using 
+a power strip.
+
+![assembly_54](./tutorial_images/assemble_art_installation/assembly_54.jpg)
+
+![assembly_20](./tutorial_images/assemble_art_installation/assembly_20.jpg)
+
+![assembly_21](./tutorial_images/assemble_art_installation/assembly_21.jpg)
+
+![assembly_22](./tutorial_images/assemble_art_installation/assembly_22.jpg)
+
+### Samsung One Connect box
+
+The Samsung One Connect box was then attached in the left bottom corner using
+velcro tape. Some space was left below for the power cord and to the left for 
+the PIR sensor cables. Also, the backside of the One Connect Box was cleaned using denatured alcohol before attaching the velcro tape. 
+
+![assembly_23](./tutorial_images/assemble_art_installation/assembly_23.jpg)
+
+![assembly_24](./tutorial_images/assemble_art_installation/assembly_24.jpg)
+
+The screen's power cord (IEC C7 coupler) was inserted into the One Connect 
+Box. It was then aligned, measured and cut at an appropriate length to reach 
+inside the junction box. The wire stripper was used to remove the jacket/insulation of the power cord, as well as the wires inside. The C7 cable was 
+then inserted into the junction box and connected to the splicing connectors. 
+The ground was left out as the C7 coupler is ungrounded.
+
+![assembly_26](./tutorial_images/assemble_art_installation/assembly_26.jpg)
+
+![assembly_25](./tutorial_images/assemble_art_installation/assembly_25.jpg)
+
+![assembly_27](./tutorial_images/assemble_art_installation/assembly_27.jpg)
+
+### Nvidia Jetson & power adapter
+
+The power adapter to the Nvidia Jetson Xavier NX was attached in the top left 
+corner using velcro tape. The power cord (IEC C5 coupler) was inserted 
+into the power adapter. It was then aligned, measured and cut at an appropriate 
+length to reach inside the junction box. The wire stripper was used to remove 
+the jacket/insulation of the power cord, as well as the wires inside. The C5 
+cable was then inserted into the junction box and connected to the splicing 
+connectors.
+
+![assembly_28](./tutorial_images/assemble_art_installation/assembly_28.jpg)
+
+![assembly_29](./tutorial_images/assemble_art_installation/assembly_29.jpg)
+
+![assembly_30](./tutorial_images/assemble_art_installation/assembly_30.jpg)
+
+![assembly_31](./tutorial_images/assemble_art_installation/assembly_31.jpg)
+
+Before closing the junction box, cable ties was tightened around each cable 
+going into the junction box as strain relief.
+
+![assembly_32](./tutorial_images/assemble_art_installation/assembly_32.jpg)
+
+![assembly_55](./tutorial_images/assemble_art_installation/assembly_55.jpg)
+
+To attach the Xavier NX, two pieces of galvanised band was cut out and wrapped 
+in insulating tape. The computer was then attached in the top right corner 
+using 4 small screws and washers.
+
+![assembly_56](./tutorial_images/assemble_art_installation/assembly_56.jpg)
+
+![assembly_57](./tutorial_images/assemble_art_installation/assembly_57.jpg)
+
+![assembly_58](./tutorial_images/assemble_art_installation/assembly_58.jpg)
+
+![assembly_33](./tutorial_images/assemble_art_installation/assembly_33.jpg)
+
+![assembly_34](./tutorial_images/assemble_art_installation/assembly_34.jpg)
+
+### Connect cables
+
+The HDMI, the One Connect Cable and the Xavier NX power cable were connected. 
+Cable ties were used to structure the cables.
+
+![assembly_35](./tutorial_images/assemble_art_installation/assembly_35.jpg)
+
+![assembly_36](./tutorial_images/assemble_art_installation/assembly_36.jpg)
+
+### Button
+
+The button changing the artwork was implemented as a pull-up resistor, following
+this schema:
+
+![pull_up_resistor](./tutorial_images/assemble_art_installation/pull-up_resistor.png)
+
+When the button is "off" (i.e. not pushed), a small current will flow from the 
+positive 3.3v, through the resistor and into the GPIO pin, leading to the GPIO 
+pin being HIGH (1). On the other hand, when the button is pushed, the current will flow from the positive 3.3v, through the resistor, via the button and into ground (GND). This will lead to the GPIO pin being LOW (0). This shift in 
+HIGH/LOW on the GPIO pin is used to change the artwork on the screen.
+
+Two cables were measured and soldered to the button. The cables were then 
+inserted into the control box via the same cable slot as the One Connect cable. 
+Make sure that you have enough cable to reach to the Nvidia Jetson.
+
+![assembly_37](./tutorial_images/assemble_art_installation/assembly_37.jpg)
+
+The end of a female jumping wire were then soldered to the end of the cable 
+connecting to the ground (for being able to unplug the cable easily). Before 
+soldering the two cables together, one of the cables were passed through a 
+shrinking tube. After the cables were soldered together, a blow torch was used 
+to shrink the tube around the soldering.
+
+![assembly_38](./tutorial_images/assemble_art_installation/assembly_38.jpg)
+
+A 1kΩ resistor and a female jumping wire were soldered to the other button 
+cable. Finally, another female jumping cable were soldered to the other side of 
+the resistor.
+
+![assembly_39](./tutorial_images/assemble_art_installation/assembly_39.jpg)
+
+![assembly_40](./tutorial_images/assemble_art_installation/assembly_40.jpg)
+
+![assembly_41](./tutorial_images/assemble_art_installation/assembly_41.jpg)
+
+![assembly_42](./tutorial_images/assemble_art_installation/assembly_42.jpg)
+
+The jumping wires were then connected to the Nvidia Jetson GPIOs:
+
+* Blue: Ground (pin 14)
+* Red: 3.3v (pin 17)
+* Green: GPIO (pin 15)
+
+![assembly_43](./tutorial_images/assemble_art_installation/assembly_43.jpg)
+
+The Samsung One Connect cable were inserted through the button box and the 
+button box's top plate was attached.
+
+![assembly_44](./tutorial_images/assemble_art_installation/assembly_44.jpg)
+
+![assembly_45](./tutorial_images/assemble_art_installation/assembly_45.jpg)
+
+### PIR sensor
+
+Three cables of equal length were measured and cut out (I would've preferred 
+to have three different colors, but I only had black and red cable).
+
+![assembly_46](./tutorial_images/assemble_art_installation/assembly_46.jpg)
+
+Three female/female jumping wires were then cut in the middle and soldered 
+to the three cables, one set of jumping wires for each cable. To compensate for the bad coloring of the main cables, three different colors were chosen for the 
+jumping wires.
+
+Multiple larger shrinking tubes were used to keep the three cables together.
+
+![assembly_47](./tutorial_images/assemble_art_installation/assembly_47.jpg)
+
+![assembly_48](./tutorial_images/assemble_art_installation/assembly_48.jpg)
+
+The sensor I used was a SR602. It has three pinouts that were connected to the 
+Nvidia Jetson:
+
+* **\-** to GND (pin 6)
+* **\+** to 3.3v (pin 1)
+* **out** to a GPIO (pin 7)
+
+When the PIR sensor register a person walking by, **out** will be HIGH. When 
+there's no detection, **out** will be LOW.
+
+The PIR sensor were then inserted into the slot in the control box lid.
+
+![assembly_59](./tutorial_images/assemble_art_installation/assembly_59.jpg)
+
+![assembly_49](./tutorial_images/assemble_art_installation/assembly_49.jpg)
+
+![assembly_50](./tutorial_images/assemble_art_installation/assembly_50.jpg)
+
+![assembly_51](./tutorial_images/assemble_art_installation/assembly_51.jpg)
+
+![assembly_52](./tutorial_images/assemble_art_installation/assembly_52.jpg)
+
+![assembly_53](./tutorial_images/assemble_art_installation/assembly_53.jpg)
