@@ -37,6 +37,13 @@ box, how to integrate the button and PIR sensor etc.
     1. [Screen](#screen)
     2. [Button box](#button-box)
     3. [Control box](#control-box)
+    4. [Electronic components](#electronic-components)
+        1. [Main power cable and junction box](#main-power-cable-and-junction-box)
+        2. [Samsung One Connect box](#samsung-one-connect-box)
+        3. [Nvidia Jetson and power adapter](#nvidia-jetson-and-power-adapter)
+        4. [Connect cables](#connect-cables)
+        5. [Button](#button)
+        6. [PIR sensor](#pir-sensor)
 
 # Prepare the computer (Nvidia Jetson Xavier NX Dev Kit)
 The Nvidia Jetson Xavier NX Development Kit 
@@ -675,7 +682,7 @@ SURE TO CONSULT WITH A LICENSED ELECTRICIAN THAT EVERYTHING IS PROPERLY WIRED
 AND THAT IT FOLLOWS YOUR LOCAL LEGISLATIONS.**
 
 
-### Main power cable & junction box
+### Main power cable and junction box
 
 The female side of the main power cord was removed and the cable was inserted
 into the control box. A junction box was then attach in the bottom right 
@@ -731,7 +738,7 @@ The ground was left out as the C7 coupler is ungrounded.
 
 ![assembly_27](./tutorial_images/assemble_art_installation/assembly_27.jpg)
 
-### Nvidia Jetson & power adapter
+### Nvidia Jetson and power adapter
 
 The power adapter to the Nvidia Jetson Xavier NX was attached in the top left 
 corner using velcro tape. The power cord (IEC C5 coupler) was inserted 
