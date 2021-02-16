@@ -1,11 +1,12 @@
 import os
+import sys
 import time
 import Jetson.GPIO as GPIO
 from datetime import datetime
 from kiosk.utils import GPIO_MODES
 
 
-class PIRSensorScreensaver():
+class PIRSensorScreensaver:
     """
     Listens to PIR sensor and activates screensaver if no movement.
 
