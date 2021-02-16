@@ -288,8 +288,19 @@ image directory, GPIO pinouts used etc).
 | **Kiosk**                      | kiosk/kiosk.py             |The `Kiosk` process handles all the GUI: toggling (\<F11>) and ending (\<Escape>) fullscreen, listens to change of the active artwork to be displayed etc.                                                                                                                                                                                                                                            |
 | **ArtButton**                  | kiosk/artbutton.py         |The `ArtButton` process listens to a GPIO pinout connected to a button. When the button is pushed and the GPIO is triggered, it replaces the active artwork file with a random image sampled from the image directory.                                                                                                   |
 | **PIRSensorScreensaver**       | kiosk/pirsensorscreensaver |The `PIRSensorScreensaver` process listens to a GPIO pinout connected to a PIR sensor. When no motion has triggered the PIR sensor within a predefined threshold of seconds, the computer's screensaver is activated. When motion is detected, the screensaver is deactivated.                                              |
-| **GANEventHandler**            | ml/StyleGAN.py             |The `GANEventHandler` process is listening to deleted items in the image directory. When the button is clicked and an image is deleted (i.e. moved to replace the active artwork file, active_artwork.jpg), this process checks how many images that are left in the image directory. If the number of images  are below a predefined threshold, a new process is spawned, generating a new set of images using a GAN network. |
+| **ArtEventHandler**            | kiosk/art_event_handler.py             |The `ArtEventHandler` process is listening to deleted items in the image directory. When the button is clicked and an image is deleted (i.e. moved to replace the active artwork file, active_artwork.jpg), this process checks how many images that are left in the image directory. If the number of images falls are below a predefined threshold, a new process (function) is spawned, generating a new set of images. You need to update this class to generate the images. |
 
+# Add your generative code
+To add your own generative code (GAN-network or others), you need to update two files:
+
+* kiosk/arteventhandler.py
+* main.py
+
+## kiosk/arteventhandler.py
+The class `ArtEventHandler` found in the file `kiosk/arteventhandler.py` is an event handler that is triggered to generate new images to be saved in the image directory. When an image is deleted from the image directory (i.e. moved to replace the active artwork), the class function `on_deleted` is executed. It checks if the number of images found in the image directory is above a pre-defined threshold. If the number of images falls below the threshold, the class function `generate_images` is executed. It is in this function that you need to add your generative code that shall add new images to the image directory.
+
+## main.py
+If you have updated the constructor arguments for the class `ArtEventHandler` to pass your generative specific arguments, you need to update the initialization of `ArtEventHandler` in the function `start_art_generator` found in `main.py`.
 
 # Build the control box
 To get a nice looking installation with as few visible cables as possible, a control box was built to encapsulate the Nvidia computer, power adapters, Samsung One Connect box etc.
