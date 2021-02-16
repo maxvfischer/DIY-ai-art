@@ -1,5 +1,6 @@
 active_artwork_file_path: 'active_artwork.jpg'
 image_directory: 'images'
+lower_limit_num_images: 200
 
 kiosk:
   path: 'frame.png'
@@ -16,10 +17,3 @@ artbutton:
   GPIO_mode: 'BOARD'
   GPIO_pinout: 15
   loop_sleep_sec: 1.0
-
-ml_model:
-  batch_size: 1
-  img_size: 1024
-  test_num: 20
-  checkpoint_directory: 'ml/checkpoint'
-  lower_limit_num_images: 200

@@ -110,17 +110,28 @@ def start_pir(GPIO_mode: str,
     pir.start()
 
 
-def start_art_generator(batch_size: int,
-                        img_size: int,
-                        test_num: int,
-                        checkpoint_directory: str,
-                        image_directory: str,
+def start_art_generator(image_directory: str,
                         lower_limit_num_images: int) -> None:
+    """
+    Starts event handler that listens to deleted images in the image_directory. If an image is deleted from the
+    image_directory (i.e. moved to replace the active artwork) and the number of images in image_directory falls
+    below lower_limit_num_images, a process is spawned to generate new images.
+
+    NOTE: You need to update the class ArtEventHandler and pass the needed arguments to generate new images!
+
+    Parameters
+    ----------
+    image_directory : str
+        Path to the image directory to where the newly generated images should be saved.
+
+    lower_limit_num_images : int
+        Lower threshold triggering new images to be generated.
+
+    Returns
+    -------
+    None
+    """
     handler = ArtEventHandler(
-        batch_size=batch_size,
-        img_size=img_size,
-        test_num=test_num,
-        checkpoint_directory=checkpoint_directory,
         image_directory=image_directory,
         lower_limit_num_images=lower_limit_num_images
     )
@@ -168,12 +179,8 @@ if __name__ == '__main__':
     p_art = multiprocessing.Process(
         target=start_art_generator,
         args=(
-            config['ml_model']['batch_size'],
-            config['ml_model']['img_size'],
-            config['ml_model']['test_num'],
-            config['ml_model']['checkpoint_directory'],
             config['image_directory'],
-            config['ml_model']['lower_limit_num_images']
+            config['lower_limit_num_images']
         )
     )
 
