@@ -2,13 +2,11 @@ import time
 from ml.ops import *
 from ml.utils import *
 import tensorflow as tf
-from tensorflow.contrib.data import prefetch_to_device, shuffle_and_repeat, map_and_batch
 import numpy as np
-import PIL.Image
 from tqdm import tqdm
-from watchdog.observers import Observer
 from watchdog.events import FileSystemEventHandler, FileModifiedEvent
 import multiprocessing
+
 
 class StyleGAN(object):
     """
@@ -40,7 +38,6 @@ class StyleGAN(object):
         tf.global_variables_initializer().run()
         self.saver = tf.train.Saver()
         self.load_checkpoint(self.checkpoint_directory)
-
 
     def generate_images(self,
                         num_images: int):
@@ -162,7 +159,6 @@ class StyleGAN(object):
         self.fake_images = self.generator(test_z, alpha=alpha, target_img_size=self.img_size, is_training=False)
 
 
-
 class GANEventHandler(FileSystemEventHandler):
     def __init__(self,
                  batch_size: int,
@@ -182,7 +178,7 @@ class GANEventHandler(FileSystemEventHandler):
     def generate_images(self,
                         generating_images):
         generating_images.value = True
-        
+
         config = tf.ConfigProto(allow_soft_placement=True)
         with tf.Session(config=config) as sess:
             gan = StyleGAN(
@@ -195,7 +191,7 @@ class GANEventHandler(FileSystemEventHandler):
             gan.generate_images(
                 num_images=self.test_num
             )
-        
+
         generating_images.value = False
 
     def on_deleted(self,
