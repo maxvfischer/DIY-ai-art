@@ -43,8 +43,7 @@ class PIRSensorScreensaver():
 
     def _check_change_pir_sensor(self) -> None:
         """Check PIR sensor for movement. If firing, update datetime of last pir firing."""
-        # TODO: Remove __not__ when real sensor is integrated
-        sensor_is_firing = not GPIO.input(self.GPIO_pinout)
+        sensor_is_firing = GPIO.input(self.GPIO_pinout)
         if sensor_is_firing == True:
            self.datetime_last_pir_firing = datetime.now()
 
