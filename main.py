@@ -5,7 +5,7 @@ from kiosk.utils import read_yaml
 from kiosk.artbutton import ArtButton
 from watchdog.observers import Observer
 from kiosk.art_event_handler import ArtEventHandler
-from kiosk.pirsensorscreensaver import PIRSensorScreensaver
+from kiosk.pir_sensor_screensaver import PIRSensorScreensaver
 
 
 def start_artbutton(GPIO_mode: str,
