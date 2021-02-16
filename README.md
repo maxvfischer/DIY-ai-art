@@ -45,6 +45,7 @@ box, how to integrate the button and PIR sensor etc.
         4. [Connect cables](#connect-cables)
         5. [Button](#button)
         6. [PIR sensor](#pir-sensor)
+6. [Final AI art installation](#final-ai-art-installation)
 
 # Prepare the computer (Nvidia Jetson Xavier NX Dev Kit)
 The Nvidia Jetson Xavier NX Development Kit 
