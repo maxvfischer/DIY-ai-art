@@ -12,7 +12,32 @@ def start_artbutton(GPIO_mode: str,
                     GPIO_pinout: int,
                     active_artwork_file_path: str,
                     image_directory: str,
-                    loop_sleep_sec: float):
+                    loop_sleep_sec: float) -> None:
+    """
+    Starts the art button listener.
+
+    Parameters
+    ----------
+    GPIO_mode : str
+        GPIO mode used to set up the Nvidia Jetson board. Accepted values: {'BOARD', 'BCM'}
+
+    GPIO_pinout : int
+        GPIO pin number to which the button is connected.
+
+    active_artwork_file_path : str
+        Path to the active artwork file. This is the image that will be displayed in the Kiosk.
+
+    image_directory : str
+        Path to the image directory from where the images will be randomly sampled.
+
+    loop_sleep_sec : float
+        Seconds to sleep after registered button click. Risk of multiple unexpected simultaneous clicks
+        if set to low.
+
+    Returns
+    -------
+    None
+    """
     button = ArtButton(
         GPIO_mode=GPIO_mode,
         GPIO_pinout=GPIO_pinout,
@@ -25,7 +50,25 @@ def start_artbutton(GPIO_mode: str,
 
 def start_kiosk(active_artwork_file_path: str,
                 frame_path: str,
-                frame_inner_size: tuple):
+                frame_inner_size: tuple) -> None:
+    """
+    Starts art kiosk.
+
+    Parameters
+    ----------
+    active_artwork_file_path : str
+        Path to active artwork to be displayed. If the active artwork image is updated, the new image will be rendered.
+
+    frame_path : str
+        Path to frame image.
+
+    frame_inner_size : tuple
+        Inner size of frame. Used to resize artwork to fit frame.
+
+    Returns
+    -------
+    None
+    """
     kiosk = Kiosk(
         active_artwork_path=active_artwork_file_path, 
         frame_path=frame_path,
@@ -36,7 +79,28 @@ def start_kiosk(active_artwork_file_path: str,
 def start_pir(GPIO_mode: str,
               GPIO_pinout: int,
               loop_sleep_sec: float,
-              screensaver_after_sec: float):
+              screensaver_after_sec: float) -> None:
+    """
+    Starts passive infrared sensor listener.
+
+    Parameters
+    ----------
+    GPIO_mode : str
+        GPIO mode used to set up the Nvidia Jetson board. Accepted values: {'BOARD', 'BCM'}
+
+    GPIO_pinout : int
+        GPIO pin number to which the PIR sensor is connected.
+
+    loop_sleep_sec : float
+        Seconds to sleep when reading PIR sensor and checking screensaver.
+
+    screensaver_after_sec : float
+        Seconds before the screensaver will be activated.
+
+    Returns
+    -------
+    None
+    """
     pir = PIRSensorScreensaver(
         GPIO_mode=GPIO_mode,
         GPIO_pinout=GPIO_pinout,
