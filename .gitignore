@@ -144,3 +144,6 @@ images/*.jpg
 
 # Tensorflow
 *.model*
+
+# Mac
+.DS_Store
