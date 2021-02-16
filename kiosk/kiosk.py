@@ -1,12 +1,11 @@
 import time
 import PIL.Image
 import PIL.ImageTk
-from datetime import datetime, timedelta
-from watchdog.observers import Observer
-from watchdog.events import FileSystemEventHandler, FileModifiedEvent
 from tkinter import *
 from typing import Optional, Tuple
-
+from watchdog.observers import Observer
+from datetime import datetime, timedelta
+from watchdog.events import FileSystemEventHandler, FileModifiedEvent
 
 
 class Kiosk:
@@ -29,7 +28,7 @@ class Kiosk:
                  frame_path: Optional[str] = None,
                  frame_inner_size: Optional[Tuple[int, int]] = None) -> None:
         self.tk = Tk()
-        self.tk.attributes('-zoomed', True)  # This just maximizes it so we can see the window. It's nothing to do with fullscreen.
+        self.tk.attributes('-zoomed', True)
         self.frame = Frame(self.tk)
         self.frame.pack()
         self.label = None
@@ -87,7 +86,7 @@ class Kiosk:
         Parameters
         ----------
         event : FileModifiedEvent
-            Event body from watchdog event handler/observer
+            Event body from watchdog event handler/observer.
 
         Return
         ------
@@ -146,7 +145,7 @@ class Kiosk:
     def _read_image(self, 
                     img_path: str,
                     frame_path: Optional[str] = None,
-                    frame_inner_size: Optional[Tuple[int, int]] = None) -> PIL.Image:
+                    frame_inner_size: Optional[Tuple[int, int]] = None) -> PIL.ImageTk.PhotoImage:
         """
         Reads image to PIL ImageTk PhotoImage.
 
@@ -163,7 +162,7 @@ class Kiosk:
 
         Returns
         -------
-        Image
+        PIL.ImageTk.PhotoImage
             PIL ImageTk PhotoImage.
         """
         img = PIL.Image.open(img_path)
