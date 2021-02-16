@@ -3,10 +3,10 @@ import multiprocessing
 from kiosk.kiosk import Kiosk
 from kiosk.utils import read_yaml
 from kiosk.artbutton import ArtButton
-from kiosk.pirsensorscreensaver import PIRSensorScreensaver
-from ml.StyleGAN import GANEventHandler
-import tensorflow as tf
 from watchdog.observers import Observer
+from kiosk.art_event_handler import ArtEventHandler
+from kiosk.pirsensorscreensaver import PIRSensorScreensaver
+
 
 def start_artbutton(GPIO_mode: str,
                     GPIO_pinout: int,
@@ -46,13 +46,13 @@ def start_pir(GPIO_mode: str,
     pir.start()
 
 
-def start_gan(batch_size: int,
-              img_size: int,
-              test_num: int,
-              checkpoint_directory: str,
-              image_directory: str,
-              lower_limit_num_images: int) -> None:
-    handler = GANEventHandler(
+def start_art_generator(batch_size: int,
+                        img_size: int,
+                        test_num: int,
+                        checkpoint_directory: str,
+                        image_directory: str,
+                        lower_limit_num_images: int) -> None:
+    handler = ArtEventHandler(
         batch_size=batch_size,
         img_size=img_size,
         test_num=test_num,
@@ -101,8 +101,8 @@ if __name__ == '__main__':
         )
     )
 
-    p_ml = multiprocessing.Process(
-        target=start_gan,
+    p_art = multiprocessing.Process(
+        target=start_art_generator,
         args=(
             config['ml_model']['batch_size'],
             config['ml_model']['img_size'],
@@ -116,9 +116,9 @@ if __name__ == '__main__':
     p_button.start()
     p_kiosk.start()
     p_pir.start()
-    p_ml.start()
+    p_art.start()
 
     p_button.join()
     p_kiosk.join()
     p_pir.join()
-    p_ml.join()
+    p_art.join()
