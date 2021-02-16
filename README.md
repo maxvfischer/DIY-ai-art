@@ -8,7 +8,7 @@ change the AI artwork displayed on a screen. The main components used in this gu
 * Button to change artwork
 * Passive infrared sensor to reduce risk of screen burn-in
 
-The guide includes how to set up the computer to run an art kiosk (with code), how to build and assemble the control 
+It includes how to set up the computer to run an art kiosk (with code), how to build and assemble the control 
 box, how to integrate the button and PIR sensor etc.
 
 # Table of content
@@ -40,19 +40,21 @@ box, how to integrate the button and PIR sensor etc.
     4. [Electronic components](#electronic-components)
         1. [Main power cable and junction box](#main-power-cable-and-junction-box)
         2. [Samsung One Connect box](#samsung-one-connect-box)
-        3. [Nvidia Jetson and power adapter](#nvidia-jetson-and-power-adapter)
+        3. [Nvidia Jetson's power adapter](#nvidia-jetson's-power-adapter)
+        4. [Nvidia Jetson](#nvidia-jetson)
         4. [Connect cables](#connect-cables)
         5. [Button](#button)
         6. [PIR sensor](#pir-sensor)
 
 # Prepare the computer (Nvidia Jetson Xavier NX Dev Kit)
 The Nvidia Jetson Xavier NX Development Kit 
-(https://www.nvidia.com/en-us/autonomous-machines/embedded-systems/jetson-xavier-nx/) is a single-board computer
-with an integrated Nvidia Jetson Xavier NX module (https://developer.nvidia.com/embedded/jetson-xavier-nx). It's 
+([https://www.nvidia.com/en-us/autonomous-machines/embedded-systems/jetson-xavier-nx/](https://www.nvidia.com/en-us/autonomous-machines/embedded-systems/jetson-xavier-nx/)) is a single-board computer
+with an integrated Nvidia Jetson Xavier NX module ([https://developer.nvidia.com/embedded/jetson-xavier-nx](https://developer.nvidia.com/embedded/jetson-xavier-nx)). It's 
 developed by Nvidia for running computationally demanding tasks on edge. Similar to the Raspberry Pi, it has 40 GPIO pins that you can
 interact with.
 
-The development kit includes:
+The development kit (version US/JP/TW) includes:
+
 * x1 Nvidia Jetson Xavier NX
 * x1 19.0V/2.37A power adapter
 * x2 Power cables:
@@ -70,7 +72,7 @@ supported OS image (Ubuntu) provided by Nvidia.
 
 To install the OS, you'll need to use a second computer. 
 
-Start of by downloading the OS image: https://developer.nvidia.com/jetson-nx-developer-kit-sd-card-image.
+Start of by downloading the OS image: [https://developer.nvidia.com/jetson-nx-developer-kit-sd-card-image](https://developer.nvidia.com/jetson-nx-developer-kit-sd-card-image).
 To be able to download it, you need to sign up for a `NVIDIA Developer Program Membership`. It's free and quite useful 
 as you'll get access to the Nvidia Developer forum. 
 
@@ -81,8 +83,7 @@ the available disks. Find the disk name of the micro-SD card you just inserted. 
 
 ![xavier_4](./tutorial_images/setup_computer/xavier_4.svg)
 
-When you've found the name of the micro-SD card, un-mount it. Be careful, you definitely don't want to unmount any of 
-the other disks!
+When you've found the name of the micro-SD card, unmount it.
 
 ![xavier_5](./tutorial_images/setup_computer/xavier_5.svg)
 
@@ -111,43 +112,50 @@ If you get stuck during boot-up with an output as below, try to reboot the machi
 [ *** ] (1 of 2) A start job is running for End-user configuration after initial OEM installation...
 ```
 
-Full instruction from Nvidia can be found here: 
-https://developer.nvidia.com/embedded/learn/get-started-jetson-xavier-nx-devkit
+Full installation guide from Nvidia can be found here: 
+[https://developer.nvidia.com/embedded/learn/get-started-jetson-xavier-nx-devkit](https://developer.nvidia.com/embedded/learn/get-started-jetson-xavier-nx-devkit)
 
 ## Install base requirements
 Update and upgrade apt-get
+
 ```
 sudo apt-get update
 sudo apt-get upgrade
 ```
 If asked to choose between `gdm3` and `lightdm`, choose `gdm3`.
 
-Lets reboot the system before we continue:
+Reboot before continuing:
+
 ```bash
 sudo reboot
 ```
 
-Install pip3:
+After reboot, install pip3:
+
 ```bash
 sudo apt install python3-pip
 ```
 
 Install virtual environment:
+
 ```bash
 sudo apt install -y python3-venv
 ```
 
 Create a virtual environment in the directory `~/venvs` with the name `artkiosk`:
+
 ```bash
 python3 -m venv ~/venvs/artkiosk
 ```
 
 Activate the virtual environment:
+
 ```bash
 source ~/venvs/artkiosk/bin/activate
 ```
 
 Install python wheel:
+
 ```bash
 pip3 install wheel
 ```
@@ -155,14 +163,15 @@ pip3 install wheel
 ## Install Jetson GPIO
 [Jetson.GPIO](https://github.com/NVIDIA/jetson-gpio) is a Python package developed by Nvidia that works in the same way
 as RPi.GPIO, but for the Jetson family of computers. It enables the user to, through Python code, interact with the GPIO 
-pinouts on the Xavier Dev Kit.
+pinouts on the Jetson computer.
 
 First, install the Jetson.GPIO package into the virtual environment:
+
 ```bash
 pip3 install Jetson.GPIO
 ```
 
-Then, set up user permissions to be able to access the GPIOs. Create new GPIO user group (replace 
+Then, set up user permissions to be able to access the GPIOs. Create a new GPIO user group (replace 
 `your_user_name`):
 
 ```bash
@@ -171,21 +180,22 @@ sudo usermod -a -G gpio your_user_name
 ```
 
 Copy custom GPIO rules (replace `pythonNN` with your Python version):
+
 ```bash
 sudo cp venvs/artkiosk/lib/pythonNN/site-packages/Jetson/GPIO/99-gpio.rules /etc/udev/rules.d/
 ```
 
+Full installation guide can be found here: [https://github.com/NVIDIA/jetson-gpio#installation](https://github.com/NVIDIA/jetson-gpio#installation)
+
 ## Install xscreensaver (optional)
 To reduce the risk of burn-in when displaying static art on the screen, a PIR (passive infrared) sensor was integrated. 
-When no movement has been registered around the art installation, a screen saver is triggered.
+When no movement has been registered around the art installation, a screen saver was triggered.
 
-The default screen saver on Ubuntu is `gnome-screensaver`. It's not a screen saver in the traditional sense. Instead of 
-showing moving images, it blanks the screen, basically shuts down the HDMI signals to the screen, enabling the screen to 
-fall into low energy mode.
+The default screen saver on Ubuntu is `gnome-screensaver`. It's not a screen saver in the "traditional sense". Instead of 
+showing moving images, it blanks the screen, basically shutting down the HDMI signals to the screen, enabling the screen to fall into low energy mode.
 
-The screen I used in this project was a Samsung The Frame 32" (2020). When the screen is set to HDMI (1/2) and no HDMI 
-signal is provided, it shows a static image telling the user that no HDMI signal is found. This is what happened when 
-using `gnome-screensaver` together with Samsung The Frame. This is a unwanted behaviour in this set up, as we either 
+The screen I used in this project was a Samsung The Frame 32" (2020). When the screen was set to HDMI (1/2) and no HDMI 
+signal was provided, it showed a static image telling the user that no HDMI signal is found. This is an unwanted behaviour in this set up, as we either 
 wants the screen to go blank, or show some kind of a moving image, to reduce the risk of burn-in. We do not want to see 
 a new static screen telling us that no hdmi signal is found.
 
@@ -194,53 +204,78 @@ images. Also, it seems like `xscreensaver's` blank screen mode works differently
 `xscreensaver's` blank screen is triggered, it doesn't seems to shut down the HDMI signal, but rather turn the screen 
 black. This is the behaviour we want in this installation. 
 
-This is an optional step. If you're experiencing the same challenge as I did with the screen saver, follow these steps 
+If you're experiencing the same challenge as I did with the screen saver, follow these steps 
 to uninstall `gnome-screensaver` and install `xscreensaver`:
 
 ```bash
 sudo apt-get remove gnome-screensaver
 sudo apt-get install xscreensaver xscreensaver-data-extra xscreensaver-gl-extra
 ```
-After uninstalling `gnome-screensaver` and installing `xscreensaver`, we need to add it to `Startup Applications` for 
-it to start on boot:
+After uninstalling `gnome-screensaver` and installing `xscreensaver`, it was added to `Startup Applications`:
 
 ![screen_saver_installation_1](./tutorial_images/setup_computer/screen_saver_installation_1.png)
 
 ![screen_saver_installation_2](./tutorial_images/setup_computer/screen_saver_installation_2.png)
 
 
-Full installation guide: https://askubuntu.com/questions/292995/configure-screensaver-in-ubuntu
+Full installation guide: [https://askubuntu.com/questions/292995/configure-screensaver-in-ubuntu/293014#293014](https://askubuntu.com/questions/292995/configure-screensaver-in-ubuntu/293014#293014)
 
 ## Install Jetson stats (optional)
 [Jetson stats](https://github.com/rbonghi/jetson_stats) is a really useful open-source package to monitor and control 
 the Jetson. It enables you to track CPU/GPU/Memory usage, check temperatures, increase the swap memory etc.
 
 To install Jetson stats:
+
 ```bash
 sudo -H pip install -U jetson-stats
 ```
 
 Reboot your machine:
+
 ```bash
 sudo reboot
 ```
 
 Activate the virtual environment again after reboot:
+
 ```bash
 source ~/venvs/artkiosk/bin/activate
 ```
 
 To check CPU/GPU/Memory usage etc:
+
 ```bash
 jtop
 ```
 
-Full list of commands can be found here: https://github.com/rbonghi/jetson_stats
-
-TODO: ADD SVG ANIMATION
+Full list of commands can be found here: [https://github.com/rbonghi/jetson_stats](https://github.com/rbonghi/jetson_stats)
 
 # Install art kiosk
-We're now ready to install the art kiosk on the computer! The program running the art kiosk is written in `Python` 
+We're now ready to install the art kiosk on the computer! 
+
+Start by clone this repository:
+
+```bash
+git clone https://github.com/maxvfischer/Arthur.git
+```
+
+Change active directory and install the dependencies:
+
+```bash
+cd Arthur
+pip3 install -r requirements.txt
+```
+
+The art kiosk is started by executing:
+
+```bash
+python3 -m main
+```
+
+NOTE: The art kiosk will **NOT** work properly if you don't attach the button and the PIR sensor. Please continue to 
+follow the instructions.
+
+The program running the art kiosk is written in `Python` 
 and is running as 4 parallel processes, each implemented as its own class: `Kiosk`, `ArtButton`, `PIRSensorScreensaver` 
 and `GANEventHandler`. The entry point is `main.py` and all the parameters used are defined in `config.yaml` (e.g. path to 
 image directory, GPIO pinouts used etc).
@@ -250,41 +285,18 @@ image directory, GPIO pinouts used etc).
 | **Process/Class**              | **File**                   | **Description**                                                                                                                                                                                                                                                                                                                                                                                      |
 |--------------------------------|----------------------------|------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
 | **Kiosk**                      | kiosk/kiosk.py             |The `Kiosk` process handles all the GUI: toggling (\<F11>) and ending (\<Escape>) fullscreen, listens to change of the active artwork to be displayed etc.                                                                                                                                                                                                                                            |
-| **ArtButton**                  | kiosk/artbutton.py         |The `ArtButton` process listens to a GPIO pinout (default: 15) connected to a button (see how to solder and connect the button under #.....). When triggered, it replaces the active artwork (default: active_artwork.jpg) with a random image sampled from the image directory (default: /images).                                                                                                   |
-| **PIRSensorScreensaver**       | kiosk/pirsensorscreensaver |The `PIRSensorScreensaver` process listens to a GPIO pinout (default: 31) connected to a PIR sensor (see how to solder and connect the PIR sensor under #.....). When no motion has triggered the PIR sensor within a predefined threshold of seconds, the computer's screensaver is activated. When motion is detected, the screensaver is deactivated.                                              |
-| **GANEventHandler**            | ml/StyleGAN.py             |The `GANEventHandler` process is listening to deleted items in the image directory. When the button is clicked and an image is deleted (moved to replace active_artwork.jpg), the process checks how many images that are left in the image directory. If the number of images  are below a predefined threshold (default: 200), a new process is spawned, generating new images using a GAN network. |
+| **ArtButton**                  | kiosk/artbutton.py         |The `ArtButton` process listens to a GPIO pinout connected to a button. When the button is pushed and the GPIO is triggered, it replaces the active artwork file with a random image sampled from the image directory.                                                                                                   |
+| **PIRSensorScreensaver**       | kiosk/pirsensorscreensaver |The `PIRSensorScreensaver` process listens to a GPIO pinout connected to a PIR sensor. When no motion has triggered the PIR sensor within a predefined threshold of seconds, the computer's screensaver is activated. When motion is detected, the screensaver is deactivated.                                              |
+| **GANEventHandler**            | ml/StyleGAN.py             |The `GANEventHandler` process is listening to deleted items in the image directory. When the button is clicked and an image is deleted (i.e. moved to replace the active artwork file, active_artwork.jpg), this process checks how many images that are left in the image directory. If the number of images  are below a predefined threshold, a new process is spawned, generating a new set of images using a GAN network. |
 
-Start by clone this repository:
-```bash
-git clone https://github.com/maxvfischer/Arthur.git
-```
-
-Change active directory and install the dependencies:
-```bash
-cd Arthur
-pip3 install -r requirements.txt
-```
-
-The art kiosk is started by executing:
-```bash
-python3 -m main
-```
-
-NOTE: The art kiosk will **NOT** work properly if you don't attach the button and the PIR sensor. Please continue to 
-follow the instructions.
 
 # Build the control box
-To get a nice looking installation with as few visible cables as possible, a control box 
-was built to encapsulate the Nvidia computer, power adapters, Samsung One Connect box etc. 
+To get a nice looking installation with as few visible cables as possible, a control box was built to encapsulate the Nvidia computer, power adapters, Samsung One Connect box etc.
 
 ## Hand-cut parts
-The control box was build using 12mm (0.472") MDF. MDF is quite simple to work with and
-looks good when painted, but produces a lot of fine-grained dust when processed.
+The control box was build using 12mm (0.472") MDF. A vertical panel saw was used to cut down the MDF into smaller pieces. A table saw was used to cut out the final pieces.
 
 ![raw_mdf](./tutorial_images/build_control_box/raw_mdf.jpg)
-
-A vertical panel saw was used to cut down the MDF into smaller pieces. A table saw was 
-used to cut out the final pieces.
 
 ![vertical_panel_saw](./tutorial_images/build_control_box/vertical_panel_saw.jpg)
 
@@ -342,12 +354,12 @@ Then, press down the wood biscuits into the holes and apply wood glue along all 
 
 ![gluing_4](./tutorial_images/build_control_box/gluing_4.jpg)
 
-Now, assemble all the connecting parts together and apply force using clamps. You should see
+Now, assemble all the connecting parts and apply force using clamps. You should see
 glue seeping out between the panels.
 
 ![gluing_5](./tutorial_images/build_control_box/gluing_5.jpg)
 
-Use an engineer's square to check that you have 90 degrees in each corner of the box.
+Use an engineer's square to check each corner.
 
 ![gluing_6](./tutorial_images/build_control_box/gluing_6.jpg)
 
@@ -367,7 +379,7 @@ After removing the clamps, there were some visible gaps and cracks that needed t
 ![spackling_3](./tutorial_images/build_control_box/spackling_3.jpg)
 
 I used plastic padding (a two component plastic spackling paste) to cover up the gaps and cracks. Be careful with how 
-much hardener you add, as it will dry very quickly if adding to much.
+much hardener you add, as it will dry very quickly if adding too much.
 
 ![spackling_4](./tutorial_images/build_control_box/spackling_4.jpg)
 
@@ -515,12 +527,11 @@ To enable the cables to go in and out of the box, two cable slots were cut out:
 2. One cable slot in the bottom side panel for the electrical cable.
 
 Initially, the cable slots were only cut half way through the top and bottom panels. 
-But I then realized (after I had assembled and painted everything ¯\(ツ)/¯), that it will look much better if I cut the 
+But I then realized (after I had assembled and painted everything ¯\\(ツ)/¯), that it will look much better if I cut the 
 cable slots all the way through and then glue a piece of MDF into the hole to cover up the redundant space. That's why 
 the control box is painted in the images below.
 
-A caliper was used to measure the diameter of the cables. An extra ~1mm was then added to the slots for
-the cables to fit nicely.
+A caliper was used to measure the diameter of the cables. An extra ~1mm was then added to the slots for the cables to fit nicely. But in hindsight I would've extended the slot 2-3 mm more.
 
 ![caliper](./tutorial_images/build_control_box/caliper.jpg)
 
@@ -579,7 +590,7 @@ manually sanded to remove the redundant plastic padding and round the edges arou
 ![spackling_10](./tutorial_images/build_control_box/spackling_10.jpg)
 
 ## Painting
-The control box was painted in the same color as the wall it will be attached to, for it to blend in. A tip is to buy a color sample can 
+The control box was painted in the same color as the wall it was attached to. A tip is to buy a color sample can 
 instead of a full can. You will not need a full can, and the sample cans are usually cheaper per litre.
 
 A paint roller was used on the flat areas and a small brush was used to paint the smaller details.
@@ -626,7 +637,7 @@ by manual sanding.
 
 ![button_box_8](./tutorial_images/build_button_box/button_box_8.jpg)
 
-The screws keeping the top and bottom pieces together were colored black using an aerosol varnish paint. A tip
+The screws keeping the enclosure box together were colored black using an aerosol varnish paint. A tip
 when painting screws is to stick them into a piece of styrofoam.
 
 ![button_box_9](./tutorial_images/build_button_box/button_box_9.jpg)
@@ -634,8 +645,7 @@ when painting screws is to stick them into a piece of styrofoam.
 ![button_box_10](./tutorial_images/build_button_box/button_box_10.jpg)
 
 # Assemble art installation
-The art installation is now ready to be assembled and attached to the wall. A cross line laser was then used to 
-vertically align the screen, button box and control box. 
+The art installation was now ready to be assembled and attached to the wall. A cross line laser was used to vertically align the screen, button box and control box. 
 
 ## Screen
 The screen (Samsung The Frame 32" 2020) was wall-mounted following the instructions included when buying the screen.
@@ -645,7 +655,7 @@ The screen (Samsung The Frame 32" 2020) was wall-mounted following the instructi
 ## Button box
 Two screw holes were drilled in the bottom plate of the button box. Double-coated adhesive tape was also attached
 to the back side of the bottom plate for further support. The button box was then aligned using the laser and
-attached to the wall using two screws, two wall plugs and the double-coated adhesive tape.
+attached to the wall using two wall plugs, the two screws and the double-coated adhesive tape.
 
 ![assembly_3](./tutorial_images/assemble_art_installation/assembly_3.jpg)
 
@@ -662,8 +672,8 @@ attached to the wall using two screws, two wall plugs and the double-coated adhe
 ![assembly_9](./tutorial_images/assemble_art_installation/assembly_9.jpg)
 
 ## Control box
-To outline the screw holes, all the electronics were temporarily placed in the control box and two screw holes were outlined and drilled. The HDMI/One Connect
-cable were then inserted into the cable slot and the control box was attached to the wall using wall plugs and screws. 
+The control box was attached to the wall using wall plug and two screws. To be able to outline the screw holes, all the electronics were temporarily placed in the control box and two screw holes were outlined and drilled. The HDMI/One Connect
+cable were then inserted into the cable slot and the control box was attached to the wall. 
 
 ![assembly_10](./tutorial_images/assemble_art_installation/assembly_10.jpg)
 
@@ -677,18 +687,15 @@ cable were then inserted into the cable slot and the control box was attached to
 
 **NOTE: THIS PART INCLUDES WIRING OF HIGH VOLTAGE ELECTRICITY THAT CAN BE
 LETHAL IF NOT DONE PROPERLY. THE COLORS OF THE CABLES CAN VARY DEPENDING ON 
-REGION/COUNTRY. BEFORE YOU CONNECT THE POWER CORD TO THE POWER OUTLET, MAKE
-SURE TO CONSULT WITH A LICENSED ELECTRICIAN THAT EVERYTHING IS PROPERLY WIRED 
-AND THAT IT FOLLOWS YOUR LOCAL LEGISLATIONS.**
+REGION/COUNTRY. BEFORE YOU CONNECT THE POWER CORD TO THE POWER OUTLET, CONSULT WITH A LICENSED ELECTRICIAN TO MAKE SURE THAT EVERYTHING IS PROPERLY WIRED 
+AND THAT IT IS IN LINE WITH YOUR LOCAL LEGISLATIONS.**
 
 
 ### Main power cable and junction box
 
 The female side of the main power cord was removed and the cable was inserted
 into the control box. A junction box was then attach in the bottom right 
-corner using velcro tape. Before the velcro tape was attached, the backside 
-was cleaned with denatured alcohol. Three holes were created in the side of the
-junction box to enable three cables to enter.
+corner using velcro tape. Before the velcro tape was attached, the backside of the junction box was cleaned with denatured alcohol. Three holes were created in the side of the junction box to enable three cables to enter.
 
 ![assembly_14](./tutorial_images/assemble_art_installation/assembly_14.jpg)
 
@@ -703,7 +710,7 @@ junction box to enable three cables to enter.
 ![assembly_19](./tutorial_images/assemble_art_installation/assembly_19.jpg)
 
 A wire stripper was used to strip the jacket/insulation of the power cord, 
-as well as the wires. A splicing connector (Wago 221, 3-conductor) was then 
+as well as the wires inside. A splicing connector (Wago 221, 3-conductor) was then 
 attached to each wire, enabling electricity from a single power outlet to be 
 split to the One Connect Box and to the Nvidia Jetson Xavier NX, without using 
 a power strip.
@@ -719,8 +726,7 @@ a power strip.
 ### Samsung One Connect box
 
 The Samsung One Connect box was then attached in the left bottom corner using
-velcro tape. Some space was left below for the power cord and to the left for 
-the PIR sensor cables. Also, the backside of the One Connect Box was cleaned using denatured alcohol before attaching the velcro tape. 
+velcro tape. Some margin was left below and to the left of the One Connect box for the power cord and for the PIR sensor cables. Also, the backside of the One Connect Box was cleaned using denatured alcohol before attaching the velcro tape. 
 
 ![assembly_23](./tutorial_images/assemble_art_installation/assembly_23.jpg)
 
@@ -738,7 +744,7 @@ The ground was left out as the C7 coupler is ungrounded.
 
 ![assembly_27](./tutorial_images/assemble_art_installation/assembly_27.jpg)
 
-### Nvidia Jetson and power adapter
+### Nvidia Jetson's power adapter
 
 The power adapter to the Nvidia Jetson Xavier NX was attached in the top left 
 corner using velcro tape. The power cord (IEC C5 coupler) was inserted 
@@ -756,14 +762,16 @@ connectors.
 
 ![assembly_31](./tutorial_images/assemble_art_installation/assembly_31.jpg)
 
-Before closing the junction box, cable ties was tightened around each cable 
-going into the junction box as strain relief.
+Before closing the junction box, cable ties were tightened around each cable 
+going into the junction box as strain reliefs.
 
 ![assembly_32](./tutorial_images/assemble_art_installation/assembly_32.jpg)
 
 ![assembly_55](./tutorial_images/assemble_art_installation/assembly_55.jpg)
 
-To attach the Xavier NX, two pieces of galvanised band was cut out and wrapped 
+### Nvidia Jetson
+
+To attach the Nvidia Jetson, two pieces of galvanised band was cut out and wrapped 
 in insulating tape. The computer was then attached in the top right corner 
 using 4 small screws and washers.
 
@@ -788,19 +796,13 @@ Cable ties were used to structure the cables.
 
 ### Button
 
-The button changing the artwork was implemented as a pull-up resistor, following
-this schema:
+The button changing the artwork was implemented as a pull-up resistor. When the button is "off" (i.e. not pushed), a small current will flow from the positive 3.3v, through the resistor and into the GPIO pin, leading to the GPIO pin being HIGH (1). On the other hand, when the button is pushed, the current will flow from the positive 3.3v, through the resistor, via the button and into ground (GND). This will lead to the GPIO pin being LOW (0). This shift in HIGH/LOW on the GPIO pin is registered in the code and is used to change the artwork on the screen. The schema for the pull-up resistor can be found below.
 
 ![pull_up_resistor](./tutorial_images/assemble_art_installation/pull-up_resistor.png)
 
-When the button is "off" (i.e. not pushed), a small current will flow from the 
-positive 3.3v, through the resistor and into the GPIO pin, leading to the GPIO 
-pin being HIGH (1). On the other hand, when the button is pushed, the current will flow from the positive 3.3v, through the resistor, via the button and into ground (GND). This will lead to the GPIO pin being LOW (0). This shift in 
-HIGH/LOW on the GPIO pin is used to change the artwork on the screen.
-
 Two cables were measured and soldered to the button. The cables were then 
 inserted into the control box via the same cable slot as the One Connect cable. 
-Make sure that you have enough cable to reach to the Nvidia Jetson.
+Make sure that you have enough cable to reach to the Nvidia Jetson computer.
 
 ![assembly_37](./tutorial_images/assemble_art_installation/assembly_37.jpg)
 
@@ -824,7 +826,7 @@ the resistor.
 
 ![assembly_42](./tutorial_images/assemble_art_installation/assembly_42.jpg)
 
-The jumping wires were then connected to the Nvidia Jetson GPIOs:
+The jumping wires were then connected to the following Nvidia Jetson GPIOs:
 
 * Blue: Ground (pin 14)
 * Red: 3.3v (pin 17)
@@ -832,12 +834,25 @@ The jumping wires were then connected to the Nvidia Jetson GPIOs:
 
 ![assembly_43](./tutorial_images/assemble_art_installation/assembly_43.jpg)
 
-The Samsung One Connect cable were inserted through the button box and the 
-button box's top plate was attached.
+The Samsung One Connect cable were finally inserted through the button box and the button box's top plate was attached.
 
 ![assembly_44](./tutorial_images/assemble_art_installation/assembly_44.jpg)
 
 ![assembly_45](./tutorial_images/assemble_art_installation/assembly_45.jpg)
+
+A cable channel was attached to the wall between the button box and the control box using double-coated adhesive tape, fitting the button cables and the One Connect cable. Before it was painted, the cable channel was manually sanded to make a better grip for the color. A primer was then added, followed by two layers of wall paint.
+
+![assembly_60](./tutorial_images/assemble_art_installation/assembly_60.jpg)
+
+![assembly_61](./tutorial_images/assemble_art_installation/assembly_61.jpg)
+
+![assembly_62](./tutorial_images/assemble_art_installation/assembly_62.jpg)
+
+![assembly_63](./tutorial_images/assemble_art_installation/assembly_63.jpg)
+
+![assembly_64](./tutorial_images/assemble_art_installation/assembly_64.jpg)
+
+![assembly_65](./tutorial_images/assemble_art_installation/assembly_65.jpg)
 
 ### PIR sensor
 
@@ -856,8 +871,7 @@ Multiple larger shrinking tubes were used to keep the three cables together.
 
 ![assembly_48](./tutorial_images/assemble_art_installation/assembly_48.jpg)
 
-The sensor I used was a SR602. It has three pinouts that were connected to the 
-Nvidia Jetson:
+The PIR sensor I used was a SR602. It has three pinouts that were connected to the Nvidia Jetson:
 
 * **\-** to GND (pin 6)
 * **\+** to 3.3v (pin 1)
@@ -866,7 +880,7 @@ Nvidia Jetson:
 When the PIR sensor register a person walking by, **out** will be HIGH. When 
 there's no detection, **out** will be LOW.
 
-The PIR sensor were then inserted into the slot in the control box lid.
+The PIR sensor were then inserted into its slot in the control box lid.
 
 ![assembly_59](./tutorial_images/assemble_art_installation/assembly_59.jpg)
 
