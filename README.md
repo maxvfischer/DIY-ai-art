@@ -893,3 +893,22 @@ The PIR sensor were then inserted into its slot in the control box lid.
 ![assembly_52](./tutorial_images/assemble_art_installation/assembly_52.jpg)
 
 ![assembly_53](./tutorial_images/assemble_art_installation/assembly_53.jpg)
+
+# Final AI art installation
+![final_gif_1](./tutorial_images/final_ai_installation/final_gif_1.gif)
+
+![final_1](./tutorial_images/final_ai_installation/final_1.jpg)
+
+![final_2](./tutorial_images/final_ai_installation/final_2.jpg)
+
+![final_3](./tutorial_images/final_ai_installation/final_3.jpg)
+
+![final_4](./tutorial_images/final_ai_installation/final_4.jpg)
+
+![final_5](./tutorial_images/final_ai_installation/final_5.jpg)
+
+![final_6](./tutorial_images/final_ai_installation/final_6.jpg)
+
+![final_7](./tutorial_images/final_ai_installation/final_7.jpg)
+
+![final_8](./tutorial_images/final_ai_installation/final_8.jpg)
