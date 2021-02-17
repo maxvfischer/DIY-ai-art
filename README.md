@@ -855,6 +855,8 @@ The jumping wires were then connected to the following Nvidia Jetson GPIOs:
 * Red: 3.3v (pin 17)
 * Green: GPIO (pin 15)
 
+![button_pinout](./tutorial_images/assemble_art_installation/button_pinout.png)
+
 ![assembly_43](./tutorial_images/assemble_art_installation/assembly_43.jpg)
 
 The Samsung One Connect cable were finally inserted through the button box and the button box's top plate was attached.
@@ -899,6 +901,8 @@ The PIR sensor I used was a SR602. It has three pinouts that were connected to t
 * **\-** to GND (pin 6)
 * **\+** to 3.3v (pin 1)
 * **out** to a GPIO (pin 7)
+
+![pir_pinout](./tutorial_images/assemble_art_installation/pir_pinout.png)
 
 When the PIR sensor register a person walking by, **out** will be HIGH. When 
 there's no detection, **out** will be LOW.
