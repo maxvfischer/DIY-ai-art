@@ -17,7 +17,7 @@ or
 
 ![contact](./tutorial_images/contact.png)
 
-![final_gif_1](./tutorial_images/final_ai_installation/final_gif_1.gif)
+![final_gif_1](./tutorial_images/final_ai_installation/final_gif.gif)
 
 # Table of content
 1. [Prepare the computer (Nvidia Jetson Xavier NX Dev Kit)](#prepare-the-computer-(nvidia-jetson-xavier-nx-dev-kit))
