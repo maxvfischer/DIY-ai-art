@@ -268,13 +268,13 @@ We're now ready to install the art kiosk on the computer!
 Start by clone this repository:
 
 ```bash
-git clone https://github.com/maxvfischer/Arthur.git
+git clone https://github.com/maxvfischer/DIY-ai-art.git
 ```
 
 Change active directory and install the dependencies:
 
 ```bash
-cd Arthur
+cd DIY-ai-art
 pip3 install -r requirements.txt
 ```
 
